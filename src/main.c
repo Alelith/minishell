@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/20 13:30:17 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:38:00 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	line = 0;
 	while (1)
 	{
+		
 		if (line)
 			free(line);
 		write(1, "minicher~> ", 12);
