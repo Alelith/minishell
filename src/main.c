@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/20 13:10:03 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:30:17 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@
 #include <stdio.h>
 #include <signal.h>
 
-/*void handle_sigquit(int sig)
-{
-	(void)sig;
-	printf("\nminicher> ");
-}*/
-
-/*void handle_sigint(int sig)
-{
-	(void)sig;
-	printf("minicher> ");
-}*/
 
 int	main(int argc, char **argv)
 {
@@ -35,8 +24,6 @@ int	main(int argc, char **argv)
 	if (argc < 1)
 		return (0);
 	line = 0;
-//	signal(SIGINT, handle_sigint);
-	//signal(SIGQUIT, handle_sigquit);
 	while (1)
 	{
 		if (line)
