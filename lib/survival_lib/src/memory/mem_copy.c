@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   mem_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/04/22 15:19:01 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/20 18:10:35 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "survival_lib.h"
 
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+void	*mem_copy(void *dest, const void *src, size_t n)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
+	char	*d;
+	char	*s;
 
-#endif
+	if (!dest && !src && n > 0)
+		return (NULL);
+	d = (char *)dest;
+	s = (char *)src;
+	while (n--)
+		*d++ = *s++;
+	return (dest);
+}

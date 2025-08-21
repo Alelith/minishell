@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   set_zero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/04/22 15:17:54 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/20 11:38:53 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "survival_lib.h"
 
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+void	set_zero(void *s, size_t n)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
-
-#endif
+	mem_set(s, 0, n);
+}

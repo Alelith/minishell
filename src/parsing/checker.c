@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/21 11:30:05 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "survival_lib.h"
 
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+int	check_command_line(char *line)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
-
-#endif
+	
+}

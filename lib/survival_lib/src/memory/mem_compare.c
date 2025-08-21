@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   mem_compare.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/04/23 11:37:16 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/20 18:09:54 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <stddef.h>
 
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+int	mem_compare(const void *s1, const void *s2, size_t n)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
+	size_t			i;
+	unsigned char	*src1;
+	unsigned char	*src2;
 
-#endif
+	i = 0;
+	src1 = (unsigned char *) s1;
+	src2 = (unsigned char *) s2;
+	while (i < n)
+	{
+		if (src1[i] != src2[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}

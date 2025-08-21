@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   is_digit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/04/22 15:09:48 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/14 17:25:36 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+int	is_digit(int c)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
-
-#endif
+	return (c >= 48 && c <= 57);
+}

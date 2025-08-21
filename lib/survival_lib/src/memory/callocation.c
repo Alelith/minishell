@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   callocation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/04/23 13:11:14 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/20 18:09:37 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "survival_lib.h"
 
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+void	*callocation(size_t nmemb, size_t size)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
+	void	*result;
 
-#endif
+	result = malloc(nmemb * size);
+	if (!result)
+		return (NULL);
+	set_zero(result, nmemb * size);
+	return (result);
+}

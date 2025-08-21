@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   mem_search.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/04/23 11:36:44 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/20 18:10:25 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "survival_lib.h"
 
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+void	*mem_search(const void *s, int c, size_t n)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
+	unsigned char	*src;
 
-#endif
+	c = (unsigned char)c;
+	src = (unsigned char *) s;
+	while (n--)
+	{
+		if (*src == c)
+			return (src);
+		src++;
+	}
+	return (NULL);
+}

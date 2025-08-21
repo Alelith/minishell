@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   numlen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:52 by acesteve         ###   ########.fr       */
+/*   Created: 2025/05/23 21:56:21 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/20 18:01:17 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "survival_lib.h"
-# include "get_next_line.h"
-
-typedef struct s_command
+int	base_numlen(int num, int base)
 {
-	char	*name;
-	char	*flag;
-	int		argsc;
-	char	**args;
-}	t_command;
+	int	i;
 
-#endif
+	i = 0;
+	if (num <= 0)
+		i++;
+	while (num != 0)
+	{
+		num /= base;
+		i++;
+	}
+	return (i);
+}
+
+int	base_unumlen(unsigned long num, int base)
+{
+	int	i;
+
+	i = 0;
+	if (num == 0)
+		return (1);
+	while (num != 0)
+	{
+		num /= base;
+		i++;
+	}
+	return (i);
+}
