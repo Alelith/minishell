@@ -6,7 +6,7 @@
 #    By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 16:22:40 by bvarea-k          #+#    #+#              #
-#    Updated: 2025/08/21 16:47:50 by bvarea-k         ###   ########.fr        #
+#    Updated: 2025/08/21 16:56:36 by bvarea-k         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,12 @@ SRC_FILES += $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
+all: $(NAME)
 
 DIRS:
 	@echo "$(MAGENTA)Creating dirs$(DEF_COLOR)"
 	@mkdir -p $(OBJ_DIR)
-	
-	all: $(NAME)
+
 
 $(NAME): $(OBJS)
 	@$(AR) $@ $^
@@ -60,3 +60,4 @@ clean:
 	@rm -f $(NAME)
 
 .PHONY: all clean
+
