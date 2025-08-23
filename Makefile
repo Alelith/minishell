@@ -57,7 +57,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | DIRS
 clean:
 	@echo "$(RED)Cleaning$(DEF_COLOR)"
 	@rm -rf $(OBJ_DIR)
+
+fclean: clean
+	@echo "$(RED)Full clean$(DEF_COLOR)"
 	@rm -f $(NAME)
 
-.PHONY: all clean
+re: fclean all
+
+.PHONY: all clean fclea re
+
 
