@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgo <bgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/26 12:43:02 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:29:41 by bgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,14 @@ typedef struct s_command
 
 t_command	*tokenize(char *input, short *len);
 void		free_commands(t_command *commands, short length);
-
+void		handle_redirection(char *tokens, t_command **result,
+		short *len);
+void		handle_command_or_pipe(char *tokens,
+		t_command **result, short *len, int *is_first);
+void	handle_quoted_arg(char **tokens,
+		int *i, t_command **res, short *len, int *is_quoted);
+void		handle_regular_arg(char *token, t_command **res, short *len);
+int		is_redirection_token(char *tokens);
+int		should_handle_as_command(char *tokens, int is_first);
+int		starts_with_quote(char *tokens);
 #endif

@@ -36,7 +36,7 @@ LIBFT = $(LIB_DIR)$(LIBFT_DIR)survivalib.a
 
 #Archivos
 PARSING_DIR = parsing/
-PARSING_FILES = checker tokenizer
+PARSING_FILES = checker tokenizer tokenizer_utils
 
 UTILS_DIR = utils/
 UTILS_FILES = free_commands
