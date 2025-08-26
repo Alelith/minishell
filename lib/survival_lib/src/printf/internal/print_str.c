@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   print_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 13:59:42 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/06 16:30:15 by acesteve         ###   ########.fr       */
+/*   Created: 2025/08/24 22:46:43 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/24 22:47:34 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "survival_lib.h"
+#include "printf_internal.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-#endif
+int	print_str(const char *str)
+{
+	if (!str)
+		return (0);
+	return (write(1, str, str_len(str)));
+}

@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_to_int.c                                       :+:      :+:    :+:   */
+/*   str_to_uint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 12:36:26 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/24 22:24:58 by acesteve         ###   ########.fr       */
+/*   Created: 2025/08/24 22:51:20 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/24 22:52:50 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	str_to_int(const char *nptr)
+unsigned int	str_to_uint(const char *nptr)
 {
-	int	sign;
-	int	result;
+	unsigned int	result;
 
-	sign = 1;
 	result = 0;
-	if (*nptr == '-')
+	while (*nptr)
 	{
-		sign = -1;
+		result = result * 10 + (*nptr - '0');
 		nptr++;
 	}
-	else if (*nptr == '+')
-		nptr++;
-	while (*nptr && *nptr >= 48 && *nptr <= 57)
-	{
-		result = (result * 10) + (*nptr - 48);
-		nptr++;
-	}
-	return (result * sign);
+	return (result);
 }

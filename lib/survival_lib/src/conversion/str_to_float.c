@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_to_int.c                                       :+:      :+:    :+:   */
+/*   str_to_float.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 12:36:26 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/24 22:24:58 by acesteve         ###   ########.fr       */
+/*   Created: 2025/08/24 22:25:29 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/24 22:40:06 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	str_to_int(const char *nptr)
+static float	parse_decimal(const char **nptr)
 {
-	int	sign;
-	int	result;
+	float	result;
+	float	decimal_place;
+
+	result = 0.0f;
+	decimal_place = 0.1f;
+	while (**nptr && **nptr >= '0' && **nptr <= '9')
+	{
+		result += (**nptr - '0') * decimal_place;
+		decimal_place *= 0.1f;
+		(*nptr)++;
+	}
+	return (result);
+}
+
+float	str_to_float(const char *nptr)
+{
+	int		sign;
+	float	result;
 
 	sign = 1;
-	result = 0;
+	result = 0.0f;
 	if (*nptr == '-')
 	{
 		sign = -1;
@@ -24,10 +40,15 @@ int	str_to_int(const char *nptr)
 	}
 	else if (*nptr == '+')
 		nptr++;
-	while (*nptr && *nptr >= 48 && *nptr <= 57)
+	while (*nptr && *nptr >= '0' && *nptr <= '9')
 	{
-		result = (result * 10) + (*nptr - 48);
+		result = (result * 10.0f) + (*nptr - '0');
 		nptr++;
+	}
+	if (*nptr == '.')
+	{
+		nptr++;
+		result += parse_decimal(&nptr);
 	}
 	return (result * sign);
 }
