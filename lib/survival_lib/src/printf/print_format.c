@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_format.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 22:45:17 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/25 09:38:30 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:44:26 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	print_format(const char *format, ...)
 	va_list	args;
 	int		len;
 
+	len = 0;
 	va_start(args, format);
 	while (*format)
 	{

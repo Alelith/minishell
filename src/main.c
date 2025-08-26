@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/21 10:33:35 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:45:51 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int	main(int argc, char **argv)
 	{
 		if (line)
 			free(line);
-		write(1, "minicher~> ", 12);
+		print_format("%s", "minicher~> ");
 		line = get_next_line(0);
 		if (line == NULL)
 		{
-			printf("Error reading line\n");
+			print_format("Error reading line\n");
 			return (1);
 		}
 		

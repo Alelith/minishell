@@ -38,6 +38,7 @@ PARSING_FILES = checker parser
 SRC_FILES += $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+OBJSF = .cache_exists
 
 all: $(NAME)
 
@@ -53,6 +54,8 @@ $(NAME): $(OBJS)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | DIRS
 	@echo "$(CYAN)Compiling: $<$(DEF_COLOR)"
 	@$(CC) -c $< -o $@ $(INCLUDE)
+
+
 	
 clean:
 	@echo "$(RED)Cleaning$(DEF_COLOR)"
