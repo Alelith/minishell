@@ -6,13 +6,13 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/21 11:30:05 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/26 10:08:03 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "survival_lib.h"
 
-int	check_command_line(char *line)
+/*int	check_command_line(char *line)
 {
 	
-}
+}*/

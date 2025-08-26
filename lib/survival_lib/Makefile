@@ -28,7 +28,7 @@ CONVERSION_FILES = int_to_str uint_to_str bnum_to_str float_to_str \
 				to_lower to_upper
 
 MEMORY_DIR = memory/
-MEMORY_FILES = callocation mem_compare mem_copy mem_move mem_search mem_set set_zero
+MEMORY_FILES = callocation reallocation mem_compare mem_copy mem_move mem_search mem_set set_zero
 
 STRING_DIR = string/
 STRING_FILES = str_concat str_copy str_duplicate str_join str_len \

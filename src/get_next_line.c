@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 13:59:18 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/20 11:24:26 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/26 13:14:00 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,34 +87,3 @@ char	*get_next_line(int fd)
 	buffer = 0;
 	return (0);
 }
-/*
-int main()
-{
-	char *name = "test.txt";
-	int fd = open(name, O_RDONLY);
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	if (BUFFER_SIZE > 100) {
-		char *temp;
-		do {
-			temp = get_next_line(fd);
-			free(temp);
-		} while (temp != NULL);
-	}
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	close(fd);
-	fd = open(name, O_RDONLY);
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	printf("%s", get_next_line(fd));
-	printf("\n");
-	printf("%s", get_next_line(fd));
-	printf("\n Fin \n");
-}*/

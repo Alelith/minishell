@@ -24,41 +24,53 @@ CYAN = \033[0;96m
 WHITE = \033[0;97m
 
 SRC_DIR = src/
+LIB_DIR = lib/
 OBJ_DIR = obj/
 
-AR = ar rcs
 CC = cc -Wall -Wextra -Werror -g
 
 INCLUDE = -I include
 
+LIBFT_DIR = survival_lib/
+LIBFT = $(LIB_DIR)$(LIBFT_DIR)survivalib.a
+
 #Archivos
 PARSING_DIR = parsing/
-PARSING_FILES = checker parser
+PARSING_FILES = checker tokenizer
 
+UTILS_DIR = utils/
+UTILS_FILES = free_commands
+
+MAIN = get_next_line_utils get_next_line main
+
+SRC_FILES += $(MAIN)
 SRC_FILES += $(addprefix $(PARSING_DIR), $(PARSING_FILES))
+SRC_FILES += $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
-OBJSF = .cache_exists
 
 all: $(NAME)
 
 DIRS:
 	@echo "$(MAGENTA)Creating dirs$(DEF_COLOR)"
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)$(PARSING_DIR)
+	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 
-
-$(NAME): $(OBJS)
-	@$(AR) $@ $^
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(OBJS) $(LIBFT) $(INCLUDE) -o $(NAME)
 	@echo "$(GREEN)Library created: $@$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | DIRS
 	@echo "$(CYAN)Compiling: $<$(DEF_COLOR)"
 	@$(CC) -c $< -o $@ $(INCLUDE)
 
+$(LIBFT):
+	make -sC $(LIB_DIR)$(LIBFT_DIR)
 
-	
 clean:
 	@echo "$(RED)Cleaning$(DEF_COLOR)"
+	@make fclean -sC $(LIB_DIR)$(LIBFT_DIR)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean

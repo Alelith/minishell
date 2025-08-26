@@ -6,60 +6,41 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/26 09:45:51 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/26 13:14:59 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "survival_lib.h"
+#include "minishell.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
 
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	char	*line;
+	t_command	*commands;
+	char		*line;
+	short		length;
 
-	if (argc < 1)
-		return (0);
 	line = 0;
+	length = 0;
 	while (1)
 	{
 		if (line)
 			free(line);
-		print_format("%s", "minicher~> ");
+		print_format("%s", "conchita~> ");
 		line = get_next_line(0);
 		if (line == NULL)
 		{
 			print_format("Error reading line\n");
 			return (1);
 		}
-		
-		write(1, line, str_len(line));
+		if (!str_compare_all(line, "\n"))
+		{
+			//Check
+			commands = tokenize(line, &length);
+			//Exec
+			free_commands(commands, length);
+		}
 	}
 }
-
-/*int	main(int argc, char **argv)
-{
-	char	*line;
-
-	if (argc < 1)
-		return (0);
-	line = 0;
-	while (1)
-	{
-		if (line)
-			free(line);
-		printf("minicher> ");
-		line = get_next_line(0);
-		if (line == NULL)
-		{
-			printf("Error reading line\n");
-			return (1);
-		}
-		printf("Read line: %s", line);
-		free(line);
-		exit(0);
-	}
-}*/
