@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgo <bgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:40 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/26 17:34:31 by bgo              ###   ########.fr       */
+/*   Updated: 2025/08/27 09:07:32 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	handle_redirection(char *tokens, t_command **result, short *len)
 	t_command	*temp;
 	int			type;
 
+	if (!(*result))
+		*result = callocation(1, sizeof(t_command));
 	temp = &(*result)[*len - 1];
 	if (str_compare_all(tokens, "<"))
 		type = INPUT;

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 23:15:38 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/26 13:01:38 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/27 09:18:08 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static int	word_count(char const *s, char delimiter)
 
 static int	process_word(char **result, char *str, char c, int i)
 {
-	int next = 0;
+	int	next;
+
+	next = 0;
 	while (str[next] != c && str[next])
 		next++;
 	result[i] = str_substring(str, 0, next);
@@ -45,15 +47,18 @@ static int	process_word(char **result, char *str, char c, int i)
 		while (i--)
 			free(result[i]);
 		free(result);
-		return -1;
+		return (-1);
 	}
-	return next;
+	return (next);
 }
 
 static void	*fill_arr(char **result, char *str, int wordcount, char c)
 {
-	int i = 0;
-	int next = 0;
+	int	i;
+	int	next;
+	
+	i = 0;
+	next = 0;
 	while (wordcount-- && str && *str)
 	{
 		next = process_word(result, str, c, i);

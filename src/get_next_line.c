@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 13:59:18 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/26 13:14:00 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/08/27 09:30:18 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,17 @@ char	*get_next_line(int fd)
 	if (ft_strlen(buffer) == 0)
 		result = ft_read_and_append(fd, &buffer, result);
 	else
+	{
+		free(buffer);
+		buffer = 0;
 		return (result);
+	}
 	if (result && ft_strlen(result) > 0)
+	{
+		free(buffer);
+		buffer = 0;
 		return (result);
+	}
 	free(buffer);
 	buffer = 0;
 	return (0);

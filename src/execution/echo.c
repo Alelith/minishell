@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_compare.c                                      :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 11:37:16 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/27 10:05:45 by acesteve         ###   ########.fr       */
+/*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
+/*   Updated: 2025/08/27 10:09:42 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "minishell.h"
 
-int	mem_compare(const void *s1, const void *s2, size_t n)
+int	echo(t_command command)
 {
-	size_t			i;
-	unsigned char	*src1;
-	unsigned char	*src2;
+	int	flag;
+	int	i;
 
+	flag = command.flag ? 1 : 0;
 	i = 0;
-	src1 = (unsigned char *) s1;
-	src2 = (unsigned char *) s2;
-	while (i < n)
+	while (i < command.args_c)
 	{
-		if (src1[i] != src2[i])
-			return (0);
+		//TODO: cambiar a write o printf
+		print_format(i != command.args_c - 1 ? "%s " : "%s", command.args[i]);
 		i++;
 	}
+	if (!flag)
+		print_format("\n");
 	return (1);
 }
