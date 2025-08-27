@@ -42,7 +42,7 @@ UTILS_DIR = utils/
 UTILS_FILES = free_commands
 
 EXEC_DIR = execution/
-EXEC_FILES = echo
+EXEC_FILES = echo exit pwd cd
 
 MAIN = get_next_line_utils get_next_line main
 
