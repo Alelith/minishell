@@ -6,13 +6,21 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 11:43:29 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/28 12:23:46 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:34:13 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(void)
+int	env(char **envp)
 {
-	
+	int	i;
+
+	i = 0;
+	while(envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+	return (1);
 }
