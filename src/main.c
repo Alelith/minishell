@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/27 13:46:03 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:55:17 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,36 @@
 #include <stdio.h>
 #include <signal.h>
 
-
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	int			i;
 	t_command	*commands;
 	char		*temp;
 	char		*line;
+	//char		**env_cpy;
 	short		length;
 
+	if (argc > 1 || argv[1])
+	{
+		write(2, "No arguments needed\n", 20);
+		return (1);
+	}
 	i = 0;
 	line = 0;
 	length = 0;
+	while (*envp)
+	{
+		write(1, *envp, ft_strlen(*envp));
+		write(1, "\n", 1);
+		envp++;
+	}
 	while (1)
 	{
-		print_format("%s", "conchita~> ");
+		write(1, "conchita~> ", 12);
 		line = get_next_line(0);
 		if (line == NULL)
 		{
-			print_format("Error reading line\n");
+			write(2, "Error reading line\n", 20);
 			return (1);
 		}
 		temp = line;
@@ -41,8 +52,8 @@ int	main(void)
 		free (temp);
 		if (!str_compare_all(line, "\n"))
 		{
-			//Check
 			length = 0;
+			i = 0;
 			commands = tokenize(line, &length);
 			while (i < length)
 			{
@@ -59,19 +70,20 @@ int	main(void)
 				else if (str_compare_all(commands[i].name, "pwd"))
 					pwd();
 				else if (str_compare_all(commands[i].name, "export"))
-					print_format("export command not implemented yet\n");
+					write(1, "export command not implemented yet\n", 36);
 				else if (str_compare_all(commands[i].name, "unset"))
-					print_format("unset command not implemented yet\n");
+					write(1, "unset command not implemented yet\n", 35);
 				else if (str_compare_all(commands[i].name, "env"))
-					print_format("env command not implemented yet\n");
+					write(1, "env command not implemented yet\n", 32);
 				else
 				{
-					print_format("Command not found: %s\n", commands[i].name);
+					write(2, "Command not found: ", 19);
+					write(2, commands[i].name, ft_strlen(commands[i].name));
+					write(2, "\n", 1);
 					break ;
 				}
 				i++;
 			}
-			//Exec
 			free_commands(commands, length);
 		}
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/27 13:54:55 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:59:56 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "get_next_line.h"
 # include <unistd.h>
 # include <dirent.h>
+# include <stdio.h>
+
+typedef struct s_env	t_env;
 
 typedef enum e_bool
 {
@@ -41,6 +44,18 @@ typedef struct s_command
 	int				args_c;
 	char			**args;
 }	t_command;
+
+typedef struct s_key_value
+{
+	char	*key;
+	char	*value;
+}	t_key_value;
+
+struct s_env
+{
+	t_key_value	pair;
+	t_env		*next;
+};
 
 t_command	*tokenize(char *input, short *len);
 void		free_commands(t_command *commands, short length);

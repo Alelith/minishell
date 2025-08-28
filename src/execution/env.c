@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 15:31:40 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/27 16:18:28 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/08/28 11:43:29 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/08/28 12:23:46 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redirection_token(char *tokens)
+int	env(void)
 {
-	return (str_compare_all(tokens, "<") || str_compare_all(tokens, ">")
-		|| str_compare_all(tokens, "<<") || str_compare_all(tokens, ">>"));
-}
-
-int	should_handle_as_command(char *tokens, int is_first)
-{
-	return (is_first || str_compare_all(tokens, "|")
-		|| str_compare_n(tokens, "-", 1));
-}
-
-int	starts_with_quote(char *tokens)
-{
-	return (str_search_char(tokens, '"') == tokens);
+	
 }

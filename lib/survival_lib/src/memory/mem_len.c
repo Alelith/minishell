@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   mem_len.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/28 10:05:39 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/08/28 13:00:35 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/08/28 13:06:45 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	echo(t_command command)
+int	mem_len(void *ptr)
 {
-	int	flag;
-	int	i;
+	int	len;
 
-	if (command.flag)
-		flag = 1;
-	else
-		flag = 0;
-	i = 0;
-	while (i < command.args_c)
-	{
-		if (i != command.args_c - 1)
-			write(1, command.args[i], ft_strlen(command.args[i]));
-		else
-			write(1, command.args[i], ft_strlen(command.args[i]));
-		i++;
-	}
-	if (!flag)
-		write(1, "\n", 1);
-	return (1);
+	len = 0;
+	while (ptr && ((char **)ptr)[len])
+		len++;
+	return (len);
 }
