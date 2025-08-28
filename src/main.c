@@ -32,12 +32,12 @@ int	main(int argc, char *argv[], char *envp[])
 	i = 0;
 	line = 0;
 	length = 0;
-	while (*envp)
+	/*while (*envp)
 	{
 		write(1, *envp, ft_strlen(*envp));
 		write(1, "\n", 1);
 		envp++;
-	}
+	}*/
 	while (1)
 	{
 		write(1, "conchita~> ", 12);
@@ -74,7 +74,7 @@ int	main(int argc, char *argv[], char *envp[])
 				else if (str_compare_all(commands[i].name, "unset"))
 					write(1, "unset command not implemented yet\n", 35);
 				else if (str_compare_all(commands[i].name, "env"))
-					write(1, "env command not implemented yet\n", 32);
+					env(envp);
 				else
 				{
 					write(2, "Command not found: ", 19);
