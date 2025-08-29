@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/28 12:55:17 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:59:14 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		write(1, "conchita~> ", 12);
-		line = get_next_line(0);
+		line = readline(0);
 		if (line == NULL)
 		{
 			write(2, "Error reading line\n", 20);
 			return (1);
 		}
+		if(line && *line)
+			add_history(line);
 		temp = line;
 		line = str_trim(line, "\n");
 		free (temp);

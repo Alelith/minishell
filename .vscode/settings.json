@@ -1,9 +1,0 @@
-{
-	"makefile.launchConfigurations": [
-		{
-			"cwd": "/home/bvarea-k/Desktop/minicher",
-			"binaryPath": "/home/bvarea-k/Desktop/minicher/minishell",
-			"binaryArgs": []
-		}
-	]
-}

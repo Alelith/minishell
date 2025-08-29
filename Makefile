@@ -28,6 +28,7 @@ LIB_DIR = lib/
 OBJ_DIR = obj/
 
 CC = cc -Wall -Wextra -Werror -g
+LDFLAGS = -lreadline
 
 INCLUDE = -I include
 
@@ -42,7 +43,7 @@ UTILS_DIR = utils/
 UTILS_FILES = free_commands
 
 EXEC_DIR = execution/
-EXEC_FILES = echo exit pwd cd
+EXEC_FILES = echo exit pwd cd env
 
 MAIN = get_next_line_utils get_next_line main
 
@@ -63,7 +64,7 @@ DIRS:
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(OBJS) $(LIBFT) $(INCLUDE) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) $(INCLUDE) -o $(NAME) $(LDFLAGS)
 	@echo "$(GREEN)Library created: $@$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | DIRS
@@ -84,6 +85,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclea re
+.PHONY: all clean fclean re
 
 

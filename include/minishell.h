@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/28 12:59:56 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:59:40 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <stdio.h>
+# include <readline/history.h> 
+# include <readline/readline.h> 
 
 typedef struct s_env	t_env;
 
@@ -74,4 +76,5 @@ int			echo(t_command command);
 int			exit_exec(void);
 int			pwd(void);
 int			cd(t_command command);
+int			env(char **envp);
 #endif
