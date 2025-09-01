@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 16:34:17 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/01 16:41:56 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/01 16:49:37 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*int	export(t_command cmd, t_env *env)
-{
-	return (add_env(&env, get_key(cmd.args[0]), get_value(cmd.args[0])));
-}*/
+//Función que elimine un nodo de la estructura
 
-int	export(t_command cmd, t_env *env)
+int	unset(t_command cmd, t_env **env_list)
 {
-	char	*key;
-	char	*value;
-	int		result;
+	int	i; //para recorrer lo que le pasemos a unset?
 
-	key = get_key(cmd.args[0]);
-	value = get_value(cmd.args[0]);
-	result = add_env(&env, key, value);
-	free(key);
-	free(value);
-	return (result);
+	i = 0;
+	while (i < //argumentos que me pasan)
+	{
+		//hago algo para ir borrando
+		i++;
+	}
+	return (0);
 }
-
