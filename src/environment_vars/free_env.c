@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   free_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 09:40:04 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 13:51:56 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/01 13:19:54 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/01 13:53:57 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*set_env(char **envp)
+void	free_env(t_env *env_list)
 {
-	t_env	*env_list;
-	int		i;
+	t_env	*tmp;
 
-	env_list = NULL;
-	i = 0;
-	while (envp[i])
+	while (env_list)
 	{
-		add_env(&env_list, get_key(envp[i]), get_value(envp[i]));
-		i++;
+		tmp = env_list;
+		env_list = env_list->next;
+		if (tmp->pair.key)
+			free(tmp->pair.key);
+		if (tmp->pair.value)
+			free(tmp->pair.value);
+		free(tmp);
 	}
-	return (env_list);
 }

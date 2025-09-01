@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:40 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/27 09:07:32 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:30:16 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_redirection(char *tokens, t_command **result, short *len)
+void	handle_redirection(char *tokens, t_command **result, unsigned short *len)
 {
 	t_command	*temp;
 	int			type;
@@ -36,7 +36,7 @@ void	handle_redirection(char *tokens, t_command **result, short *len)
 }
 
 void	handle_command_or_pipe(char *tokens,
-	t_command **result, short *len, int *is_first)
+	t_command **result, unsigned short *len, int *is_first)
 {
 	if (str_compare_all(tokens, "|"))
 	{
@@ -58,7 +58,7 @@ void	handle_command_or_pipe(char *tokens,
 }
 
 void	handle_quoted_arg(char **tokens,
-	int *i, t_command **res, short *len, int *is_quoted)
+	int *i, t_command **res, unsigned short *len, int *is_quoted)
 {
 	t_command	*temp;
 	char		*temp_str;
@@ -83,7 +83,7 @@ void	handle_quoted_arg(char **tokens,
 	}
 }
 
-void	handle_regular_arg(char *token, t_command **result, short *len)
+void	handle_regular_arg(char *token, t_command **result, unsigned short *len)
 {
 	t_command	*temp;
 
@@ -94,7 +94,7 @@ void	handle_regular_arg(char *token, t_command **result, short *len)
 	temp->args[temp->args_c++] = token;
 }
 
-t_command	*tokenize(char *input, short *len)
+t_command	*tokenize(char *input, unsigned short *len)
 {
 	t_command	*result;
 	int			i;

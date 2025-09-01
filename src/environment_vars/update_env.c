@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 09:40:04 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 13:51:56 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/01 12:19:16 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/01 12:19:24 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*set_env(char **envp)
+int	update_env(t_env *env_list, const char *key, const char *value)
 {
-	t_env	*env_list;
-	int		i;
+	t_env	*current;
 
-	env_list = NULL;
-	i = 0;
-	while (envp[i])
+	current = env_list;
+	while (current)
 	{
-		add_env(&env_list, get_key(envp[i]), get_value(envp[i]));
-		i++;
+		if (str_compare_all(current->pair.key, key) == 0)
+		{
+			free(current->pair.value);
+			current->pair.value = str_duplicate(value);
+			return (1);
+		}
+		current = current->next;
 	}
-	return (env_list);
+	return (0);
 }

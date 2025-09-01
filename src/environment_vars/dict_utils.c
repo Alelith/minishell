@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   dict_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 09:40:04 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 13:51:56 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/01 12:24:23 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/01 12:24:33 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*set_env(char **envp)
+char	*get_key(char *envp)
 {
-	t_env	*env_list;
-	int		i;
+	return (str_substring(envp, 0, str_search_char(envp, '=') - envp));
+}
 
-	env_list = NULL;
-	i = 0;
-	while (envp[i])
-	{
-		add_env(&env_list, get_key(envp[i]), get_value(envp[i]));
-		i++;
-	}
-	return (env_list);
+char	*get_value(char *envp)
+{
+	return (str_duplicate(str_search_char(envp, '=') + 1));
 }

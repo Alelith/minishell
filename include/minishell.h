@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/01 11:33:09 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:32:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,46 @@ struct s_env
 	t_env		*next;
 };
 
-t_command	*tokenize(char *input, short *len);
-void		free_commands(t_command *commands, short length);
+typedef struct s_shell
+{
+	t_env			*env_list;
+	t_command		*commands;
+	unsigned short	cmd_length;
+}	t_shell;
+
+/*=============================================================================
+--------------------------- Tokenization and Parsing --------------------------
+=============================================================================*/
+t_command	*tokenize(char *input, unsigned short *len);
+void		free_commands(t_command *commands, unsigned short length);
 void		handle_redirection(char *tokens, t_command **result,
-				short *len);
+				unsigned short *len);
 void		handle_command_or_pipe(char *tokens,
-				t_command **result, short *len, int *is_first);
+				t_command **result, unsigned short *len, int *is_first);
 void		handle_quoted_arg(char **tokens,
-				int *i, t_command **res, short *len, int *is_quoted);
-void		handle_regular_arg(char *token, t_command **res, short *len);
+				int *i, t_command **res, unsigned short *len, int *is_quoted);
+void		handle_regular_arg(char *token, t_command **res, unsigned short *len);
 int			is_redirection_token(char *tokens);
 int			should_handle_as_command(char *tokens, int is_first);
 int			starts_with_quote(char *tokens);
+
+/*=============================================================================
+---------------------------- Environment variables ----------------------------
+=============================================================================*/
 int			update_env(t_env *env_list, const char *key, const char *value);
-int			echo(t_command command);
-int			exit_exec(void);
-int			pwd(void);
-int			cd(t_command command);
-int			env(t_env **env_list);
 t_env		*set_env(char **envp);
+int			add_env(t_env **env_list, char *key, char *value);
 char		*get_key(char *envp);
 char		*get_value(char *envp);
+void		free_env(t_env *env_list);
+
+/*=============================================================================
+---------------------------------- Built-ins ----------------------------------
+=============================================================================*/
+int			echo(t_command command);
+int			exit_exec(t_shell shell);
+int			pwd(void);
+int			cd(t_command command);
+int			env(t_env *env_list);
+int			export(t_command cmd, t_env *env);
 #endif

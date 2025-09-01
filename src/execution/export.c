@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 09:40:04 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 13:51:56 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/01 13:14:35 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*set_env(char **envp)
+int	export(t_command cmd, t_env *env)
 {
-	t_env	*env_list;
-	int		i;
-
-	env_list = NULL;
-	i = 0;
-	while (envp[i])
-	{
-		add_env(&env_list, get_key(envp[i]), get_value(envp[i]));
-		i++;
-	}
-	return (env_list);
+	return (add_env(&env, get_key(cmd.args[0]), get_value(cmd.args[0])));
 }

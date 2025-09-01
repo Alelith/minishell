@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 11:36:32 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:24:23 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_env		*env_list;
+	t_shell		shell;
 	int			i;
-	t_command	*commands;
 	char		*temp;
 	char		*line;
-	short		length;
 
-	env_list = set_env(envp);
+	shell.env_list = set_env(envp);
 	if (argc > 1 || argv[1])
 	{
 		write(2, "No arguments needed\n", 20);
@@ -29,7 +27,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	i = 0;
 	line = 0;
-	length = 0;
+	shell.cmd_length = 0;
 	while (1)
 	{
 		line = readline("conchita~> ");
@@ -45,43 +43,42 @@ int	main(int argc, char *argv[], char *envp[])
 		free (temp);
 		if (!str_compare_all(line, "\n"))
 		{
-			length = 0;
+			shell.cmd_length = 0;
 			i = 0;
-			commands = tokenize(line, &length);
-			while (i < length)
+			shell.commands = tokenize(line, &shell.cmd_length);
+			while (i < shell.cmd_length)
 			{
-				if (str_compare_all(commands[i].name, "echo"))
-					echo(commands[i]);
-				else if (str_compare_all(commands[i].name, "exit"))
+				if (str_compare_all(shell.commands[i].name, "echo"))
+					echo(shell.commands[i]);
+				else if (str_compare_all(shell.commands[i].name, "exit"))
 				{
 					free(line);
-					free_commands(commands, length);
 					exit_exec();
 				}
-				else if (str_compare_all(commands[i].name, "cd"))
-					cd(commands[i]);
-				else if (str_compare_all(commands[i].name, "pwd"))
+				else if (str_compare_all(shell.commands[i].name, "cd"))
+					cd(shell.commands[i]);
+				else if (str_compare_all(shell.commands[i].name, "pwd"))
 					pwd();
-				else if (str_compare_all(commands[i].name, "export"))
-					write(1, "export command not implemented yet\n", 36);
-				else if (str_compare_all(commands[i].name, "unset"))
+				else if (str_compare_all(shell.commands[i].name, "export"))
+					export(shell.commands[i], shell.env_list);
+				else if (str_compare_all(shell.commands[i].name, "unset"))
 					write(1, "unset command not implemented yet\n", 35);
-				else if (str_compare_all(commands[i].name, "env"))
-					env(&env_list);
-				else if (str_compare_all(commands[i].name, "clear"))
+				else if (str_compare_all(shell.commands[i].name, "env"))
+					env(shell.env_list);
+				else if (str_compare_all(shell.commands[i].name, "clear"))
 					printf("\033c");
-				else if (str_compare_n(commands[i].name, "./", 2))
+				else if (str_compare_n(shell.commands[i].name, "./", 2))
 					write(1, "./ command not implemented yet\n", 31);
 				else
 				{
 					write(2, "Command not found: ", 19);
-					write(2, commands[i].name, str_len(commands[i].name));
+					write(2, shell.commands[i].name, str_len(shell.commands[i].name));
 					write(2, "\n", 1);
 					break ;
 				}
 				i++;
 			}
-			free_commands(commands, length);
+			free_commands(shell.commands, shell.cmd_length);
 		}
 		free(line);
 	}

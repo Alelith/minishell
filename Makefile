@@ -43,10 +43,10 @@ UTILS_DIR = utils/
 UTILS_FILES = free_commands
 
 EXEC_DIR = execution/
-EXEC_FILES = echo exit pwd cd env
+EXEC_FILES = echo exit pwd cd env export
 
 ENVIRON_DIR = environment_vars/
-ENVIRON_FILES = set_env
+ENVIRON_FILES = set_env add_env dict_utils update_env free_env
 
 MAIN = main
 
