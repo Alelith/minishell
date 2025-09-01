@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 13:24:23 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:37:07 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char *argv[], char *envp[])
 				else if (str_compare_all(shell.commands[i].name, "exit"))
 				{
 					free(line);
-					exit_exec();
+					exit_exec(shell);
 				}
 				else if (str_compare_all(shell.commands[i].name, "cd"))
 					cd(shell.commands[i]);
