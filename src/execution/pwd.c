@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:34:51 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/28 10:05:51 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:18:46 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	pwd(void)
 {
 	char	cwd[1024];
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	if (getcwd(cwd, sizeof(cwd)) != false)
 	{
-		write(1, cwd, ft_strlen(cwd));
+		write(1, cwd, str_len(cwd));
 		write(1, "\n", 1);
 		return (0);
 	}

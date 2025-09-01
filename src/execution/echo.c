@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/28 10:05:39 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:20:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	echo(t_command command)
 	i = 0;
 	while (i < command.args_c)
 	{
-		if (i != command.args_c - 1)
-			write(1, command.args[i], ft_strlen(command.args[i]));
-		else
-			write(1, command.args[i], ft_strlen(command.args[i]));
+		write(1, command.args[i], str_len(command.args[i]));
 		i++;
 	}
 	if (!flag)

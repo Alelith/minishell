@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/28 16:59:40 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 11:33:09 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define MINISHELL_H
 
 # include "survival_lib.h"
-# include "get_next_line.h"
 # include <unistd.h>
 # include <dirent.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <signal.h>
 # include <readline/history.h> 
 # include <readline/readline.h> 
 
@@ -71,10 +72,13 @@ void		handle_regular_arg(char *token, t_command **res, short *len);
 int			is_redirection_token(char *tokens);
 int			should_handle_as_command(char *tokens, int is_first);
 int			starts_with_quote(char *tokens);
-
+int			update_env(t_env *env_list, const char *key, const char *value);
 int			echo(t_command command);
 int			exit_exec(void);
 int			pwd(void);
 int			cd(t_command command);
-int			env(char **envp);
+int			env(t_env **env_list);
+t_env		*set_env(char **envp);
+char		*get_key(char *envp);
+char		*get_value(char *envp);
 #endif

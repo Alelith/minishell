@@ -45,12 +45,16 @@ UTILS_FILES = free_commands
 EXEC_DIR = execution/
 EXEC_FILES = echo exit pwd cd env
 
-MAIN = get_next_line_utils get_next_line main
+ENVIRON_DIR = environment_vars/
+ENVIRON_FILES = set_env
+
+MAIN = main
 
 SRC_FILES += $(MAIN)
 SRC_FILES += $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 SRC_FILES += $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 SRC_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
+SRC_FILES += $(addprefix $(ENVIRON_DIR), $(ENVIRON_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
@@ -62,6 +66,7 @@ DIRS:
 	@mkdir -p $(OBJ_DIR)$(PARSING_DIR)
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
+	@mkdir -p $(OBJ_DIR)$(ENVIRON_DIR)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBFT) $(INCLUDE) -o $(NAME) $(LDFLAGS)

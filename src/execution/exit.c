@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:16:10 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/27 16:18:03 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:25:10 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int	exit_exec(void)
 {
+	write(1, "\033[0;95mExiting conchita\n\033[0;39m", 24);
 	exit(0);
 }

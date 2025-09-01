@@ -6,24 +6,22 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/28 16:59:14 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 11:36:32 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <signal.h>
 
 int	main(int argc, char *argv[], char *envp[])
 {
+	t_env		*env_list;
 	int			i;
 	t_command	*commands;
 	char		*temp;
 	char		*line;
-	//char		**env_cpy;
 	short		length;
 
+	env_list = set_env(envp);
 	if (argc > 1 || argv[1])
 	{
 		write(2, "No arguments needed\n", 20);
@@ -32,22 +30,15 @@ int	main(int argc, char *argv[], char *envp[])
 	i = 0;
 	line = 0;
 	length = 0;
-	/*while (*envp)
-	{
-		write(1, *envp, ft_strlen(*envp));
-		write(1, "\n", 1);
-		envp++;
-	}*/
 	while (1)
 	{
-		write(1, "conchita~> ", 12);
-		line = readline(0);
+		line = readline("conchita~> ");
 		if (line == NULL)
 		{
 			write(2, "Error reading line\n", 20);
 			return (1);
 		}
-		if(line && *line)
+		if (line && *line)
 			add_history(line);
 		temp = line;
 		line = str_trim(line, "\n");
@@ -76,11 +67,15 @@ int	main(int argc, char *argv[], char *envp[])
 				else if (str_compare_all(commands[i].name, "unset"))
 					write(1, "unset command not implemented yet\n", 35);
 				else if (str_compare_all(commands[i].name, "env"))
-					env(envp);
+					env(&env_list);
+				else if (str_compare_all(commands[i].name, "clear"))
+					printf("\033c");
+				else if (str_compare_n(commands[i].name, "./", 2))
+					write(1, "./ command not implemented yet\n", 31);
 				else
 				{
 					write(2, "Command not found: ", 19);
-					write(2, commands[i].name, ft_strlen(commands[i].name));
+					write(2, commands[i].name, str_len(commands[i].name));
 					write(2, "\n", 1);
 					break ;
 				}
@@ -91,3 +86,5 @@ int	main(int argc, char *argv[], char *envp[])
 		free(line);
 	}
 }
+
+

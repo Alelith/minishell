@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/28 11:32:22 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:28:06 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ int	cd(t_command command)
 	char	*current_path;
 	char	*path;
 
-	current_path = str_join(getcwd(NULL, 0), "/");
+	current_path = str_join(getcwd(0, 0), "/");
 	if (!current_path)
-	{
-		perror("");
 		return (1);
-	}
 	if (command.args_c == 0 || (command.args_c == 1
 			&& str_compare_all(command.args[0], "~")))
 	{
