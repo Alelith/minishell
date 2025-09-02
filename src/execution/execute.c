@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 09:40:04 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/02 09:59:00 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/02 11:11:37 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*set_env(char **envp)
+int	execute(t_command command, t_env *env_list)
 {
-	t_env	*env_list;
 	int		i;
-	char	*key;
-	char	*value;
+	char	*path;
+	char	**envp;
 
-	env_list = NULL;
 	i = 0;
-	while (envp[i])
+	path = str_substring(command.name, 1, str_len(command.name));
+	if (!path)
+		return (-1);
+	envp = env_to_string_list(env_list);
+	if (!envp)
 	{
-		key = get_key(envp[i]);
-		value = get_value(envp[i]);
-		add_env(&env_list, key, value);
-		i++;
+		free(path);
+		return (-1);
 	}
-	return (env_list);
+	if (execve(path, command.args, envp) == -1)
+	{
+		printf("Error executing command: %s; path: %s\n", command.name, path);
+	}
+	while (envp[i])
+		free(envp[i++]);
+	free(envp);
+	free(path);
+	return (0);
 }

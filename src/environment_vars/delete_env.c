@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   delete_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 09:40:04 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/02 09:59:00 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/02 10:29:27 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/02 10:29:46 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*set_env(char **envp)
+int	delete_env(t_env **env_list, char *key)
 {
-	t_env	*env_list;
-	int		i;
-	char	*key;
-	char	*value;
+	t_env	*current;
+	t_env	*previous;
 
-	env_list = NULL;
-	i = 0;
-	while (envp[i])
+	current = *env_list;
+	previous = NULL;
+	while (current)
 	{
-		key = get_key(envp[i]);
-		value = get_value(envp[i]);
-		add_env(&env_list, key, value);
-		i++;
+		if (str_compare_all(current->pair.key, key))
+		{
+			if (previous)
+				previous->next = current->next;
+			else
+				*env_list = current->next;
+			free(current->pair.key);
+			free(current->pair.value);
+			free(current);
+			return (1);
+		}
+		previous = current;
+		current = current->next;
 	}
-	return (env_list);
+	return (0);
 }

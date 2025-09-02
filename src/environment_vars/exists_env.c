@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   exists_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
+/*   Created: 2025/09/02 10:02:44 by bvarea-k          #+#    #+#             */
 /*   Updated: 2025/09/02 10:28:55 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	export(t_command cmd, t_env *env)
+int	exists_env(char *key, t_env *env)
 {
-	char	*key;
-	char	*value;
+	t_env	*current;
 
-	key = get_key(cmd.args[0]);
-	value = get_value(cmd.args[0]);
-	if (exists_env(key, env))
-		return (update_env(env, key, value));
-	return (add_env(&env, key, value));
+	current = env;
+	while (current)
+	{
+		if (str_compare_all(current->pair.key, key))
+			return (1);
+		current = current->next;
+	}
+	return (0);
 }

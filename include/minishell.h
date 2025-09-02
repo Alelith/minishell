@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/01 13:32:29 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:57:05 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ int			add_env(t_env **env_list, char *key, char *value);
 char		*get_key(char *envp);
 char		*get_value(char *envp);
 void		free_env(t_env *env_list);
+int			exists_env(char *key, t_env *env);
+int			delete_env(t_env **env_list, char *key);
+char		**env_to_string_list(t_env *env_list);
 
 /*=============================================================================
 ---------------------------------- Built-ins ----------------------------------
@@ -102,4 +105,6 @@ int			pwd(void);
 int			cd(t_command command);
 int			env(t_env *env_list);
 int			export(t_command cmd, t_env *env);
+int			unset(t_command cmd, t_env **env_list);
+int			execute(t_command command, t_env *env_list);
 #endif

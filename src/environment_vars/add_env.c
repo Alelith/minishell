@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 12:24:51 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 13:47:09 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/02 09:55:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	add_env(t_env **env_list, char *key, char *value)
 	new_node->pair.value = NULL;
 	new_node->next = NULL;
 	if (key)
-		new_node->pair.key = str_duplicate(key);
+		new_node->pair.key = key;
 	if (value)
-		new_node->pair.value = str_duplicate(value);
+		new_node->pair.value = value;
 	last_node = *env_list;
 	while (last_node && last_node->next)
 		last_node = last_node->next;

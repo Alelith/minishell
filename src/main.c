@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 15:37:07 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:58:02 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int	main(int argc, char *argv[], char *envp[])
 				else if (str_compare_all(shell.commands[i].name, "export"))
 					export(shell.commands[i], shell.env_list);
 				else if (str_compare_all(shell.commands[i].name, "unset"))
-					write(1, "unset command not implemented yet\n", 35);
+					unset(shell.commands[i], &shell.env_list);
 				else if (str_compare_all(shell.commands[i].name, "env"))
 					env(shell.env_list);
 				else if (str_compare_all(shell.commands[i].name, "clear"))
 					printf("\033c");
 				else if (str_compare_n(shell.commands[i].name, "./", 2))
-					write(1, "./ command not implemented yet\n", 31);
+					execute(shell.commands[i], shell.env_list);
 				else
 				{
 					write(2, "Command not found: ", 19);
