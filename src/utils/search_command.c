@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:21:48 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/04 12:33:08 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:48:00 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	permissions_check(char *path)
 	return (1);
 }
 
-int	search_command(char *command, char *exec_paths)
+char	*search_command(char *command, char *exec_paths)
 {
 	int		i = 0;
 	char	**paths = str_split(exec_paths, ':');
@@ -36,7 +36,7 @@ int	search_command(char *command, char *exec_paths)
 			if (!access(command, F_OK))
 			{
 				if (permissions_check(command))
-					return (1);
+					return (command);
 				return (0);
 			}
 		}
