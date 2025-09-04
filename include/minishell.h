@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/02 10:57:05 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:23:18 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "survival_lib.h"
 # include <unistd.h>
+# include <fcntl.h>
 # include <dirent.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -95,9 +96,10 @@ void		free_env(t_env *env_list);
 int			exists_env(char *key, t_env *env);
 int			delete_env(t_env **env_list, char *key);
 char		**env_to_string_list(t_env *env_list);
+char		*search_env(t_env *envs, const char *key);
 
 /*=============================================================================
----------------------------------- Built-ins ----------------------------------
+---------------------------------- Built-insint ----------------------------------
 =============================================================================*/
 int			echo(t_command command);
 int			exit_exec(t_shell shell);
@@ -107,4 +109,6 @@ int			env(t_env *env_list);
 int			export(t_command cmd, t_env *env);
 int			unset(t_command cmd, t_env **env_list);
 int			execute(t_command command, t_env *env_list);
+char		*search_command(char *command, char *exec_paths);
+
 #endif

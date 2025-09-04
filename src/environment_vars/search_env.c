@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/04 12:29:06 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/04 11:49:30 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/04 11:58:28 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute(t_command command, t_env *env_list)
+char	*search_env(t_env *envs, const char *key)
 {
-	int		i;
-	char	*path;
-	char	**envp;
-
-	i = 0;
-	path = command.name;
-	if (!path)
-		return (-1);
-	envp = env_to_string_list(env_list);
-	if (!envp)
+	t_env	*curr;
+	
+	curr = envs;
+	while (curr)
 	{
-		free(path);
-		return (-1);
+		if (str_compare_all(curr->pair.key, key))
+			return (curr->pair.value);
+		curr = curr->next;
 	}
-	if (search_command(path, search_env(env_list, "PATH")))
-		if (execve(path, command.args, envp) == -1)
-			printf("Error executing command: %s\n", command.name);
-	while (envp[i])
-		free(envp[i++]);
-	free(envp);
 	return (0);
 }
