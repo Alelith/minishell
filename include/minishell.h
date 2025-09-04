@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/04 12:49:00 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/04 16:39:01 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
-# include <readline/history.h> 
-# include <readline/readline.h> 
+# include <readline/history.h>
+# include <readline/readline.h>
 
 typedef struct s_env	t_env;
 

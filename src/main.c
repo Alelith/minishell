@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/02 10:58:02 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:03:26 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	main(int argc, char *argv[], char *envp[])
 		line = readline("conchita~> ");
 		if (line == NULL)
 		{
-			write(2, "Error reading line\n", 20);
-			return (1);
+			write(2, "\n", 1);
+			break;
 		}
 		if (line && *line)
 			add_history(line);
