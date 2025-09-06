@@ -43,7 +43,7 @@ UTILS_DIR = utils/
 UTILS_FILES = free_commands search_command
 
 EXEC_DIR = execution/
-EXEC_FILES = echo exit pwd cd env export unset execute
+EXEC_FILES = echo exit pwd cd env export unset execute signals
 
 ENVIRON_DIR = environment_vars/
 ENVIRON_FILES = set_env add_env dict_utils update_env free_env exists_env delete_env env_to_string_list search_env

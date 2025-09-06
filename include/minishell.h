@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/04 16:39:01 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:02:30 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,7 @@ int			export(t_command cmd, t_env *env);
 int			unset(t_command cmd, t_env **env_list);
 int			execute(t_command command, t_env *env_list);
 char		*search_command(char *command, char *exec_paths);
+void		set_signals_main(void);
+void		set_signals_child(void);
 
 #endif

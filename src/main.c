@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/04 17:03:26 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:04:53 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	shell.cmd_length = 0;
 	while (1)
 	{
+		set_signals_main();
 		line = readline("conchita~> ");
 		if (line == NULL)
 		{
