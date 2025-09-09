@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/09 13:51:34 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:55:10 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_command	*tokenize(char *input, unsigned short *len)
 		}
 		else
 		{
-			result = reallocation(result, *len + 1, len);
+			result = reallocation(result, *len + 1, *len);
 			*len += 1;
 		}
 		i++;
