@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/09 13:48:59 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:35:04 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char		*line;
 
 	shell.env_list = set_env(envp);
+	write(1, OPEN_BANNER, str_len(OPEN_BANNER));
 	if (argc > 1 || argv[1])
 	{
 		write(2, "No arguments needed\n", 20);
@@ -49,25 +50,25 @@ int	main(int argc, char *argv[], char *envp[])
 			shell.commands = tokenize(line, &shell.cmd_length);
 			while (i < shell.cmd_length)
 			{
-				if (str_compare_all(shell.commands[i].name, "echo"))
+				if (str_compare_all(shell.commands[i].args[0], "echo"))
 					echo(shell.commands[i]);
-				else if (str_compare_all(shell.commands[i].name, "exit"))
+				else if (str_compare_all(shell.commands[i].args[0], "exit"))
 				{
 					free(line);
 					exit_exec(shell);
 				}
-				else if (str_compare_all(shell.commands[i].name, "cd"))
+				else if (str_compare_all(shell.commands[i].args[0], "cd"))
 					cd(shell.commands[i]);
-				else if (str_compare_all(shell.commands[i].name, "pwd"))
+				else if (str_compare_all(shell.commands[i].args[0], "pwd"))
 					pwd();
-				else if (str_compare_all(shell.commands[i].name, "export"))
+				else if (str_compare_all(shell.commands[i].args[0], "export"))
 					export(shell.commands[i], shell.env_list);
-				else if (str_compare_all(shell.commands[i].name, "unset"))
+				else if (str_compare_all(shell.commands[i].args[0], "unset"))
 					unset(shell.commands[i], &shell.env_list);
-				else if (str_compare_all(shell.commands[i].name, "env"))
+				else if (str_compare_all(shell.commands[i].args[0], "env"))
 					env(shell.env_list);
-				else if (str_compare_all(shell.commands[i].name, "clear"))
-					printf("\033c");
+				else if (str_compare_all(shell.commands[i].args[0], "clear"))
+					printf(OPEN_BANNER);
 				else
 					execute(shell.commands[i], shell.env_list);
 				i++;

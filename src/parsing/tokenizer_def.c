@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_def.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/09 13:55:10 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:52:29 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ t_command	*tokenize(char *input, unsigned short *len)
 	{
 		if (!str_compare_all(tokens[i], "|"))
 		{
-			result[*len - 1].args = reallocation(result[*len - 1].args, result[*len - 1].args_c + 1, result[*len - 1].args_c);
-			result[*len - 1].args[result[*len - 1].args_c++] = tokens[i];
+			result[*len - 1].args = reallocation(result[*len - 1].args, (result[*len - 1].args_c + 1) * sizeof(t_command), (result[*len - 1].args_c) * sizeof(t_command));
+			result[*len - 1].args[result[*len - 1].args_c] = tokens[i];
+			result[*len - 1].args_c++;
 		}
 		else
 		{
+			free(tokens[i]);
 			result = reallocation(result, *len + 1, *len);
 			*len += 1;
 		}
 		i++;
 	}
-	
+	free(tokens);
 	return (result);
 }
