@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/06 17:04:53 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:48:59 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		set_signals_main();
-		line = readline("conchita~> ");
+		line = readline("littlepussy~> ");
 		if (line == NULL)
 		{
 			write(2, "\n", 1);
@@ -68,15 +68,8 @@ int	main(int argc, char *argv[], char *envp[])
 					env(shell.env_list);
 				else if (str_compare_all(shell.commands[i].name, "clear"))
 					printf("\033c");
-				else if (str_compare_n(shell.commands[i].name, "./", 2))
-					execute(shell.commands[i], shell.env_list);
 				else
-				{
-					write(2, "Command not found: ", 19);
-					write(2, shell.commands[i].name, str_len(shell.commands[i].name));
-					write(2, "\n", 1);
-					break ;
-				}
+					execute(shell.commands[i], shell.env_list);
 				i++;
 			}
 			free_commands(shell.commands, shell.cmd_length);

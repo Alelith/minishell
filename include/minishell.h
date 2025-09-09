@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/06 17:02:30 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:34:22 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 
@@ -31,20 +32,9 @@ typedef enum e_bool
 	false = 0
 }	t_bool;
 
-typedef enum e_redirection
-{
-	INPUT,
-	OUTPUT,
-	DELIMITED,
-	APPEND
-}	t_redirection;
-
 typedef struct s_command
 {
 	char			*name;
-	char			*flag;
-	int				redirections_c;
-	t_redirection	*redirections;
 	int				args_c;
 	char			**args;
 }	t_command;

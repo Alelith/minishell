@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/04 12:29:06 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:32:41 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,23 @@ int	execute(t_command command, t_env *env_list)
 	int		i;
 	char	*path;
 	char	**envp;
+	char *argv[] = {"/bin/ls", "-la", NULL};
 
 	i = 0;
-	path = command.name;
-	if (!path)
+	if (!command.name)
 		return (-1);
 	envp = env_to_string_list(env_list);
 	if (!envp)
-	{
-		free(path);
 		return (-1);
-	}
-	if (search_command(path, search_env(env_list, "PATH")))
-		if (execve(path, command.args, envp) == -1)
-			printf("Error executing command: %s\n", command.name);
+	path = search_command(command.name, search_env(env_list, "PATH"));
+	print_format("%s\n", command.args[0]);
+	int pid = fork();
+	if (pid == 0 && path && execve(path, argv, envp) == -1)
+		printf("Error executing command: %s\n", path);
+	if (pid > 0)
+		waitpid(pid, 0, 0);
+	if (path)
+		free(path);
 	while (envp[i])
 		free(envp[i++]);
 	free(envp);

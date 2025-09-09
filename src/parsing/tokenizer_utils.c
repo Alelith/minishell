@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 15:31:40 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/27 16:18:28 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:06:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	is_redirection_token(char *tokens)
 
 int	should_handle_as_command(char *tokens, int is_first)
 {
-	return (is_first || str_compare_all(tokens, "|")
-		|| str_compare_n(tokens, "-", 1));
+	return (is_first || str_compare_all(tokens, "|"));
 }
 
 int	starts_with_quote(char *tokens)

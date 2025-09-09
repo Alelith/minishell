@@ -6,15 +6,25 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:21:48 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/04 12:48:00 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:26:47 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	free_paths(char **paths)
+{
+	int	i;
+	
+	i = 0;
+	while (paths[i])
+		free(paths[i++]);
+	free(paths);
+}
+
 static int	permissions_check(char *path)
 {
-	if (access(path, X_OK))
+	if (access(path, X_OK) != 0)
 	{
 		write(2, "You don't have permissions to execute this file: ", 49);
 		write(2, path, str_len(path));
@@ -27,20 +37,39 @@ static int	permissions_check(char *path)
 char	*search_command(char *command, char *exec_paths)
 {
 	int		i = 0;
+	char	*tmp;
+	char	*result;
 	char	**paths = str_split(exec_paths, ':');
 
+	if ((str_compare_n(command, "/", 1) || str_compare_n(command, "./", 2)
+		|| str_compare_n(command, "../", 3)) && !access(command, F_OK))
+	{
+		if (permissions_check(command))
+		{
+			free_paths(paths);
+			return (command);
+		}
+		free_paths(paths);
+		return (0);
+	}
 	while (paths[i])
 	{
-		if (str_compare_n(command + 1, paths[i], str_len(paths[i])))
+		tmp = str_join(paths[i], "/");
+		result = str_join(tmp, command);
+		free(tmp);
+		if (access(result, F_OK) == 0)
 		{
-			if (!access(command, F_OK))
+			if (permissions_check(result))
 			{
-				if (permissions_check(command))
-					return (command);
-				return (0);
+				free_paths(paths);
+				return (result);
 			}
+			free(result);
+			break;
 		}
+		free(result);
 		i++;
 	}
+	free_paths(paths);
 	return (0);
 }

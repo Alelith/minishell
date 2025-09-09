@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:40 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/01 13:30:16 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:52:31 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	handle_command_or_pipe(char *tokens,
 		(*len)++;
 		*is_first = 0;
 	}
-	else if (str_compare_n(tokens, "-", 1))
-		(*result)[*len - 1].flag = tokens;
 }
 
 void	handle_quoted_arg(char **tokens,
@@ -118,7 +116,7 @@ t_command	*tokenize(char *input, unsigned short *len)
 		else if (is_quoted)
 			handle_quoted_arg(tokens, &i, &result, len, &is_quoted);
 		else
-			handle_regular_arg(tokens[i], &result, len);
+			handle_regular_arg(tokens[i], &result,tokens[i] len);
 		i++;
 	}
 	free(tokens);
@@ -127,7 +125,7 @@ t_command	*tokenize(char *input, unsigned short *len)
 
 
 
-/*t_command	*tokenize(char *input, short *len)
+/*t_command	*tokenize(char *input, unsigned short *len)
 {
 	t_command	*result;
 	int			i;
@@ -179,8 +177,6 @@ t_command	*tokenize(char *input, unsigned short *len)
 			(*len)++;
 			is_first = 0;
 		}
-		else if (str_compare_n(tokens[i], "-", 1))
-			result[*len - 1].flag = tokens[i];
 		else if (str_compare_all(tokens[i], "|"))
 		{
 			is_first = 1;
