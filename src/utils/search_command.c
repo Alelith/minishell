@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:21:48 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 13:14:47 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 17:22:11 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*search_command(char *command, char *exec_paths)
 			|| str_compare_n(command, "../", 3)) && !access(command, F_OK))
 	{
 		if (permissions_check(command))
-			return (command);
+			return (str_duplicate(command));
 		return (0);
 	}
 	if (!exec_paths)

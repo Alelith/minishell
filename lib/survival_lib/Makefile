@@ -20,7 +20,7 @@ INCLUDE = -I include
 
 CHECK_DIR = check/
 CHECK_FILES = is_alphabetic is_alphanumeric is_ascii is_digit is_print \
-				str_compare_n str_compare_all
+				is_space str_compare_n str_compare_all
 
 CONVERSION_DIR = conversion/
 CONVERSION_FILES = int_to_str uint_to_str bnum_to_str float_to_str \

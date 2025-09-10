@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 11:59:55 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:17:29 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_command	*tokenize(char *input, unsigned short *len)
 		return (0);
 	*len = 1;
 	result = callocation(1, sizeof(t_command));
-	tokens = str_split(input, ' ');
+	tokens = split_command(input);
 	while (tokens[i])
 	{
 		if (!str_compare_all(tokens[i], "|"))

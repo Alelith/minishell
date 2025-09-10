@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 13:29:39 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:17:57 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_shell
 /*=============================================================================
 --------------------------- Tokenization and Parsing --------------------------
 =============================================================================*/
+char		**split_command(char *line);
 t_command	*tokenize(char *input, unsigned short *len);
 void		free_commands(t_command *commands, unsigned short length);
 

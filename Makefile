@@ -40,7 +40,7 @@ PARSING_DIR = parsing/
 PARSING_FILES = checker tokenizer
 
 UTILS_DIR = utils/
-UTILS_FILES = free_commands search_command
+UTILS_FILES = free_commands search_command split_command
 
 BANNER_DIR = print/
 BANNER_FILES = banner export_vars

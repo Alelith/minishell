@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   survival_lib.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:29:11 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/25 10:09:37 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:25:58 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,16 @@ int				is_digit(int c);
  * @return 1 if the character is printable, 0 otherwise.
  */
 int				is_print(int c);
+
+/**
+ * @brief Checks if the character is a space character.
+ * @ingroup check_functions
+ * 
+ * @param c The character to check.
+ * 
+ * @return 1 if the character is space, 0 otherwise.
+ */
+int	is_space(char c)
 
 /**
  * @brief Checks if two strings are equal in a length.
