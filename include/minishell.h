@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 11:25:08 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:23:56 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char		*search_env(t_env *envs, const char *key);
 ---------------------------------- Built-insint -------------------------------
 =============================================================================*/
 int			echo(t_command command);
-int			exit_exec(t_shell shell);
+int			exit_exec(t_shell shell, char *line);
 int			pwd(void);
 int			cd(t_command command);
 int			env(t_env *env_list);
