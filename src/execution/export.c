@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 13:30:35 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:53:24 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	save_var(t_command cmd, t_env *env, t_env *env_cpy)
 
 	key = get_key(cmd.args[1]);
 	value = 0;
-	if (str_search_char(cmd.args[1], '=') > 0)
+	if (str_search_char(cmd.args[1], '=') != NULL)
 	{
 		value = get_value(cmd.args[1]);
 		if (exists_env(key, env))
