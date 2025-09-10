@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 12:33:29 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:08:39 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	switch_commands(t_shell shell, int index, char *line)
 	else if (str_compare_all(shell.commands[index].args[0], "pwd"))
 		pwd();
 	else if (str_compare_all(shell.commands[index].args[0], "export"))
-		export(shell.commands[index], shell.env_list);
+		export(shell.commands[index], shell.env_list, shell.env_list_cpy);
 	else if (str_compare_all(shell.commands[index].args[0], "unset"))
 		unset(shell.commands[index], &shell.env_list);
 	else if (str_compare_all(shell.commands[index].args[0], "env"))
@@ -71,6 +71,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	}
 	shell.env_list = set_env(envp);
+	shell.env_list_cpy = set_env(envp);
 	print_open_banner();
 	shell.cmd_length = 0;
 	while (1)

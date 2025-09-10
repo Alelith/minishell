@@ -42,8 +42,8 @@ PARSING_FILES = checker tokenizer
 UTILS_DIR = utils/
 UTILS_FILES = free_commands search_command
 
-BANNER_DIR = banners/
-BANNER_FILES = banner
+BANNER_DIR = print/
+BANNER_FILES = banner export_vars
 
 EXEC_DIR = execution/
 EXEC_FILES = echo exit pwd cd env export unset execute signals
@@ -82,7 +82,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | DIRS
 	@$(CC) -c $< -o $@ $(INCLUDE)
 
 $(LIBFT):
-	make -sC $(LIB_DIR)$(LIBFT_DIR)
+	@make -sC $(LIB_DIR)$(LIBFT_DIR)
 
 clean:
 	@echo "$(RED)Cleaning$(DEF_COLOR)"

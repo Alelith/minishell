@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 11:05:57 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 11:24:24 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:26:52 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_close_banner(void)
 	printf("\n\033[0;39m");
 }
 
-void	print_comm_err(const char *message, char *comm)
+void	print_comm_err(const char *message, const char *comm)
 {
 	printf("\e[38;5;139m%s", message);
 	printf("\e[38;5;116m%s\n\033[0;39m", comm);

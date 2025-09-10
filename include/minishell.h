@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 12:23:56 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:29:39 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ struct s_env
 typedef struct s_shell
 {
 	t_env			*env_list;
+	t_env			*env_list_cpy;
 	t_command		*commands;
 	unsigned short	cmd_length;
 }	t_shell;
@@ -86,7 +87,7 @@ int			exit_exec(t_shell shell, char *line);
 int			pwd(void);
 int			cd(t_command command);
 int			env(t_env *env_list);
-int			export(t_command cmd, t_env *env);
+int			export(t_command cmd, t_env *env, t_env *env_cpy);
 int			unset(t_command cmd, t_env **env_list);
 int			execute(t_command command, t_env *env_list);
 char		*search_command(char *command, char *exec_paths);
@@ -95,6 +96,7 @@ void		set_signals_child(void);
 
 void		print_open_banner(void);
 void		print_close_banner(void);
-void		print_comm_err(const char *message, char *comm);
+void		print_comm_err(const char *message, const char *comm);
+void		print_export(const char *key, const char *value);
 
 #endif

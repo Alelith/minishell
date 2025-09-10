@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_search.c                                       :+:      :+:    :+:   */
+/*   export_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 11:36:44 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 13:07:05 by acesteve         ###   ########.fr       */
+/*   Created: 2025/09/10 13:26:02 by acesteve          #+#    #+#             */
+/*   Updated: 2025/09/10 13:33:31 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "survival_lib.h"
+#include "minishell.h"
 
-void	*mem_search(const void *s, int c, size_t n)
+void	print_export(const char *key, const char *value)
 {
-	unsigned char	*src;
-
-	c = (unsigned char)c;
-	src = (unsigned char *) s;
-	while (n--)
-	{
-		if (*src == c)
-			return (src);
-		src++;
-	}
-	return (0);
+	if (value)
+		printf("\e[38;5;44mdeclare \e[38;5;165m-x "
+			"\e[38;5;35m%s=\"%s\"\n\033[0;39m", key, value);
+	else
+		printf("\e[38;5;44mdeclare \e[38;5;165m-x "
+			"\e[38;5;35m%s=\n\033[0;39m", key);
 }
