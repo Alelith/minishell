@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/09 16:55:13 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:31:36 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	echo(t_command command)
 	int	flag;
 	int	i;
 
-	if (command.args_c > 0 && str_compare_n(command.args[1], "-", 1))
+	if (command.args_c > 0 && str_compare_n(command.args[1], "-n", 2))
 		flag = 1;
 	else
 		flag = 0;

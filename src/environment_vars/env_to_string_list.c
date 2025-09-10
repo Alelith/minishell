@@ -3,19 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_string_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:45:57 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/02 10:54:35 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:18:51 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	fill_element(char **envp, t_env *current)
+{
+	char	*tmp;
+
+	if (current->pair.value)
+	{
+		tmp = str_join(current->pair.key, "=");
+		*envp = str_join(tmp, current->pair.value);
+		free(tmp);
+	}
+	else
+		*envp = str_join(current->pair.key, "=");
+}
+
 char	**env_to_string_list(t_env *env_list)
 {
 	t_env	*current;
-	char	*tmp;
 	char	**envp;
 	int		size;
 
@@ -33,16 +46,7 @@ char	**env_to_string_list(t_env *env_list)
 	size = 0;
 	while (current)
 	{
-		if (current->pair.value)
-		{
-			tmp = str_join(current->pair.key, "=");
-			envp[size] = str_join(tmp, current->pair.value);
-			free(tmp);
-		}
-		else
-			envp[size] = str_join(current->pair.key, "=");
-		if (!envp[size])
-			return (NULL);
+		fill_element(&envp[size], current);
 		size++;
 		current = current->next;
 	}

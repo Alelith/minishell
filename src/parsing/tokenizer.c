@@ -6,11 +6,20 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 09:53:54 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:59:55 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	proccess_command(char *token, t_command *comm)
+{
+	comm->args = reallocation(comm->args,
+			(comm->args_c + 1) * sizeof(t_command),
+			(comm->args_c) * sizeof(t_command));
+	comm->args[comm->args_c] = token;
+	comm->args_c++;
+}
 
 t_command	*tokenize(char *input, unsigned short *len)
 {
@@ -19,19 +28,15 @@ t_command	*tokenize(char *input, unsigned short *len)
 	t_command	*result;
 
 	i = 0;
+	if (str_len(input) == 0)
+		return (0);
 	*len = 1;
 	result = callocation(1, sizeof(t_command));
 	tokens = str_split(input, ' ');
 	while (tokens[i])
 	{
 		if (!str_compare_all(tokens[i], "|"))
-		{
-			result[*len - 1].args = reallocation(result[*len - 1].args,
-					(result[*len - 1].args_c + 1) * sizeof(t_command),
-					(result[*len - 1].args_c) * sizeof(t_command));
-			result[*len - 1].args[result[*len - 1].args_c] = tokens[i];
-			result[*len - 1].args_c++;
-		}
+			proccess_command(tokens[i], &result[*len - 1]);
 		else
 		{
 			free(tokens[i]);

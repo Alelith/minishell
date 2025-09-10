@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/09 17:11:34 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:40:03 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*resolve_cd_path(t_command command, char *current_path)
 		if (!path)
 		{
 			free(current_path);
-			write(2, "cd: HOME not set\n", 18);
+			print_comm_err("cd: HOME not set", "");
 			return (NULL);
 		}
 	}
@@ -45,7 +45,7 @@ static char	*resolve_cd_path(t_command command, char *current_path)
 	else
 	{
 		free(current_path);
-		write(2, "cd: too many arguments\n", 24);
+		print_comm_err("cd: too many arguments", "");
 		return (NULL);
 	}
 	return (path);
@@ -55,9 +55,7 @@ static int	handle_cd_error(char *path, char *current_path, char *arg)
 {
 	free(current_path);
 	free(path);
-	write(2, "cd: no such file or directory: ", 31);
-	write(2, arg, str_len(arg));
-	write(2, "\n", 1);
+	print_comm_err("cd: no such file or directory: ", arg);
 	return (1);
 }
 
@@ -73,7 +71,7 @@ int	cd(t_command command)
 	if (!path)
 		return (1);
 	if (chdir(path))
-		return (handle_cd_error(path, current_path, command.args[0]));
+		return (handle_cd_error(path, current_path, command.args[1]));
 	free(current_path);
 	free(path);
 	return (0);

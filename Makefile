@@ -42,6 +42,9 @@ PARSING_FILES = checker tokenizer
 UTILS_DIR = utils/
 UTILS_FILES = free_commands search_command
 
+BANNER_DIR = banners/
+BANNER_FILES = banner
+
 EXEC_DIR = execution/
 EXEC_FILES = echo exit pwd cd env export unset execute signals
 
@@ -53,6 +56,7 @@ MAIN = main
 SRC_FILES += $(MAIN)
 SRC_FILES += $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 SRC_FILES += $(addprefix $(UTILS_DIR), $(UTILS_FILES))
+SRC_FILES += $(addprefix $(BANNER_DIR), $(BANNER_FILES))
 SRC_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 SRC_FILES += $(addprefix $(ENVIRON_DIR), $(ENVIRON_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -65,6 +69,7 @@ DIRS:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)$(PARSING_DIR)
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
+	@mkdir -p $(OBJ_DIR)$(BANNER_DIR)
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
 	@mkdir -p $(OBJ_DIR)$(ENVIRON_DIR)
 

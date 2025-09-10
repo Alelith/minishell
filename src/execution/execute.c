@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 09:22:34 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:26:04 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	execute(t_command command, t_env *env_list)
 {
 	int		i;
+	int		pid;
 	char	*path;
 	char	**envp;
 
@@ -25,17 +26,15 @@ int	execute(t_command command, t_env *env_list)
 	path = search_command(command.args[0], search_env(env_list, "PATH"));
 	if (path)
 	{
-		int pid = fork();
+		pid = fork();
 		if (pid == 0 && execve(path, command.args, envp) == -1)
-			printf("Error executing command: %s\n", path);
+			print_comm_err("Error executing command: ", path);
 		if (pid > 0)
 			waitpid(pid, 0, 0);
 		free(path);
 	}
 	else
-	{
-		printf("Command not found: %s\n", command.args[0]);
-	}
+		print_comm_err("Command not found: ", command.args[0]);
 	while (envp[i])
 		free(envp[i++]);
 	free(envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:34:51 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/01 09:18:46 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:36:56 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ int	pwd(void)
 
 	if (getcwd(cwd, sizeof(cwd)) != false)
 	{
-		write(1, cwd, str_len(cwd));
-		write(1, "\n", 1);
-		return (0);
+		printf("%s\n", cwd);
+		return (1);
 	}
-	write(2, "pwd: error retrieving current directory\n", 40);
-	return (1);
+	print_comm_err("pwd: error retrieving current directory", "");
+	return (0);
 }

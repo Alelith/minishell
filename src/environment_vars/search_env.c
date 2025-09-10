@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:49:30 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/04 11:58:28 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:27:58 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*search_env(t_env *envs, const char *key)
 {
 	t_env	*curr;
-	
+
 	curr = envs;
 	while (curr)
 	{

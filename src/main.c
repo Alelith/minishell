@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 09:47:54 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:36:24 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	main(int argc, char *argv[], char *envp[])
 	char		*temp;
 	char		*line;
 
-	shell.env_list = set_env(envp);
-	write(1, OPEN_BANNER, str_len(OPEN_BANNER));
 	if (argc > 1 || argv[1])
 	{
-		write(2, "No arguments needed\n", 20);
+		print_comm_err("No arguments needed", "");
 		return (1);
 	}
+	shell.env_list = set_env(envp);
+	print_open_banner();
 	i = 0;
 	line = 0;
 	shell.cmd_length = 0;
@@ -68,7 +68,7 @@ int	main(int argc, char *argv[], char *envp[])
 				else if (str_compare_all(shell.commands[i].args[0], "env"))
 					env(shell.env_list);
 				else if (str_compare_all(shell.commands[i].args[0], "clear"))
-					printf(OPEN_BANNER);
+					print_open_banner();
 				else
 					execute(shell.commands[i], shell.env_list);
 				i++;
