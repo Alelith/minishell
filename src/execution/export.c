@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/02 10:28:55 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/10 09:19:45 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	export(t_command cmd, t_env *env)
 	char	*key;
 	char	*value;
 
-	key = get_key(cmd.args[0]);
-	value = get_value(cmd.args[0]);
+	key = get_key(cmd.args[1]);
+	value = get_value(cmd.args[1]);
 	if (exists_env(key, env))
 		return (update_env(env, key, value));
 	return (add_env(&env, key, value));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 16:41:56 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/02 10:36:08 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/10 09:20:03 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	unset(t_command cmd, t_env **env_list)
 {
-	return (delete_env(env_list, cmd.args[0]));
+	return (delete_env(env_list, cmd.args[1]));
 }

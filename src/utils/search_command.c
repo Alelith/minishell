@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:21:48 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/09 13:26:47 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/10 09:48:19 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	free_paths(char **paths)
 {
 	int	i;
-	
+
 	i = 0;
 	while (paths[i])
 		free(paths[i++]);
@@ -42,7 +42,7 @@ char	*search_command(char *command, char *exec_paths)
 	char	**paths = str_split(exec_paths, ':');
 
 	if ((str_compare_n(command, "/", 1) || str_compare_n(command, "./", 2)
-		|| str_compare_n(command, "../", 3)) && !access(command, F_OK))
+			|| str_compare_n(command, "../", 3)) && !access(command, F_OK))
 	{
 		if (permissions_check(command))
 		{
@@ -65,7 +65,7 @@ char	*search_command(char *command, char *exec_paths)
 				return (result);
 			}
 			free(result);
-			break;
+			break ;
 		}
 		free(result);
 		i++;

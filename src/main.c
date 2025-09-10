@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/09 17:35:04 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 09:47:54 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (line == NULL)
 		{
 			write(2, "\n", 1);
-			break;
+			break ;
 		}
 		if (line && *line)
 			add_history(line);
@@ -78,5 +78,3 @@ int	main(int argc, char *argv[], char *envp[])
 		free(line);
 	}
 }
-
-
