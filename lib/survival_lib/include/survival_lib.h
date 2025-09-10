@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:29:11 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 18:25:58 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/10 19:07:39 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int				is_print(int c);
  * 
  * @return 1 if the character is space, 0 otherwise.
  */
-int	is_space(char c)
+int				is_space(char c);
 
 /**
  * @brief Checks if two strings are equal in a length.
