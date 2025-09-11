@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 18:17:57 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/11 10:10:26 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct s_shell
 /*=============================================================================
 --------------------------- Tokenization and Parsing --------------------------
 =============================================================================*/
-char		**split_command(char *line);
-t_command	*tokenize(char *input, unsigned short *len);
+char		**split_command(char *line, t_env *env);
+t_command	*tokenize(char *input, unsigned short *len, t_shell shell);
 void		free_commands(t_command *commands, unsigned short length);
 
 /*=============================================================================

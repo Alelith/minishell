@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 18:17:29 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:09:53 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	proccess_command(char *token, t_command *comm)
 	comm->args_c++;
 }
 
-t_command	*tokenize(char *input, unsigned short *len)
+t_command	*tokenize(char *input, unsigned short *len, t_shell shell)
 {
 	int			i;
 	char		**tokens;
@@ -32,8 +32,8 @@ t_command	*tokenize(char *input, unsigned short *len)
 		return (0);
 	*len = 1;
 	result = callocation(1, sizeof(t_command));
-	tokens = split_command(input);
-	while (tokens[i])
+	tokens = split_command(input, shell.env_list);
+	while (tokens && tokens[i])
 	{
 		if (!str_compare_all(tokens[i], "|"))
 			proccess_command(tokens[i], &result[*len - 1]);

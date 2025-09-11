@@ -3,44 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/10 19:06:47 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:50:51 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	is_fromset(char c, char *set)
+{
+	while (set && *set)
+	{
+		if (*set == c)
+			return (1);
+		set++;
+	}
+	return (0);
+}
+
+static char	*get_word(char *line, const char *delimiters)
+{
+	
+}
+
+//TODO: Si hay dos cadenas de literales seguidas sin espacio se toma como una sola cadena
 char	**split_command(char *line, t_env *env)
 {
-	int		is_quoted;
-	int		is_doublequoted;
+	const char **delimiters = {" \n\t\r", "'", "\""};
 	int		word_len;
-	int		res_len;
-	char	**res;
-	
-	res = 0;
-	res_len = 0;
-	while (line && *line)
+	int		argc;
+	char	*tmp;
+	char	**args;
+	int		i;
+
+	argc = 0;
+	args = 0;
+	i = 0;
+	while (line && i < str_len(line) && line[i])
 	{
-		word_len = 0;
-		if (*line == '\'')
+		if (line[i] && !is_space(line[i]))
 		{
-			is_quoted = 1;
-			line++;
+			args = reallocation(args, (argc + 1) * sizeof(char *), argc * sizeof(char *));
+			args[argc++] = get_word();	
 		}
-		else if (*line == '"')
-		{
-			is_doublequoted = 1;
-			line++;
-		}
-		while (line && line[word_len] && (!is_space(line[word_len]) || is_quoted || is_doublequoted))
-		{
-			if ((is_quoted || is_doublequoted) && (line[word_len] == '\'' || line[word_len] == '"'))
-				break ;
-			word_len++;
-		}
-		res = reallocation(res, res_len + 1, res)
+		if (line[i])
+			i++;
 	}
+	args = reallocation(args, (argc + 1) * sizeof(char *), argc * sizeof(char *));
+	return (args);
 }

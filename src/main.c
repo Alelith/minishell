@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 13:08:39 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:07:42 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ static void	try_command(t_shell shell, char *line)
 	char		*temp;
 	int			i;
 
-	set_signals_main();
 	if (line && *line)
 		add_history(line);
 	temp = line;
-	line = str_trim(line, "\n");
+	line = str_trim(line, " \t\n\r");
 	free (temp);
 	if (!str_compare_all(line, "\n"))
 	{
 		shell.cmd_length = 0;
 		i = 0;
-		shell.commands = tokenize(line, &shell.cmd_length);
+		shell.commands = tokenize(line, &shell.cmd_length, shell);
 		while (i < shell.cmd_length)
 		{
 			switch_commands(shell, i, line);
@@ -74,6 +73,7 @@ int	main(int argc, char *argv[], char *envp[])
 	shell.env_list_cpy = set_env(envp);
 	print_open_banner();
 	shell.cmd_length = 0;
+	set_signals_main();
 	while (1)
 	{
 		line = readline("littlepussy~> ");
