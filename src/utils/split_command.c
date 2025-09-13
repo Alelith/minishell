@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/12 23:04:53 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/13 09:18:50 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static char	*get_word(char *line, const char *delimiters, int *index, t_env *env
 	tmp = 0;
 	while (line[word_len] && !is_fromset(line[word_len], delimiters))
 		word_len++;
-	*index = *index + word_len + 1;
+	*index = *index + word_len;
+	if (delimiters[0] == '\'' || delimiters[0] == '"')
+		*index = *index + 1;
 	res = str_substring(line, 0, word_len);
 	/*if (line[*index] && !is_space(line[*index]))
 	{
@@ -58,7 +60,6 @@ static char	*get_word(char *line, const char *delimiters, int *index, t_env *env
 		
 }
 
-//TODO: Si hay dos cadenas seguidas sin espacio se toma como una sola cadena
 char	**split_command(char *line, t_env *env)
 {
 	int		argc;
@@ -78,7 +79,7 @@ char	**split_command(char *line, t_env *env)
 			else if (line[i] == '\'')
 				args[argc++] = get_word(&line[++i], "'", &i, 0);
 			else
-				args[argc++] = get_word(&line[i], " \n\t\r", &i, 0);
+				args[argc++] = get_word(&line[i], " \n\t\r'\"", &i, 0);
 		}
 		else if (line[i])
 			i++;
