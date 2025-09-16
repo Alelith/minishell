@@ -1,8 +1,8 @@
 {
 	"makefile.launchConfigurations": [
 		{
-			"cwd": "/home/lilith/42/minicher",
-			"binaryPath": "/home/lilith/42/minicher/minishell",
+			"cwd": "/home/bvarea-k/Desktop/miniseptiembre",
+			"binaryPath": "/home/bvarea-k/Desktop/miniseptiembre/minishell",
 			"binaryArgs": []
 		}
 	]

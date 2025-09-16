@@ -27,7 +27,7 @@ SRC_DIR = src/
 LIB_DIR = lib/
 OBJ_DIR = obj/
 
-CC = cc -g -Wall -Wextra
+CC = cc -g -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 
 INCLUDE = -I include

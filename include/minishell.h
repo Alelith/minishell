@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/11 10:10:26 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:00:47 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ typedef enum e_bool
 
 typedef struct s_command
 {
-	int				args_c;
-	char			**args;
+	int		args_c;
+	char	**args;
+	int		overwrite;
+	int		infile;
+	int		outfile;
 }	t_command;
 
 typedef struct s_key_value

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/10 17:22:35 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:35:26 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	execute(t_command command, t_env *env_list)
 
 	i = 0;
 	envp = env_to_string_list(env_list);
-	if (!envp || command.args_c == 0)
+	if (!envp || command.args_c == 0 || str_len(command.args[0]) == 0)
 		return (-1);
 	path = search_command(command.args[0], search_env(env_list, "PATH"));
 	if (path)
