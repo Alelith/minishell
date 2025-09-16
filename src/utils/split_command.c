@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 11:40:41 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:39:41 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 	tmp = 0;
 	while (line[word_len] && !is_fromset(line[word_len], delimiters))
 		word_len++;
+	if (word_len == 0 && (*line == '|'))
+		word_len++;
+	while (word_len == 0 && (line[word_len] == '<'))
+		word_len++;
+	while (word_len == 0 && (line[word_len] == '>'))
+		word_len++;
 	*index = *index + word_len;
 	res = str_substring(line, 0, word_len);
 	if ((delimiters[0] == '\'' && line[word_len] == '\'')
@@ -72,7 +78,7 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 		*index = *index + 1;
 		word_len++;
 	}
-	if (line[word_len] && !is_space(line[word_len]))
+	if (line[word_len] && !is_space(line[word_len]) && !is_redirection(line[word_len]) && !is_redirection(line[word_len - 1]))
 	{
 		if (line[word_len] == '"' || line[word_len] == '\'')
 		{
@@ -83,7 +89,7 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 				tmp = get_word(&line[word_len + 1], "'", index, 0);
 		}
 		else
-			tmp = get_word(&line[word_len], " \n\t\r\"'", index, env);
+			tmp = get_word(&line[word_len], " \n\t\r\"'|<>", index, env);
 	}
 	to_delete = res;
 	res = str_join(res, tmp);
@@ -115,12 +121,13 @@ char	**split_command(char *line, t_env *env)
 			else if (line[i] == '\'')
 				args[argc++] = get_word(&line[++i], "'", &i, 0);
 			else
-				args[argc++] = get_word(&line[i], " \n\t\r'\"'", &i, env);
+				args[argc++] = get_word(&line[i], " \n\t\r'\"'|<>", &i, env);
 		}
 		else if (line[i])
 			i++;
 	}
 	args = reallocation(args, (argc + 1) * sizeof(char *),
 			argc * sizeof(char *));
+	print_str_lst(args);
 	return (args);
 }

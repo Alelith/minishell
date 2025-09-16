@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 12:00:47 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:17:21 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,13 @@ char		*search_command(char *command, char *exec_paths);
 void		set_signals_main(void);
 void		set_signals_child(void);
 
+int			is_redirection(char c);
 void		print_open_banner(void);
 void		print_close_banner(void);
 void		print_comm_err(const char *message, const char *comm);
 void		print_export(const char *key, const char *value);
+
+//TODO: delete all these functions
+void		print_str_lst(char **lst);
 
 #endif

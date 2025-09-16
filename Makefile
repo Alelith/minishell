@@ -40,7 +40,7 @@ PARSING_DIR = parsing/
 PARSING_FILES = checker tokenizer
 
 UTILS_DIR = utils/
-UTILS_FILES = free_commands search_command split_command
+UTILS_FILES = free_commands search_command split_command is_redirection
 
 BANNER_DIR = print/
 BANNER_FILES = banner export_vars
@@ -51,6 +51,9 @@ EXEC_FILES = echo exit pwd cd env export unset execute signals
 ENVIRON_DIR = environment_vars/
 ENVIRON_FILES = set_env add_env dict_utils update_env free_env exists_env delete_env env_to_string_list search_env
 
+DEBUG_DIR = debug/
+DEBUG_FILES = print_str_lst
+
 MAIN = main
 
 SRC_FILES += $(MAIN)
@@ -59,6 +62,7 @@ SRC_FILES += $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 SRC_FILES += $(addprefix $(BANNER_DIR), $(BANNER_FILES))
 SRC_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 SRC_FILES += $(addprefix $(ENVIRON_DIR), $(ENVIRON_FILES))
+SRC_FILES += $(addprefix $(DEBUG_DIR), $(DEBUG_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
@@ -72,6 +76,7 @@ DIRS:
 	@mkdir -p $(OBJ_DIR)$(BANNER_DIR)
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
 	@mkdir -p $(OBJ_DIR)$(ENVIRON_DIR)
+	@mkdir -p $(OBJ_DIR)$(DEBUG_DIR)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBFT) $(INCLUDE) -o $(NAME) $(LDFLAGS)
