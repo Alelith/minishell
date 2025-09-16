@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:36 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/16 16:11:33 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ static void	try_command(t_shell shell, char *line)
 	free(line);
 }
 
+static void	free_env_list(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		tmp = env->next;
+		free(env->pair.key);
+		free(env->pair.value);
+		free(env);
+		env = tmp;
+	}
+}
+
+static void	free_t_shell(t_shell *shell)
+{
+	if (shell->env_list)
+		free_env_list(shell->env_list);
+	if (shell->env_list_cpy)
+		free_env_list(shell->env_list_cpy);
+	exit(0);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell		shell;
@@ -76,10 +99,11 @@ int	main(int argc, char *argv[], char *envp[])
 	set_signals_main();
 	while (1)
 	{
-		line = readline("littlepussy~> ");
+		line = readline("minishell~> ");
 		if (line == NULL)
 		{
 			printf("\n");
+			free_t_shell(&shell);
 			break ;
 		}
 		try_command(shell, line);

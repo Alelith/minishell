@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 13:43:55 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/16 16:12:21 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ t_command	*tokenize(char *input, unsigned short *len, t_shell shell)
 		else
 		{
 			free(tokens[i]);
-			result = reallocation(result, (*len + 1) * sizeof(t_command), *len * sizeof(t_command));
+			result = reallocation(result, (*len + 1) * sizeof(t_command),
+					*len * sizeof(t_command));
 			*len += 1;
 		}
 		i++;
