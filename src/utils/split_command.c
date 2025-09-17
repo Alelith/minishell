@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 13:39:41 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/17 13:07:02 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,5 @@ char	**split_command(char *line, t_env *env)
 	}
 	args = reallocation(args, (argc + 1) * sizeof(char *),
 			argc * sizeof(char *));
-	print_str_lst(args);
 	return (args);
 }

@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   any_has_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 17:12:26 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/17 09:23:50 by bvarea-k         ###   ########.fr       */
+/*   Created: 2025/09/17 10:45:42 by bvarea-k          #+#    #+#             */
+/*   Updated: 2025/09/17 10:49:05 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	sigint_handler(int sig)
+int	any_has_error(t_command *cmd, unsigned short cmd_count)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
+	unsigned short	i;
 
-static void	sigquit_handler(int sig)
-{
-	(void)sig;
-}
-
-void	set_signals_main(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
-}
-
-void	set_signals_child(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	i = 0;
+	while (i < cmd_count)
+	{
+		if (cmd[i].has_error)
+			return (1);
+		i++;
+	}
+	return (0);
 }

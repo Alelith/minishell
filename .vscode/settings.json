@@ -5,5 +5,8 @@
 			"binaryPath": "/home/bvarea-k/Desktop/miniseptiembre/minishell",
 			"binaryArgs": []
 		}
-	]
+	],
+	"files.associations": {
+		"minishell.h": "c"
+	}
 }

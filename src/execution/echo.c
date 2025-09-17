@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:15 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/17 13:14:45 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	echo(t_command command)
 		printf("%s ", command.args[i]);
 		i++;
 	}
-	printf("%s", command.args[i]);
+	if (command.args[i])
+		printf("%s", command.args[i]);
 	if (!flag)
 		printf("\n");
 	return (1);

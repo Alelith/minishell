@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 13:17:21 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/17 12:43:23 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ typedef enum e_bool
 	false = 0
 }	t_bool;
 
+typedef enum e_redir
+{
+	INPUT,
+	OUTPUT,
+	OVERWRITE
+}	t_redir;
+
 typedef struct s_command
 {
 	int		args_c;
@@ -40,6 +47,8 @@ typedef struct s_command
 	int		overwrite;
 	int		infile;
 	int		outfile;
+	char	*heredoc_eof;
+	int		has_error;
 }	t_command;
 
 typedef struct s_key_value
@@ -60,6 +69,8 @@ typedef struct s_shell
 	t_env			*env_list_cpy;
 	t_command		*commands;
 	unsigned short	cmd_length;
+	int				std_out;
+	int				std_in;
 }	t_shell;
 
 /*=============================================================================
@@ -103,6 +114,7 @@ void		print_open_banner(void);
 void		print_close_banner(void);
 void		print_comm_err(const char *message, const char *comm);
 void		print_export(const char *key, const char *value);
+int			any_has_error(t_command *cmd, unsigned short cmd_count);
 
 //TODO: delete all these functions
 void		print_str_lst(char **lst);
