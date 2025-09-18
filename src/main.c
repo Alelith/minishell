@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/17 13:11:09 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/18 11:39:16 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	try_command(t_shell shell, char *line)
 		i = 0;
 		shell.commands = tokenize(line, &shell.cmd_length, shell);
 		while (i < shell.cmd_length
-				&& !any_has_error(shell.commands, shell.cmd_length))
+			&& !any_has_error(shell.commands, shell.cmd_length))
 		{
 			dup2(shell.commands[i].infile, STDIN_FILENO);
 			dup2(shell.commands[i].outfile, STDOUT_FILENO);

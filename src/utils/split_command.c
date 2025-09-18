@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/17 13:07:02 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/18 09:51:59 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 		word_len++;
 	if (word_len == 0 && (*line == '|'))
 		word_len++;
-	while (word_len == 0 && (line[word_len] == '<'))
-		word_len++;
-	while (word_len == 0 && (line[word_len] == '>'))
-		word_len++;
+	if (word_len == 0)
+		while (line[word_len] == '<')
+			word_len++;
+	if (word_len == 0)
+		while (line[word_len] == '>')
+			word_len++;
 	*index = *index + word_len;
 	res = str_substring(line, 0, word_len);
 	if ((delimiters[0] == '\'' && line[word_len] == '\'')

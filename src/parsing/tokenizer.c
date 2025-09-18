@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/17 12:59:23 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/18 12:05:16 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ static int	check_file(char *file, t_redir redir_type)
 			if (access(file, W_OK) == 0)
 				return (1);
 			else
-				print_comm_err("Permission denied: ", file);	
+				print_comm_err("Permission denied: ", file);
 		}
-		else
-		{
-			close(open(file, O_CREAT, 00777));
+		else if (redir_type == OVERWRITE)
 			return (1);
-		}		
 	}
 	else if (redir_type == INPUT)
 	{
@@ -58,9 +55,12 @@ static void proccess_redir(char **tokens, int index, t_command *cmd)
 	if (str_compare_all(tokens[index], "<") && check_file(tokens[index + 1], INPUT))
 		cmd->infile = open(tokens[index + 1], O_RDONLY);
 	else if (str_compare_all(tokens[index], ">") && check_file(tokens[index + 1], OVERWRITE))
-		cmd->outfile = open(tokens[index + 1], O_WRONLY);
+	{
+		cmd->outfile = open(tokens[index + 1], O_WRONLY | O_TRUNC | O_CREAT, 00777);
+		cmd->overwrite = 1;
+	}
 	else if (str_compare_all(tokens[index], ">>") && check_file(tokens[index + 1], OUTPUT))
-		cmd->outfile = open(tokens[index + 1], O_WRONLY);
+		cmd->outfile = open(tokens[index + 1], O_WRONLY | O_APPEND | O_CREAT, 00777);
 }
 
 t_command	*tokenize(char *input, unsigned short *len, t_shell shell)
@@ -80,14 +80,9 @@ t_command	*tokenize(char *input, unsigned short *len, t_shell shell)
 	{
 		if (str_compare_all(tokens[i], ">") || str_compare_all(tokens[i], "<")
 				|| str_compare_all(tokens[i], ">>") || str_compare_all(tokens[i], "<<"))
-		{
-			proccess_redir(tokens, i, result);
-			i++;
-		}
+			proccess_redir(tokens, i++, result);
 		else if (!str_compare_all(tokens[i], "|"))
-		{
 			proccess_command(tokens[i], &result[*len - 1]);
-		}
 		else
 		{
 			free(tokens[i]);
