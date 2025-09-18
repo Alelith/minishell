@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/18 12:05:16 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/18 14:07:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_file(char *file, t_redir redir_type)
 			else
 				print_comm_err("Permission denied: ", file);
 		}
-		else if (redir_type == OVERWRITE)
+		else
 			return (1);
 	}
 	else if (redir_type == INPUT)
@@ -55,12 +55,11 @@ static void proccess_redir(char **tokens, int index, t_command *cmd)
 	if (str_compare_all(tokens[index], "<") && check_file(tokens[index + 1], INPUT))
 		cmd->infile = open(tokens[index + 1], O_RDONLY);
 	else if (str_compare_all(tokens[index], ">") && check_file(tokens[index + 1], OVERWRITE))
-	{
 		cmd->outfile = open(tokens[index + 1], O_WRONLY | O_TRUNC | O_CREAT, 00777);
-		cmd->overwrite = 1;
-	}
 	else if (str_compare_all(tokens[index], ">>") && check_file(tokens[index + 1], OUTPUT))
 		cmd->outfile = open(tokens[index + 1], O_WRONLY | O_APPEND | O_CREAT, 00777);
+	free(tokens[index]);
+	free(tokens[index + 1]);
 }
 
 t_command	*tokenize(char *input, unsigned short *len, t_shell shell)

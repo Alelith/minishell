@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/17 12:43:23 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/18 14:06:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_command
 {
 	int		args_c;
 	char	**args;
-	int		overwrite;
 	int		infile;
 	int		outfile;
 	char	*heredoc_eof;
