@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/18 11:39:16 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/20 19:06:49 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ static void	switch_commands(t_shell shell, int index, char *line)
 
 static void	try_command(t_shell shell, char *line)
 {
+	int     num_cmds = 0;
+	int   **pipes = NULL;
+	pid_t *pids = NULL;
 	char		*temp;
 	int			i;
 
@@ -49,17 +52,83 @@ static void	try_command(t_shell shell, char *line)
 		shell.cmd_length = 0;
 		i = 0;
 		shell.commands = tokenize(line, &shell.cmd_length, shell);
-		while (i < shell.cmd_length
-			&& !any_has_error(shell.commands, shell.cmd_length))
+		num_cmds = shell.cmd_length;
+		if (num_cmds > 0)
 		{
-			dup2(shell.commands[i].infile, STDIN_FILENO);
-			dup2(shell.commands[i].outfile, STDOUT_FILENO);
-			switch_commands(shell, i, line);
-			dup2(shell.std_in, STDIN_FILENO);
-			dup2(shell.std_out, STDOUT_FILENO);
-			i++;
+			if (any_has_error(shell.commands, shell.cmd_length))
+			{
+				free_commands(shell.commands, shell.cmd_length);
+				free(line);
+				return;
+			}
+			// Reservar espacio para pipes y pids
+			pipes = (int **)malloc(sizeof(int *) * (num_cmds - 1));
+			for (i = 0; i < num_cmds - 1; i++)
+			{
+				pipes[i] = (int *)malloc(sizeof(int) * 2);
+				pipe(pipes[i]);
+			}
+			pids = (pid_t *)malloc(sizeof(pid_t) * num_cmds);
+			for (i = 0; i < num_cmds; i++)
+			{
+				// Ejecutar exit en el padre solo si es el único comando
+				if (shell.commands[i].args && shell.commands[i].args[0] && str_compare_all(shell.commands[i].args[0], "exit") && num_cmds == 1) {
+					// Redirección de entrada
+					if (shell.commands[i].infile != STDIN_FILENO) {
+						dup2(shell.commands[i].infile, STDIN_FILENO);
+					}
+					if (shell.commands[i].outfile != STDOUT_FILENO) {
+						dup2(shell.commands[i].outfile, STDOUT_FILENO);
+					}
+					switch_commands(shell, i, line);
+					free_commands(shell.commands, shell.cmd_length);
+					free(pipes);
+					free(pids);
+					free(line);
+					return;
+				}
+				pids[i] = fork();
+				if (pids[i] == 0)
+				{
+					// Redirección de entrada
+					// Redirección de entrada
+					if (shell.commands[i].infile != STDIN_FILENO) {
+						dup2(shell.commands[i].infile, STDIN_FILENO);
+					} else if (i > 0) {
+						dup2(pipes[i-1][0], STDIN_FILENO);
+					}
+					// Redirección de salida
+					if (shell.commands[i].outfile != STDOUT_FILENO) {
+						dup2(shell.commands[i].outfile, STDOUT_FILENO);
+					} else if (i < num_cmds - 1) {
+						dup2(pipes[i][1], STDOUT_FILENO);
+					}
+					// Cerrar todos los pipes en el hijo
+					for (int j = 0; j < num_cmds - 1; j++) {
+						close(pipes[j][0]);
+						close(pipes[j][1]);
+					}
+					// Ejecutar el comando
+					switch_commands(shell, i, line);
+					free_commands(shell.commands, shell.cmd_length);
+					free(line);
+					exit(0);
+				}
+			}
+			// Cerrar todos los pipes en el padre
+			for (i = 0; i < num_cmds - 1; i++) {
+				close(pipes[i][0]);
+				close(pipes[i][1]);
+				free(pipes[i]);
+			}
+			free(pipes);
+			// Esperar a todos los hijos
+			for (i = 0; i < num_cmds; i++) {
+				waitpid(pids[i], NULL, 0);
+			}
+			free(pids);
+			free_commands(shell.commands, shell.cmd_length);
 		}
-		free_commands(shell.commands, shell.cmd_length);
 	}
 	free(line);
 }
@@ -100,5 +169,6 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		}
 		try_command(shell, line);
+		rl_on_new_line();
 	}
 }

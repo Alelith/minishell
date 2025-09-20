@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 11:35:26 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/20 11:32:49 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	execute(t_command command, t_env *env_list)
 {
 	int		i;
-	int		pid;
 	char	*path;
 	char	**envp;
 
@@ -26,11 +25,8 @@ int	execute(t_command command, t_env *env_list)
 	path = search_command(command.args[0], search_env(env_list, "PATH"));
 	if (path)
 	{
-		pid = fork();
-		if (pid == 0 && execve(path, command.args, envp) == -1)
+		if (execve(path, command.args, envp) == -1)
 			print_comm_err("Error executing command: ", path);
-		if (pid > 0)
-			waitpid(pid, 0, 0);
 		free(path);
 	}
 	else
