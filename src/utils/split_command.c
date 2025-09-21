@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/18 14:04:47 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:53:30 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 		*index = *index + 1;
 		word_len++;
 	}
-	if (line[word_len] && !is_space(line[word_len]) && !is_redirection(line[word_len]) && !is_redirection(line[word_len - 1]))
+	if (line[word_len] && !is_space(line[word_len])
+		&& !is_redirection(line[word_len])
+		&& !is_redirection(line[word_len - 1]))
 	{
 		if (line[word_len] == '"' || line[word_len] == '\'')
 		{

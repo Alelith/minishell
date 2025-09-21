@@ -1,51 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
+/*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 19:29:47 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 16:50:00 by acesteve         ###   ########.fr       */
+/*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
+/*   Updated: 2025/09/21 16:46:13 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_pipes(int **pipes, int num)
+void	handle_heredoc(t_command *cmd)
 {
-	int	idx;
+	int		pipefd[2];
+	char	*line;
 
-	idx = 0;
-	while (idx < num)
+	line = NULL;
+	if (!cmd->heredoc_eof)
+		return ;
+	if (pipe(pipefd) == -1)
+		return ;
+	while (1)
 	{
-		free(pipes[idx]);
-		idx++;
+		line = readline("heredoc>");
+		if (str_compare_all(line, cmd->heredoc_eof))
+			break ;
+		write(pipefd[1], line, str_len(line));
+		write(pipefd[1], "\n", 1);
+		free(line);
 	}
-}
-
-void	close_pipes(int **pipes, int num)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx < num)
-	{
-		close(pipes[idx][0]);
-		close(pipes[idx][1]);
-		idx++;
-	}
-}
-
-void	create_pipes(int **pipes, int num)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx < num)
-	{
-		pipes[idx] = (int *)malloc(sizeof(int) * 2);
-		pipe(pipes[idx]);
-		idx++;
-	}
+	close(pipefd[1]);
+	cmd->infile = pipefd[0];
 }

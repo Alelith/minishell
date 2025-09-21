@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 12:16:44 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:58:53 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char		*search_command(char *command, char *exec_paths);
 void		set_signals_main(void);
 void		set_signals_child(void);
 
+int			is_builtin(char *cmd);
 int			is_redirection(char c);
 void		print_open_banner(void);
 void		print_close_banner(void);
@@ -123,6 +124,7 @@ char		**get_tokens(char *input, t_shell shell);
 int			is_pipe_token(char *token);
 int			is_redir_token(char *token);
 void		try_command(t_shell shell, char *line);
+void		handle_heredoc(t_command *cmd);
 //TODO: delete all these functions
 void		print_str_lst(char **lst);
 
