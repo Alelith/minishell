@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/18 14:06:29 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/21 12:16:44 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,14 @@ void		print_comm_err(const char *message, const char *comm);
 void		print_export(const char *key, const char *value);
 int			any_has_error(t_command *cmd, unsigned short cmd_count);
 
+void		proccess_command(char *token, t_command *cmd);
+int			check_file(char *file, t_redir redir_type);
+void		proccess_redir(char **tokens, int index, t_command *cmd);
+t_command	*init_command(void);
+char		**get_tokens(char *input, t_shell shell);
+int			is_pipe_token(char *token);
+int			is_redir_token(char *token);
+void		try_command(t_shell shell, char *line);
 //TODO: delete all these functions
 void		print_str_lst(char **lst);
 

@@ -37,7 +37,7 @@ LIBFT = $(LIB_DIR)$(LIBFT_DIR)survivalib.a
 
 #Archivos
 PARSING_DIR = parsing/
-PARSING_FILES = checker tokenizer
+PARSING_FILES = checker tokenizer tokenizer_command tokenizer_redir tokenizer_utils
 
 UTILS_DIR = utils/
 UTILS_FILES = free_commands search_command split_command is_redirection any_has_error
@@ -46,7 +46,7 @@ BANNER_DIR = print/
 BANNER_FILES = banner export_vars
 
 EXEC_DIR = execution/
-EXEC_FILES = echo exit pwd cd env export unset execute signals
+EXEC_FILES = echo exit pwd cd env export unset execute signals try_command
 
 ENVIRON_DIR = environment_vars/
 ENVIRON_FILES = set_env add_env dict_utils update_env free_env exists_env delete_env env_to_string_list search_env
