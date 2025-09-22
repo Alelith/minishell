@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 16:46:13 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:11:28 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,55 @@
 void	handle_heredoc(t_command *cmd)
 {
 	int		pipefd[2];
-	char	*line;
+	pid_t   pid;
+	int     status;
 
-	line = NULL;
 	if (!cmd->heredoc_eof)
 		return ;
 	if (pipe(pipefd) == -1)
 		return ;
-	while (1)
+	pid = fork();
+	if (pid == -1)
 	{
-		line = readline("heredoc>");
-		if (str_compare_all(line, cmd->heredoc_eof))
-			break ;
-		write(pipefd[1], line, str_len(line));
-		write(pipefd[1], "\n", 1);
-		free(line);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return ;
+	}
+	if (pid == 0)
+	{
+		char *line = NULL;
+		signal(SIGINT, SIG_DFL);
+		close(pipefd[0]);
+		while (1)
+		{
+			line = readline("heredoc>");
+			if (!line)
+			{
+				close(pipefd[1]);
+				exit(130);
+			}
+			if (str_compare_all(line, cmd->heredoc_eof))
+			{
+				free(line);
+				break;
+			}
+			write(pipefd[1], line, str_len(line));
+			write(pipefd[1], "\n", 1);
+			free(line);
+		}
+		close(pipefd[1]);
+		exit(0);
 	}
 	close(pipefd[1]);
-	cmd->infile = pipefd[0];
+	set_signals_main();
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	{
+		close(pipefd[0]);
+		cmd->infile = -1;
+	}
+	else
+	{
+		cmd->infile = pipefd[0];
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 17:04:16 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:06:35 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,54 +47,72 @@ static void	close_and_free(t_shell shell, int **pipes, int *pids)
 	}
 	free(pipes);
 	i = 0;
-	while (i < shell.cmd_length)
-		waitpid(pids[i++], NULL, 0);
+	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0])) || shell.cmd_length > 1)
+		while (i < shell.cmd_length)
+			waitpid(pids[i++], NULL, 0);
 	free(pids);
 	free_commands(shell.commands, shell.cmd_length);
 }
 
-static void	fork_and_execute(t_shell shell, int **pipes, char *line, int *pids, int i)
+static void	fork_and_execute(t_shell shell, int **pipes, char *line, int *pids)
 {
 	int	j;
+	int	i;
 
-	handle_heredoc(&shell.commands[i]);
-	if (shell.commands[i].args && shell.commands[i].args[0]
-		&& is_builtin(shell.commands[i].args[0])
-		&& shell.cmd_length == 1)
+	i = 0;
+	while (i < shell.cmd_length)
 	{
-		if (shell.commands[i].infile != STDIN_FILENO)
-			dup2(shell.commands[i].infile, STDIN_FILENO);
-		if (shell.commands[i].outfile != STDOUT_FILENO)
-			dup2(shell.commands[i].outfile, STDOUT_FILENO);
-		switch_commands(shell, i, line);
-		if (str_compare_all(shell.commands[i].args[0], "exit"))
+		handle_heredoc(&shell.commands[i]);
+		if (shell.commands[i].infile == -1)
 		{
-			free(pipes);
-			free(pids);
+			write(1, "\n", 1);
+			return ;
 		}
-		return ;
-	}
-	pids[i] = fork();
-	if (pids[i] == 0)
-	{
-		if (shell.commands[i].infile != STDIN_FILENO)
-			dup2(shell.commands[i].infile, STDIN_FILENO);
-		else if (i > 0)
-			dup2(pipes[i - 1][0], STDIN_FILENO);
-		if (shell.commands[i].outfile != STDOUT_FILENO)
-			dup2(shell.commands[i].outfile, STDOUT_FILENO);
-		else if (i < shell.cmd_length - 1)
-			dup2(pipes[i][1], STDOUT_FILENO);
-		j = 0;
-		while (j < shell.cmd_length - 1)
+		if (shell.commands[i].args && shell.commands[i].args[0]
+			&& is_builtin(shell.commands[i].args[0])
+			&& shell.cmd_length == 1)
 		{
-			close(pipes[j][0]);
-			close(pipes[j][1]);
-			j++;
+			if (shell.commands[i].infile != STDIN_FILENO)
+				dup2(shell.commands[i].infile, STDIN_FILENO);
+			if (shell.commands[i].outfile != STDOUT_FILENO)
+				dup2(shell.commands[i].outfile, STDOUT_FILENO);
+			switch_commands(shell, i, line);
+			if (str_compare_all(shell.commands[i].args[0], "exit"))
+			{
+				free(pipes);
+				free(pids);
+			}
+			break ;
 		}
-		switch_commands(shell, i, line);
-		free_commands(shell.commands, shell.cmd_length);
-		exit(0);
+		pids[i] = fork();
+		if (pids[i] == 0)
+		{
+			set_signals_child();
+			if (shell.commands[i].infile != STDIN_FILENO)
+				dup2(shell.commands[i].infile, STDIN_FILENO);
+			else if (i > 0)
+				dup2(pipes[i - 1][0], STDIN_FILENO);
+			if (shell.commands[i].outfile != STDOUT_FILENO)
+				dup2(shell.commands[i].outfile, STDOUT_FILENO);
+			else if (i < shell.cmd_length - 1)
+				dup2(pipes[i][1], STDOUT_FILENO);
+			j = 0;
+			while (j < shell.cmd_length - 1)
+			{
+				close(pipes[j][0]);
+				close(pipes[j][1]);
+				j++;
+			}
+			switch_commands(shell, i, line);
+			if (shell.env_list)
+				free_env(shell.env_list);
+			if (shell.env_list_cpy)
+				free_env(shell.env_list_cpy);
+			free_commands(shell.commands, shell.cmd_length);
+			free(line);
+			exit(0);
+		}
+		i++;
 	}
 }
 
@@ -114,7 +132,6 @@ void	try_command(t_shell shell, char *line)
 	line = str_trim(line, " \t\n\r");
 	free (temp);
 	shell.cmd_length = 0;
-	i = 0;
 	shell.commands = tokenize(line, &shell.cmd_length, shell);
 	if (shell.cmd_length > 0)
 	{
@@ -131,12 +148,7 @@ void	try_command(t_shell shell, char *line)
 			pipe(pipes[i++]);
 		}
 		pids = (pid_t *)malloc(sizeof(pid_t) * shell.cmd_length);
-		i = 0;
-		while (i < shell.cmd_length)
-		{
-			fork_and_execute(shell, pipes, line, pids, i);
-			i++;
-		}
+		fork_and_execute(shell, pipes, line, pids);
 		close_and_free(shell, pipes, pids);
 	}
 	free(line);

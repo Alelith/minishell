@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/21 12:16:17 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:05:11 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	initialize_shell(t_shell *shell, char **envp)
 	shell->std_out = dup(STDOUT_FILENO);
 	print_open_banner();
 	shell->cmd_length = 0;
-	set_signals_main();
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -45,6 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 	initialize_shell(&shell, envp);
 	while (1)
 	{
+		set_signals_main();
 		line = readline("minishell~> ");
 		if (line == NULL)
 		{
@@ -53,6 +53,5 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		}
 		try_command(shell, line);
-		rl_on_new_line();
 	}
 }
