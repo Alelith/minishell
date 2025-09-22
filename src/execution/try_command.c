@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/22 14:06:35 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:40:44 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void	try_command(t_shell shell, char *line)
 	free (temp);
 	shell.cmd_length = 0;
 	shell.commands = tokenize(line, &shell.cmd_length, shell);
+	g_is_on_prompt = 0;
 	if (shell.cmd_length > 0)
 	{
 		if (any_has_error(shell.commands, shell.cmd_length))

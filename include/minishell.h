@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/22 14:00:43 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/22 16:22:27 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char		*search_command(char *command, char *exec_paths);
 void		set_signals_main(void);
 void		set_signals_child(void);
 
+int			check_command_line(char *line);
 int			is_builtin(char *cmd);
 int			is_redirection(char c);
 void		print_open_banner(void);
