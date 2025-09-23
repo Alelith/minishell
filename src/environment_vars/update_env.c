@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 12:19:16 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:10 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:28:09 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	update_env(t_env *env_list, const char *key, const char *value)
 			free(current->pair.value);
 			current->pair.key = (char *) key;
 			current->pair.value = (char *) value;
-			return (1);
+			return (0);
 		}
 		current = current->next;
 	}

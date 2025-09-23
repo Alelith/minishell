@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:49:06 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 11:51:28 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:33:20 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**get_tokens(char *input, t_shell shell)
 {
 	char	**tokens;
 
-	tokens = split_command(input, shell.env_list);
+	tokens = split_command(input, &shell);
 	return (tokens);
 }
 

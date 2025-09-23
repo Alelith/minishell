@@ -6,13 +6,13 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:21 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:57:39 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	save_var(t_command cmd, t_env *env, t_env *env_cpy)
+static void	save_var(t_command cmd, t_env *env, t_env *env_cpy)
 {
 	char	*key;
 	char	*value;
@@ -29,10 +29,9 @@ static int	save_var(t_command cmd, t_env *env, t_env *env_cpy)
 	if (exists_env(key, env_cpy))
 		update_env(env_cpy, key, value);
 	add_env(&env_cpy, key, value);
-	return (0);
 }
 
-static int	print_copies(t_env *env_cpy)
+static void	print_copies(t_env *env_cpy)
 {
 	while (env_cpy)
 	{
@@ -42,7 +41,6 @@ static int	print_copies(t_env *env_cpy)
 			print_export(env_cpy->pair.key, 0);
 		env_cpy = env_cpy->next;
 	}
-	return (0);
 }
 
 int	export(t_command cmd, t_env *env, t_env *env_cpy)

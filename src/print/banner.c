@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 11:05:57 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/18 13:47:35 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:55:24 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	print_close_banner(void)
 	printf("\n\033[0;39m");
 }
 
-void	print_comm_err(const char *message, const char *comm)
+int	print_comm_err(const char *message, const char *comm)
 {
 	printf("\e[38;5;139m%s", message);
 	printf("\e[38;5;116m%s\n\033[0;39m", comm);
+	return (1);
 }

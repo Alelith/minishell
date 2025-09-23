@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/22 16:24:34 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:38:03 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	initialize_shell(t_shell *shell, char **envp)
 	shell->std_out = dup(STDOUT_FILENO);
 	print_open_banner();
 	shell->cmd_length = 0;
+	shell->last_exitcod = 0;
 	set_signals_main();
 }
 
@@ -45,7 +46,7 @@ int	main(int argc, char *argv[], char *envp[])
 	initialize_shell(&shell, envp);
 	while (1)
 	{
-		g_is_on_prompt = 1;
+		switch_flag(1);
 		line = readline("minishell~> ");
 		if (line == NULL)
 		{
@@ -53,8 +54,9 @@ int	main(int argc, char *argv[], char *envp[])
 			free_t_shell(&shell);
 			break ;
 		}
+		switch_flag(0);
 		if (check_command_line(line))
-			try_command(shell, line);
+			shell.last_exitcod = try_command(shell, line);
 		else
 			free(line);
 	}

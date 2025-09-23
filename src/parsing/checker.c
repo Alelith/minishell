@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/22 16:27:35 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 09:11:38 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,12 @@ int	check_command_line(char *line)
         }
         else if (is_redir_token(tokens[i]))
         {
-            if (!tokens[i + 1] || strcmp(tokens[i + 1], "|") == 0)
+            if (!tokens[i + 1] || str_compare_all(tokens[i + 1], "|"))
             {
                 printf("Syntax error: redirection without file/limiter\n");
                 return (0);
             }
-            i++; 
-            expect_cmd = 0;
+            i++;
         }
         else
             expect_cmd = 0;

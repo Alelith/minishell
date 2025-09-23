@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:12:26 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/22 15:38:50 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:14:42 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	g_is_on_prompt = 1;
+
 static void	sigint_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	rl_replace_line("", 0);
 	rl_on_new_line();
-	if (g_is_on_prompt)
+	rl_replace_line("", 0);
+	if (g_is_on_prompt == 1)
 		rl_redisplay();
 }
 
@@ -37,4 +39,9 @@ void	set_signals_child(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+}
+
+void	switch_flag(int i)
+{
+	g_is_on_prompt = i;	
 }

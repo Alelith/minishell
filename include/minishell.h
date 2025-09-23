@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/22 16:22:27 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:32:50 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ typedef struct s_shell
 	unsigned short	cmd_length;
 	int				std_out;
 	int				std_in;
+	char			*last_path;
+	int				last_exitcod;
 }	t_shell;
-
-static int	g_is_on_prompt = 1;
 
 /*=============================================================================
 --------------------------- Tokenization and Parsing --------------------------
 =============================================================================*/
-char		**split_command(char *line, t_env *env);
+char		**split_command(char *line, t_shell *shell);
 t_command	*tokenize(char *input, unsigned short *len, t_shell shell);
 void		free_commands(t_command *commands, unsigned short length);
 
@@ -109,13 +109,14 @@ int			execute(t_command command, t_env *env_list);
 char		*search_command(char *command, char *exec_paths);
 void		set_signals_main(void);
 void		set_signals_child(void);
+void		switch_flag(int i);
 
 int			check_command_line(char *line);
 int			is_builtin(char *cmd);
 int			is_redirection(char c);
 void		print_open_banner(void);
 void		print_close_banner(void);
-void		print_comm_err(const char *message, const char *comm);
+int			print_comm_err(const char *message, const char *comm);
 void		print_export(const char *key, const char *value);
 int			any_has_error(t_command *cmd, unsigned short cmd_count);
 
@@ -126,7 +127,7 @@ t_command	*init_command(void);
 char		**get_tokens(char *input, t_shell shell);
 int			is_pipe_token(char *token);
 int			is_redir_token(char *token);
-void		try_command(t_shell shell, char *line);
+int			try_command(t_shell shell, char *line);
 void		handle_heredoc(t_command *cmd);
 //TODO: delete all these functions
 void		print_str_lst(char **lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:41:15 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/20 11:32:49 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:55:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	execute(t_command command, t_env *env_list)
 	i = 0;
 	envp = env_to_string_list(env_list);
 	if (!envp || command.args_c == 0 || str_len(command.args[0]) == 0)
-		return (-1);
+		return (1);
 	path = search_command(command.args[0], search_env(env_list, "PATH"));
 	if (path)
 	{
 		if (execve(path, command.args, envp) == -1)
-			print_comm_err("Error executing command: ", path);
+			return (print_comm_err("Error executing command: ", path));
 		free(path);
 	}
 	else
-		print_comm_err("Command not found: ", command.args[0]);
+		return (print_comm_err("Command not found: ", command.args[0]));
 	while (envp[i])
 		free(envp[i++]);
 	free(envp);

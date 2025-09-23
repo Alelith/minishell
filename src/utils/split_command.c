@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 16:53:30 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:44:28 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_fromset(char c, const char *set)
 	return (0);
 }
 
-static char	*get_enval(char *token, t_env *env)
+static char	*get_enval(char *token, t_shell *shell)
 {
 	char	*dollar;
 	char	*tmp;
@@ -34,7 +34,10 @@ static char	*get_enval(char *token, t_env *env)
 	res = str_substring(token, 0, str_len(token) - str_len(dollar));
 	while (dollar)
 	{
-		tmp = search_env(env, dollar + 1);
+		if (!str_compare_all(dollar, "$?"))
+			tmp = search_env(shell->env_list, dollar + 1);
+		else
+			tmp = int_to_str(shell->last_exitcod);
 		tmp_delete = res;
 		res = str_join(res, tmp);
 		free(tmp_delete);
@@ -53,7 +56,7 @@ static char	*get_enval(char *token, t_env *env)
 }
 
 static char	*get_word(char *line, const char *delimiters, int *index,
-						t_env *env)
+						t_shell *shell)
 {
 	int		word_len;
 	char	*tmp;
@@ -88,24 +91,24 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 		{
 			*index = *index + 1;
 			if (line[word_len] == '"')
-				tmp = get_word(&line[word_len + 1], "\"", index, env);
+				tmp = get_word(&line[word_len + 1], "\"", index, shell);
 			else if (line[word_len] == '\'')
 				tmp = get_word(&line[word_len + 1], "'", index, 0);
 		}
 		else
-			tmp = get_word(&line[word_len], " \n\t\r\"'|<>", index, env);
+			tmp = get_word(&line[word_len], " \n\t\r\"'|<>", index, shell);
 	}
 	to_delete = res;
 	res = str_join(res, tmp);
 	if (tmp)
 		free(tmp);
 	free(to_delete);
-	if (env)
-		res = get_enval(res, env);
+	if (shell)
+		res = get_enval(res, shell);
 	return (res);
 }
 
-char	**split_command(char *line, t_env *env)
+char	**split_command(char *line, t_shell *shell)
 {
 	int		argc;
 	char	**args;
@@ -121,11 +124,11 @@ char	**split_command(char *line, t_env *env)
 			args = reallocation(args, (argc + 1) * sizeof(char *),
 					argc * sizeof(char *));
 			if (line[i] == '"')
-				args[argc++] = get_word(&line[++i], "\"", &i, env);
+				args[argc++] = get_word(&line[++i], "\"", &i, shell);
 			else if (line[i] == '\'')
 				args[argc++] = get_word(&line[++i], "'", &i, 0);
 			else
-				args[argc++] = get_word(&line[i], " \n\t\r'\"'|<>", &i, env);
+				args[argc++] = get_word(&line[i], " \n\t\r'\"'|<>", &i, shell);
 		}
 		else if (line[i])
 			i++;
