@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/22 12:11:28 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/23 17:32:23 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	handle_heredoc(t_command *cmd)
 {
 	int		pipefd[2];
-	pid_t   pid;
-	int     status;
+	pid_t	pid;
+	int		status;
 
 	if (!cmd->heredoc_eof)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:12:26 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/23 10:14:42 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/23 17:02:57 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	set_signals_child(void)
 
 void	switch_flag(int i)
 {
-	g_is_on_prompt = i;	
+	g_is_on_prompt = i;
 }

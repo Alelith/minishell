@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/23 12:50:24 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/23 17:06:20 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	switch_commands(t_shell shell, int index, char *line)
 	else if (str_compare_all(shell.commands[index].args[0], "pwd"))
 		return (pwd());
 	else if (str_compare_all(shell.commands[index].args[0], "export"))
-		return (export(shell.commands[index], shell.env_list, shell.env_list_cpy));
+		return (export(shell.commands[index], shell.env_list,
+				shell.env_list_cpy));
 	else if (str_compare_all(shell.commands[index].args[0], "unset"))
 		return (unset(shell.commands[index], &shell.env_list));
 	else if (str_compare_all(shell.commands[index].args[0], "env"))
@@ -41,11 +42,12 @@ static int	*close_and_free(t_shell shell, int **pipes, int *pids)
 	int	*statuses;
 
 	i = 0;
-	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0])) || shell.cmd_length > 1)
+	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0]))
+		|| shell.cmd_length > 1)
 	{
 		statuses = malloc(shell.cmd_length * sizeof(int));
 		if (!statuses)
-			return (0);	
+			return (0);
 	}
 	else
 		statuses = 0;
@@ -57,7 +59,8 @@ static int	*close_and_free(t_shell shell, int **pipes, int *pids)
 	}
 	free(pipes);
 	i = 0;
-	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0])) || shell.cmd_length > 1)
+	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0]))
+		|| shell.cmd_length > 1)
 		while (i++ < shell.cmd_length)
 			waitpid(pids[i - 1], &statuses[i - 1], 0);
 	free(pids);
