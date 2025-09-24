@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 11:26:38 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 12:49:09 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,14 @@ static int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 	return (err);
 }
 
-int	try_command(t_shell *shell, char *line)
+int	try_command(t_shell *shell, char *line, int i)
 {
 	int		**pipes;
 	pid_t	*pids;
 	char	*temp;
 	int		err;
 	int		*statuses;
-	int		i;
 
-	i = 0;
 	pipes = NULL;
 	pids = NULL;
 	if (line && *line)

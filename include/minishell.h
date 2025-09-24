@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 10:37:40 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 12:50:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,8 @@ t_command	*init_command(void);
 char		**get_tokens(char *input, t_shell shell);
 int			is_pipe_token(char *token);
 int			is_redir_token(char *token);
-int			try_command(t_shell *shell, char *line);
+int			try_command(t_shell *shell, char *line, int i);
 void		handle_heredoc(t_command *cmd);
 char		*get_last_path(char *this_path);
-//TODO: delete all these functions
-void		print_str_lst(char **lst);
 
 #endif

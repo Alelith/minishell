@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 11:45:06 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 12:37:59 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
 			if (!line)
 			{
 				close(pipefd[1]);
-				exit(1);
+				exit(130);
 			}
 			if (str_compare_all(line, cmd->heredoc_eof))
 			{
@@ -68,7 +68,7 @@ void	handle_heredoc(t_command *cmd)
 	throw_heredoc(pid, pipefd, cmd);
 	close(pipefd[1]);
 	waitpid(pid, &status, 0);
-	if (status)
+	if (((status) & 0x7f) == 0 && ((status) & 0xff00) >> 8 == 130)
 	{
 		close(pipefd[0]);
 		cmd->infile = -1;
