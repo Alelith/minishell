@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 11:35:30 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:19:41 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static int	handle_redirection(char **tokens, int *i)
 	return (1);
 }
 
-static int	handle_last_error(int expect_cmd)
+static int	handle_last_error(int expect_cmd, char *line)
 {
-	if (expect_cmd)
+	if (expect_cmd && str_len(line))
 	{
 		printf("Syntax error: command expected after pipe\n");
 		return (0);
@@ -70,5 +70,5 @@ int	check_command_line(char *line)
 			expect_cmd = 0;
 		i++;
 	}
-	return (handle_last_error(expect_cmd));
+	return (handle_last_error(expect_cmd, line));
 }
