@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 12:50:29 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:25:39 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,20 @@ char		*search_command(char *command, char *exec_paths);
 void		set_signals_main(void);
 void		set_signals_child(void);
 void		switch_flag(int i);
+
+/*=============================================================================
+--------------------------------- Command utils -------------------------------
+=============================================================================*/
+int			switch_commands(t_shell *shell, int index, char *line);
+void		close_and_free_pipes(int **pipes, t_shell shell);
+int			*close_and_free(t_shell shell, int **pipes, int *pids);
+void		free_and_exit(t_shell *shell, char *line, int err);
+void		execute_fork(t_shell *shell, int i, int **pipes, char *line);
+void		execute_builtin(t_shell *shell, int i, int *err, char *line);
+void		finish_execute(int i, t_shell *shell, int **pipes, int *pids);
+int			is_builtin_candidate(t_shell *shell, int i);
+int			fork_and_execute(t_shell *shell, int **pipes,
+				char *line, int *pids);
 
 int			check_command_line(char *line);
 int			is_builtin(char *cmd);

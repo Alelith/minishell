@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 12:45:08 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:58:59 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 	return (res);
 }
 
-static void	make_things(char *line, int *argc, char ***args, t_shell *shell)
+static char	**make_things(char *line, int *argc, char **args, t_shell *shell)
 {
 	int		i;
 
@@ -117,19 +117,20 @@ static void	make_things(char *line, int *argc, char ***args, t_shell *shell)
 	{
 		if (line[i] && !is_space(line[i]))
 		{
-			*args = reallocation(*args, (*argc + 1) * sizeof(char *),
+			args = reallocation(args, (*argc + 1) * sizeof(char *),
 					*argc * sizeof(char *));
 			if (line[i] == '"')
-				*args[(*argc)++] = get_word(&line[++i], "\"", &i, shell);
+				args[*argc] = get_word(&line[++i], "\"", &i, shell);
 			else if (line[i] == '\'')
-				*args[(*argc)++] = get_word(&line[++i], "'", &i, 0);
+				args[*argc] = get_word(&line[++i], "'", &i, 0);
 			else
-				*args[(*argc)++] = get_word(&line[i],
-						" \n\t\r'\"'|<>", &i, shell);
+				args[*argc] = get_word(&line[i], " \n\t\r'\"'|<>", &i, shell);
+			*argc = *argc + 1;
 		}
 		else if (line[i])
 			i++;
 	}
+	return (args);
 }
 
 char	**split_command(char *line, t_shell *shell)
@@ -139,7 +140,7 @@ char	**split_command(char *line, t_shell *shell)
 
 	argc = 0;
 	args = 0;
-	make_things(line, &argc, &args, shell);
+	args = make_things(line, &argc, args, shell);
 	args = reallocation(args, (argc + 1) * sizeof(char *),
 			argc * sizeof(char *));
 	return (args);
