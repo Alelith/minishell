@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/23 11:32:50 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:37:40 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 
 typedef struct s_env	t_env;
 
@@ -101,7 +102,7 @@ char		*search_env(t_env *envs, const char *key);
 int			echo(t_command command);
 int			exit_exec(t_shell shell, char *line);
 int			pwd(void);
-int			cd(t_command command);
+int			cd(t_shell *shell, t_command command);
 int			env(t_env *env_list);
 int			export(t_command cmd, t_env *env, t_env *env_cpy);
 int			unset(t_command cmd, t_env **env_list);
@@ -127,8 +128,9 @@ t_command	*init_command(void);
 char		**get_tokens(char *input, t_shell shell);
 int			is_pipe_token(char *token);
 int			is_redir_token(char *token);
-int			try_command(t_shell shell, char *line);
+int			try_command(t_shell *shell, char *line);
 void		handle_heredoc(t_command *cmd);
+char		*get_last_path(char *this_path);
 //TODO: delete all these functions
 void		print_str_lst(char **lst);
 

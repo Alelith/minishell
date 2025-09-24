@@ -40,7 +40,7 @@ PARSING_DIR = parsing/
 PARSING_FILES = checker tokenizer tokenizer_command tokenizer_redir tokenizer_utils
 
 UTILS_DIR = utils/
-UTILS_FILES = free_commands search_command split_command is_redirection any_has_error handle_heredoc is_builtin
+UTILS_FILES = free_commands search_command split_command is_redirection any_has_error handle_heredoc is_builtin get_last_path
 
 BANNER_DIR = print/
 BANNER_FILES = banner export_vars

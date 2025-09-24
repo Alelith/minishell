@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/23 12:38:03 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:37:46 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	initialize_shell(t_shell *shell, char **envp)
 	print_open_banner();
 	shell->cmd_length = 0;
 	shell->last_exitcod = 0;
+	shell->last_path = str_duplicate(getcwd(0, 0));
 	set_signals_main();
 }
 
@@ -56,7 +57,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		switch_flag(0);
 		if (check_command_line(line))
-			shell.last_exitcod = try_command(shell, line);
+			shell.last_exitcod = try_command(&shell, line);
 		else
 			free(line);
 	}
