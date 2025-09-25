@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/24 11:11:47 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:28:01 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*resolve_cd_path(t_command command, char *current_path)
 	char	*path;
 
 	if (command.args_c == 1 || (command.args_c == 2
-			&& str_compare_all(command.args[0], "~")))
+			&& str_compare_all(command.args[1], "~")))
 	{
 		path = str_duplicate(getenv("HOME"));
 		if (!path)

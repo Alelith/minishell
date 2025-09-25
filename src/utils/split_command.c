@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 13:58:59 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:59:24 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 	return (res);
 }
 
-static char	**make_things(char *line, int *argc, char **args, t_shell *shell)
+static char	**proccess_line(char *line, int *argc, char **args, t_shell *shell)
 {
 	int		i;
 
@@ -140,7 +140,7 @@ char	**split_command(char *line, t_shell *shell)
 
 	argc = 0;
 	args = 0;
-	args = make_things(line, &argc, args, shell);
+	args = proccess_line(line, &argc, args, shell);
 	args = reallocation(args, (argc + 1) * sizeof(char *),
 			argc * sizeof(char *));
 	return (args);

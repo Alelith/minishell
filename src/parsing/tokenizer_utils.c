@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:49:06 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/23 11:33:20 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/25 11:18:02 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

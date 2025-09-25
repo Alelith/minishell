@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 14:15:45 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:44:14 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

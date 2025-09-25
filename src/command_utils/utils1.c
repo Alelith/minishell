@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/24 13:20:52 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:41:02 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	execute_fork(t_shell *shell, int i, int **pipes, char *line)
 	int	j;
 	int	err;
 
-	set_signals_child();
 	if (shell->commands[i].infile != STDIN_FILENO)
 		dup2(shell->commands[i].infile, STDIN_FILENO);
 	else if (i > 0)
