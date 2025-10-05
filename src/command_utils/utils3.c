@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 20:18:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/05 13:33:23 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:38:18 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 
 #include "minishell.h"
 
-static int env_list_size(t_env *env)
+static int	env_list_size(t_env *env)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (env)
 	{
 		count++;
