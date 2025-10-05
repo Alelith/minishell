@@ -46,7 +46,7 @@ BANNER_DIR = print/
 BANNER_FILES = banner export_vars
 
 CMD_UTILS_DIR = command_utils/
-CMD_UTILS_FILES = utils1 utils2
+CMD_UTILS_FILES = utils1 utils2 utils3
 
 EXEC_DIR = execution/
 EXEC_FILES = echo exit pwd cd env export unset execute signals try_command

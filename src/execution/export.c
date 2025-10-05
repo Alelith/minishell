@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/23 10:57:39 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:33:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ static void	save_var(t_command cmd, t_env *env, t_env *env_cpy)
 		value = get_value(cmd.args[1]);
 		if (exists_env(key, env))
 			update_env(env, key, value);
-		add_env(&env, str_duplicate(key), str_duplicate(value));
+		else
+			add_env(&env, str_duplicate(key), str_duplicate(value));
 	}
 	if (exists_env(key, env_cpy))
 		update_env(env_cpy, key, value);
-	add_env(&env_cpy, key, value);
+	else
+		add_env(&env_cpy, key, value);
 }
 
-static void	print_copies(t_env *env_cpy)
+/*static void	print_copies(t_env *env_cpy)
 {
 	while (env_cpy)
 	{
@@ -41,13 +43,13 @@ static void	print_copies(t_env *env_cpy)
 			print_export(env_cpy->pair.key, 0);
 		env_cpy = env_cpy->next;
 	}
-}
+}*/
 
 int	export(t_command cmd, t_env *env, t_env *env_cpy)
 {
 	if (cmd.args_c > 1)
 		save_var(cmd, env, env_cpy);
 	else
-		print_copies(env_cpy);
+		print_sorted_env(env_cpy);
 	return (0);
 }

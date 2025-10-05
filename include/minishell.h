@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/25 11:17:51 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:14:03 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void		finish_execute(int i, t_shell *shell, int **pipes, int *pids);
 int			is_builtin_candidate(t_shell *shell, int i);
 int			fork_and_execute(t_shell *shell, int **pipes,
 				char *line, int *pids);
+void		print_sorted_env(t_env *env);
 
 int			check_command_line(char *line);
 int			is_builtin(char *cmd);
