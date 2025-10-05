@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/25 10:34:39 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:53:23 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	free_t_shell(t_shell *shell)
 
 static void	initialize_shell(t_shell *shell, char **envp)
 {
+	char	*cwd;
+
 	shell->env_list = set_env(envp);
 	shell->env_list_cpy = set_env(envp);
 	shell->std_in = dup(STDIN_FILENO);
@@ -30,7 +32,14 @@ static void	initialize_shell(t_shell *shell, char **envp)
 	print_open_banner();
 	shell->cmd_length = 0;
 	shell->last_exitcod = 0;
-	shell->last_path = str_duplicate(getcwd(0, 0));
+	cwd = getcwd(NULL, 0);
+	if (cwd)
+	{
+		shell->last_path = str_duplicate(cwd);
+		free(cwd);
+	}
+	else
+		shell->last_path = NULL;
 	set_signals_main();
 }
 

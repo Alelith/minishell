@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/04 20:14:03 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:26:59 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ typedef struct s_shell
 --------------------------- Tokenization and Parsing --------------------------
 =============================================================================*/
 char		**split_command(char *line, t_shell *shell);
+char		*get_word(char *line, const char *delimiters, int *index,
+						t_shell *shell);
+char		*handle_word_join(char *line, int *index, t_shell *shell, int word_len);
 t_command	*tokenize(char *input, unsigned short *len, t_shell shell);
 void		free_commands(t_command *commands, unsigned short length);
 

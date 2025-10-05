@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/25 10:59:24 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:33:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ static int	is_fromset(char c, const char *set)
 	return (0);
 }
 
+static void	expand_var(char **res, char *dollar, t_shell *shell)
+{
+	char	*tmp;
+	char	*tmp_delete;
+
+	if (!str_compare_all(dollar, "$?"))
+		tmp = search_env(shell->env_list, dollar + 1);
+	else
+		tmp = int_to_str(shell->last_exitcod);
+	tmp_delete = *res;
+	*res = str_join(*res, tmp);
+	free(tmp_delete);
+}
+
 static char	*get_enval(char *token, t_shell *shell)
 {
 	char	*dollar;
@@ -34,13 +48,7 @@ static char	*get_enval(char *token, t_shell *shell)
 	res = str_substring(token, 0, str_len(token) - str_len(dollar));
 	while (dollar)
 	{
-		if (!str_compare_all(dollar, "$?"))
-			tmp = search_env(shell->env_list, dollar + 1);
-		else
-			tmp = int_to_str(shell->last_exitcod);
-		tmp_delete = res;
-		res = str_join(res, tmp);
-		free(tmp_delete);
+		expand_var(&res, dollar, shell);
 		while (dollar && *dollar && !is_space(*dollar))
 			dollar++;
 		tmp = str_substring(dollar, 0,
@@ -55,16 +63,11 @@ static char	*get_enval(char *token, t_shell *shell)
 	return (res);
 }
 
-static char	*get_word(char *line, const char *delimiters, int *index,
-						t_shell *shell)
+static int	get_word_len(char *line, const char *delimiters)
 {
 	int		word_len;
-	char	*tmp;
-	char	*to_delete;
-	char	*res;
 
 	word_len = 0;
-	tmp = 0;
 	while (line[word_len] && !is_fromset(line[word_len], delimiters))
 		word_len++;
 	if (word_len == 0 && (*line == '|'))
@@ -75,14 +78,14 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 	if (word_len == 0)
 		while (line[word_len] == '>')
 			word_len++;
-	*index = *index + word_len;
-	res = str_substring(line, 0, word_len);
-	if ((delimiters[0] == '\'' && line[word_len] == '\'')
-		|| (delimiters[0] == '"' && line[word_len] == '"'))
-	{
-		*index = *index + 1;
-		word_len++;
-	}
+	return (word_len);
+}
+
+char	*handle_word_join(char *line, int *index, t_shell *shell, int word_len)
+{
+	char	*tmp;
+
+	tmp = 0;
 	if (line[word_len] && !is_space(line[word_len])
 		&& !is_redirection(line[word_len])
 		&& !is_redirection(line[word_len - 1]))
@@ -98,6 +101,27 @@ static char	*get_word(char *line, const char *delimiters, int *index,
 		else
 			tmp = get_word(&line[word_len], " \n\t\r\"'|<>", index, shell);
 	}
+	return (tmp);
+}
+
+char	*get_word(char *line, const char *delimiters, int *index,
+						t_shell *shell)
+{
+	int		word_len;
+	char	*tmp;
+	char	*to_delete;
+	char	*res;
+
+	word_len = get_word_len(line, delimiters);
+	*index = *index + word_len;
+	res = str_substring(line, 0, word_len);
+	if ((delimiters[0] == '\'' && line[word_len] == '\'')
+		|| (delimiters[0] == '"' && line[word_len] == '"'))
+	{
+		*index = *index + 1;
+		word_len++;
+	}
+	tmp = handle_word_join(line, index, shell, word_len);
 	to_delete = res;
 	res = str_join(res, tmp);
 	if (tmp)
