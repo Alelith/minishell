@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/08 10:39:49 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:48:13 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	execute_builtin(t_shell *shell, int i, int *err, char *line)
 	if (shell->commands[i].outfile != STDOUT_FILENO)
 		dup2(shell->commands[i].outfile, STDOUT_FILENO);
 	*err = switch_commands(shell, i, line);
+	dup2(shell->std_in, STDIN_FILENO);
+	dup2(shell->std_out, STDOUT_FILENO);
 }
 
 void	finish_execute(int i, t_shell *shell, int **pipes, int *pids)
