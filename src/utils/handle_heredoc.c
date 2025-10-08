@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/24 12:37:59 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:42:40 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
 {
 	char	*line;
 
-	line = NULL;
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		close(pipefd[0]);
 		while (1)
 		{

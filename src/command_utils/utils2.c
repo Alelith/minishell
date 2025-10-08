@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/08 10:36:04 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:39:49 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 		}
 		if (is_builtin_candidate(shell, i))
 		{
+			handle_heredoc(&shell->commands[i]);
 			execute_builtin(shell, i, &err, line);
 			finish_execute(i, shell, pipes, pids);
 			return (err);
