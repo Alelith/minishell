@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/25 10:42:18 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:36:04 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 	err = 0;
 	while (i < shell->cmd_length)
 	{
-		handle_heredoc(&shell->commands[i]);
 		if (shell->commands[i].infile == -1)
 		{
 			write(1, "\n", 1);
@@ -60,7 +59,11 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 		}
 		pids[i] = fork();
 		if (pids[i] == 0)
+		{
+			set_signals_child();
+			handle_heredoc(&shell->commands[i]);
 			execute_fork(shell, i, pipes, line);
+		}
 		i++;
 	}
 	return (err);

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/25 10:41:02 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:33:14 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,18 @@ int	*close_and_free(t_shell shell, int **pipes, int *pids)
 	i = 0;
 	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0]))
 		|| shell.cmd_length > 1)
+	{
 		while (i++ < shell.cmd_length)
+		{
 			waitpid(pids[i - 1], &statuses[i - 1], 0);
+			if (((statuses[i - 1]) & 0x7f) == SIGQUIT)
+				printf("Quit (core dumped)\n");
+			if (((statuses[i - 1]) & 0xff00) >> 8 != 0)
+				statuses[i - 1] = ((statuses[i - 1]) & 0xff00) >> 8;
+			else if (statuses[i - 1] != 0)
+				statuses[i - 1] = statuses[i - 1] + 128;
+		}
+	}
 	free(pids);
 	free_commands(shell.commands, shell.cmd_length);
 	return (statuses);

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:12:26 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/25 10:46:45 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:36:53 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,5 @@ void	set_signals_child(void)
 
 void	switch_flag(int i)
 {
-	if (i)
-		set_signals_main();
-	else
-		set_signals_child();
 	g_is_on_prompt = i;
 }
