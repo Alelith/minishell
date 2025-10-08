@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/25 11:17:56 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:53:02 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@ static int	handle_redirection(char **tokens, int *i)
 	return (1);
 }
 
+static int	check_quotes(char *line)
+{
+	int	i;
+	int	single_quote;
+	int	double_quote;
+
+	i = 0;
+	single_quote = 0;
+	double_quote = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'' && !double_quote)
+			single_quote = !single_quote;
+		else if (line[i] == '"' && !single_quote)
+			double_quote = !double_quote;
+		i++;
+	}
+	if (single_quote || double_quote)
+	{
+		printf("Syntax error: unclosed quotes\n");
+		return (0);
+	}
+	return (1);
+}
+
 static int	handle_last_error(int expect_cmd, char *line)
 {
 	if (expect_cmd && str_len(line))
@@ -51,6 +76,8 @@ int	check_command_line(char *line)
 	int		i;
 	int		expect_cmd;
 
+	if (!check_quotes(line))
+		return (0);
 	i = 0;
 	tokens = split_command(line, 0);
 	expect_cmd = 1;
