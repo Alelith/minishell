@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/05 17:26:59 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/09 19:23:05 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ typedef struct s_shell
 =============================================================================*/
 char		**split_command(char *line, t_shell *shell);
 char		*get_word(char *line, const char *delimiters, int *index,
-						t_shell *shell);
-char		*handle_word_join(char *line, int *index, t_shell *shell, int word_len);
+				t_shell *shell);
+char		*handle_word_join(char *line, int *index,
+				t_shell *shell, int word_len);
 t_command	*tokenize(char *input, unsigned short *len, t_shell shell);
 void		free_commands(t_command *commands, unsigned short length);
 
@@ -147,7 +148,7 @@ char		**get_tokens(char *input, t_shell shell);
 int			is_pipe_token(char *token);
 int			is_redir_token(char *token);
 int			try_command(t_shell *shell, char *line);
-void		handle_heredoc(t_command *cmd);
+void		handle_heredoc(t_command *cmd, short is_from_builtin);
 char		*get_last_path(char *this_path);
 
 #endif

@@ -3,18 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 20:18:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/05 13:38:18 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/09 19:23:35 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//Cuento los elementos de la lista enlazada y devuelvo su tamaño.
-//Convierto la lista en un array de punteros.
-//Comparo dos cadenas caracter a caracter para comparar las claves (creo que no puedo usar tu str_compare_all)
-//Ordeno las claves con bubble sort (creo que es bubble sort).
-//Imprimo el resultado.
 
 #include "minishell.h"
 

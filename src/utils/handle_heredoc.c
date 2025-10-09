@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/08 10:42:40 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/09 19:28:12 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ static void	write_and_free(int *pipefd, char *line)
 	write(pipefd[1], line, str_len(line));
 	write(pipefd[1], "\n", 1);
 	free(line);
+}
+
+static void	close_and_waitpid(int *pipefd, int pid, int *status)
+{
+	close(pipefd[1]);
+	waitpid(pid, status, 0);
 }
 
 static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
@@ -48,7 +54,7 @@ static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
 	}
 }
 
-void	handle_heredoc(t_command *cmd)
+void	handle_heredoc(t_command *cmd, short is_from_builtin)
 {
 	int		pipefd[2];
 	pid_t	pid;
@@ -66,9 +72,9 @@ void	handle_heredoc(t_command *cmd)
 		return ;
 	}
 	throw_heredoc(pid, pipefd, cmd);
-	close(pipefd[1]);
-	waitpid(pid, &status, 0);
-	if (((status) & 0x7f) == 0 && ((status) & 0xff00) >> 8 == 130)
+	close_and_waitpid(pipefd, pid, &status);
+	if ((((status) & 0x7f) == 0 && ((status) & 0xff00) >> 8 == 130)
+		|| is_from_builtin)
 	{
 		close(pipefd[0]);
 		cmd->infile = -1;
