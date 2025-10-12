@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   survival_lib.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:29:11 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 09:15:29 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/12 17:08:42 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -469,6 +469,8 @@ char			*str_search_rev_char(const char *s, int c);
  */
 char			*str_search_str(const char *big, const char *little,
 					size_t len);
+
+char			*str_search_set(const char *s, const char *set);
 
 /**
  * @brief Splits a string into an array of strings based on a delimiter.

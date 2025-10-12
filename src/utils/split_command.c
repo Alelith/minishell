@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/12 16:41:00 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/12 17:12:33 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ static int	is_fromset(char c, const char *set)
 static void	expand_var(char **res, char *dollar, t_shell *shell)
 {
 	char	*tmp;
+	char	*clean;
 	char	*tmp_delete;
 
-	if (!str_compare_all(dollar, "$?"))
+	clean = str_substring(dollar, 0, 
+			str_len(dollar) - str_len(str_search_set(dollar, " \t\n\r'\"")));
+	if (!str_compare_all(clean, "$?") && !str_compare_all(clean, "$"))
 		tmp = search_env(shell->env_list, dollar + 1);
-	else
+	else if (str_compare_all(dollar, "$?"))
 		tmp = int_to_str(shell->last_exitcod);
+	else
+		tmp = str_duplicate("$");
 	tmp_delete = *res;
 	*res = str_join(*res, tmp);
+	free(clean);
 	free(tmp_delete);
 }
 

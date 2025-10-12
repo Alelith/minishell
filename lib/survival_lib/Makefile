@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+         #
+#    By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 11:29:11 by acesteve          #+#    #+#              #
-#    Updated: 2025/09/16 09:15:48 by bvarea-k         ###   ########.fr        #
+#    Updated: 2025/10/12 17:09:00 by acesteve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ MEMORY_FILES = callocation reallocation mem_compare mem_copy mem_move mem_search
 
 STRING_DIR = string/
 STRING_FILES = str_concat str_copy str_duplicate str_join str_len \
-				str_search_char str_search_rev_char str_search_str str_split str_substring str_trim
+				str_search_char str_search_rev_char str_search_str str_split str_substring str_trim \
+				str_search_set
 
 PRINTF_DIR = printf/
 PRINTF_FILES = print_format \
