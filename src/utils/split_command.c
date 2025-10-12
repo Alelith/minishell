@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/05 17:33:29 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/12 16:41:00 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*get_enval(char *token, t_shell *shell)
 	while (dollar)
 	{
 		expand_var(&res, dollar, shell);
-		while (dollar && *dollar && !is_space(*dollar))
+		while (dollar && *dollar && !is_fromset(*dollar, "'\" \t\n\r"))
 			dollar++;
 		tmp = str_substring(dollar, 0,
 				str_len(dollar) - str_len(str_search_char(dollar, '$')));
