@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/08 10:33:14 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:17:42 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,24 @@ void	close_and_free_pipes(int **pipes, t_shell shell)
 	}
 }
 
+static void	wait_for_children(int *pids, int *statuses, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		waitpid(pids[i], &statuses[i], 0);
+		if ((statuses[i] & 0x7f) == SIGQUIT)
+			printf("Quit (core dumped)\n");
+		if (((statuses[i] & 0xff00) >> 8) != 0)
+			statuses[i] = (statuses[i] & 0xff00) >> 8;
+		else if (statuses[i] != 0)
+			statuses[i] += 128;
+		i++;
+	}
+}
+
 int	*close_and_free(t_shell shell, int **pipes, int *pids)
 {
 	int	i;
@@ -69,18 +87,7 @@ int	*close_and_free(t_shell shell, int **pipes, int *pids)
 	i = 0;
 	if ((shell.cmd_length == 1 && !is_builtin(shell.commands[i].args[0]))
 		|| shell.cmd_length > 1)
-	{
-		while (i++ < shell.cmd_length)
-		{
-			waitpid(pids[i - 1], &statuses[i - 1], 0);
-			if (((statuses[i - 1]) & 0x7f) == SIGQUIT)
-				printf("Quit (core dumped)\n");
-			if (((statuses[i - 1]) & 0xff00) >> 8 != 0)
-				statuses[i - 1] = ((statuses[i - 1]) & 0xff00) >> 8;
-			else if (statuses[i - 1] != 0)
-				statuses[i - 1] = statuses[i - 1] + 128;
-		}
-	}
+		wait_for_children(pids, statuses, shell.cmd_length);
 	free(pids);
 	free_commands(shell.commands, shell.cmd_length);
 	return (statuses);
