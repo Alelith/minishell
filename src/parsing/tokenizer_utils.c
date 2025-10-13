@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:49:06 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/25 11:18:02 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/14 00:09:53 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_command	*init_command(void)
 	return (cmd);
 }
 
-char	**get_tokens(char *input, t_shell shell)
+t_token	*get_tokens(char *input, t_shell shell)
 {
-	char	**tokens;
+	t_token	*tokens;
 
 	tokens = split_command(input, &shell);
 	return (tokens);

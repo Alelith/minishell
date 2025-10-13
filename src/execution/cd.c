@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/25 10:28:01 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:45:40 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static char	*resolve_cd_path(t_command command, char *current_path)
 	else
 	{
 		free(current_path);
-		print_comm_err("cd: too many arguments", "");
 		return (NULL);
 	}
 	return (path);
@@ -104,7 +103,7 @@ int	cd(t_shell *shell, t_command command)
 	else if (command.args_c == 2 && !str_compare_all(command.args[1], "-"))
 		path = str_duplicate(command.args[1]);
 	else
-		return (1);
+		return (print_comm_err("cd: too many arguments", ""));
 	if (execute_cd(command, &path, &current_path, shell))
 		return (1);
 	free(path);

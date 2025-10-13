@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 16:36:11 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:42:13 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*static int	fd_err(void)
+{
+	write (1, "\n", 1);
+	return (1);
+}*/
 
 void	execute_builtin(t_shell *shell, int i, int *err, char *line)
 {
@@ -49,10 +55,7 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 	while (i < shell->cmd_length)
 	{
 		if (shell->commands[i].infile == -1)
-		{
-			write(1, "\n", 1);
 			return (1);
-		}
 		if (is_builtin_candidate(shell, i))
 		{
 			handle_heredoc(&shell->commands[i]);
@@ -61,13 +64,12 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 			return (err);
 		}
 		pids[i] = fork();
-		if (pids[i] == 0)
+		if (pids[i++] == 0)
 		{
-			handle_heredoc(&shell->commands[i]);
+			handle_heredoc(&shell->commands[i - 1]);
 			set_signals_child();
-			execute_fork(shell, i, pipes, line);
+			execute_fork(shell, i - 1, pipes, line);
 		}
-		i++;
 	}
 	return (err);
 }

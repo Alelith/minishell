@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 13:08:22 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/14 00:14:08 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ struct s_env
 	t_env		*next;
 };
 
+typedef struct s_token
+{
+	t_bool	is_literal;
+	char	*token;
+}	t_token;
+
 typedef struct s_shell
 {
 	t_env			*env_list;
@@ -78,7 +84,7 @@ typedef struct s_shell
 /*=============================================================================
 --------------------------- Tokenization and Parsing --------------------------
 =============================================================================*/
-char		**split_command(char *line, t_shell *shell);
+t_token		*split_command(char *line, t_shell *shell);
 char		*get_word(char *line, const char *delimiters, int *index,
 				t_shell *shell);
 char		*handle_word_join(char *line, int *index,
@@ -142,9 +148,9 @@ int			any_has_error(t_command *cmd, unsigned short cmd_count);
 
 void		proccess_command(char *token, t_command *cmd);
 int			check_file(char *file, t_redir redir_type);
-void		proccess_redir(char **tokens, int index, t_command *cmd);
+void		proccess_redir(t_token *tokens, int index, t_command *cmd);
 t_command	*init_command(void);
-char		**get_tokens(char *input, t_shell shell);
+t_token		*get_tokens(char *input, t_shell shell);
 int			is_pipe_token(char *token);
 int			is_redir_token(char *token);
 int			try_command(t_shell *shell, char *line);

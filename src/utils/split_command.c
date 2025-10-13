@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 21:27:42 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/14 00:22:06 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,22 @@ static int	count_until(char *line, const char *delimiters)
 	return (res);
 }
 
+static int	count_while(char *line, const char *delimiters)
+{
+	int	res;
+
+	res = 0;
+	while (line[res] && is_from_set(line[res], delimiters))
+		res++;
+	return (res);
+}
+
 static char	*get_value_from_env(char **line, t_shell *shell)
 {
 	char	*res;
 	char	*tmp;
 	int		size;
-	
+
 	tmp = 0;
 	if (*(*line + 1) == '?')
 	{
@@ -48,6 +58,7 @@ static char	*get_value_from_env(char **line, t_shell *shell)
 static char	*get_token(char **line, const char *delimiters, char type
 		, t_shell *shell)
 {
+	int		size;
 	char	*tmp;
 	char	*res;
 	char	*old_res;
@@ -75,8 +86,26 @@ static char	*get_token(char **line, const char *delimiters, char type
 			tmp = get_token(line, "\"", '\"', shell);
 		else if (**line == '\'')
 			tmp = get_token(line, "\'", '\'', shell);
-		else
+		else if (type != '<' && type != '>' && type != '|')
 			tmp = get_token(line, " \t\n\r\'\"<>|", ' ', shell);
+		else if (type == '<')
+		{
+			size = count_while(*line, "<");
+			tmp = str_substring(*line, 0, size);
+			*line = *line + size;
+		}
+		else if (type == '>')
+		{
+			size = count_while(*line, ">");
+			tmp = str_substring(*line, 0, size);
+			*line = *line + size;
+		}
+		else if (type == '|')
+		{
+			size = count_while(*line, "|");
+			tmp = str_substring(*line, 0, size);
+			*line = *line + size;
+		}
 		old_res = res;
 		res = str_join(res, tmp);
 		free(old_res);
@@ -85,11 +114,12 @@ static char	*get_token(char **line, const char *delimiters, char type
 	return (res);
 }
 
-char	**split_command(char *line, t_shell *shell)
+t_token	*split_command(char *line, t_shell *shell)
 {
+	char	type;
 	char	*tmp;
 	int		argc;
-	char	**args;
+	t_token	*args;
 
 	argc = 0;
 	args = 0;
@@ -98,19 +128,32 @@ char	**split_command(char *line, t_shell *shell)
 		tmp = 0;
 		while (*line && isspace(*line))
 			line++;
+		type = *line;
 		if (*line == '\"')
 			tmp = get_token(&line, "\"", '\"', shell);
 		else if (*line == '\'')
 			tmp = get_token(&line, "\'", '\'', shell);
+		else if (*line == '<')
+			tmp = get_token(&line, "<", '<', shell);
+		else if (*line == '>')
+			tmp = get_token(&line, ">", '>', shell);
+		else if (*line == '|')
+			tmp = get_token(&line, "|", '|', shell);
 		else if (*line)
 			tmp = get_token(&line, " \t\n\r\'\"<>|", ' ', shell);
 		if (tmp)
 		{
-			args = reallocation(args, sizeof(char *) * (argc + 1), sizeof(char *) * argc);
-			args[argc] = tmp;
+			args = reallocation(args, sizeof(t_token) * (argc + 1),
+					sizeof(t_token) * argc);
+			args[argc].token = tmp;
+			if (type == '\'' || type == '\"')
+				args[argc].is_literal = true;
+			else
+				args[argc].is_literal = false;
 			argc++;
 		}
 	}
-	args = reallocation(args, sizeof(char *) * (argc + 1), sizeof(char *) * argc);
+	args = reallocation(args, sizeof(t_token) * (argc + 1),
+			sizeof(t_token) * argc);
 	return (args);
 }
