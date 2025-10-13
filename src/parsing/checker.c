@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 16:46:49 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 21:11:52 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	process_tokens(char **tokens)
 	expect_cmd = 1;
 	while (tokens[i])
 	{
-		if (strcmp(tokens[i], "|") == 0)
+		if (str_compare_all(tokens[i], "|"))
 		{
 			if (!handle_pipe(&expect_cmd))
 				return (0);

@@ -3,175 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 14:11:19 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 21:10:00 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_fromset(char c, const char *set)
+static int	count_until(char *line, const char *delimiters)
 {
-	while (set && *set)
-	{
-		if (*set == c)
-			return (1);
-		set++;
-	}
-	return (0);
-}
+	int	res;
 
-static void	expand_var(char **res, char *dollar, t_shell *shell)
-{
-	char	*tmp;
-	char	*clean;
-	char	*tmp_delete;
-
-	clean = str_substring(dollar, 0,
-			str_len(dollar) - str_len(str_search_set(dollar, " \t\n\r'\"")));
-	if (!str_compare_all(clean, "$?") && !str_compare_all(clean, "$"))
-		tmp = search_env(shell->env_list, dollar + 1);
-	else if (str_compare_all(dollar, "$?"))
-		tmp = int_to_str(shell->last_exitcod);
-	else
-		tmp = str_duplicate("$");
-	tmp_delete = *res;
-	*res = str_join(*res, tmp);
-	free(clean);
-	free(tmp_delete);
-}
-
-static char	*get_enval(char *token, t_shell *shell)
-{
-	char	*dollar;
-	char	*tmp;
-	char	*tmp_delete;
-	char	*res;
-
-	dollar = str_search_char(token, '$');
-	res = str_substring(token, 0, str_len(token) - str_len(dollar));
-	while (dollar)
-	{
-		expand_var(&res, dollar, shell);
-		while (dollar && *dollar && !is_fromset(*dollar, "'\" \t\n\r"))
-			dollar++;
-		tmp = str_substring(dollar, 0,
-				str_len(dollar) - str_len(str_search_char(dollar, '$')));
-		tmp_delete = res;
-		res = str_join(res, tmp);
-		free(tmp_delete);
-		free(tmp);
-		dollar = str_search_char(dollar, '$');
-	}
-	free(token);
+	res = 0;
+	while (line[res] && !is_from_set(line[res], delimiters))
+		res++;
 	return (res);
 }
 
-static int	get_word_len(char *line, const char *delimiters)
+static char	*get_value_from_env(char **line, t_shell *shell)
 {
-	int		word_len;
-
-	word_len = 0;
-	while (line[word_len] && !is_fromset(line[word_len], delimiters))
-		word_len++;
-	if (word_len == 0 && (*line == '|'))
-		word_len++;
-	if (word_len == 0)
-		while (line[word_len] == '<')
-			word_len++;
-	if (word_len == 0)
-		while (line[word_len] == '>')
-			word_len++;
-	return (word_len);
-}
-
-char	*handle_word_join(char *line, int *index, t_shell *shell, int word_len)
-{
+	char	*res;
 	char	*tmp;
-
+	
 	tmp = 0;
-	if (line[word_len] && !is_space(line[word_len])
-		&& !is_redirection(line[word_len])
-		&& !is_redirection(line[word_len - 1]))
+	if (*(*line + 1) == '?')
 	{
-		if (line[word_len] == '"' || line[word_len] == '\'')
-		{
-			*index = *index + 1;
-			if (line[word_len] == '"')
-				tmp = get_word(&line[word_len + 1], "\"", index, shell);
-			else if (line[word_len] == '\'')
-				tmp = get_word(&line[word_len + 1], "'", index, 0);
-		}
-		else
-			tmp = get_word(&line[word_len], " \n\t\r\"'|<>", index, shell);
+		*line = *line + 2;
+		return (int_to_str(shell->last_exitcod));
 	}
-	return (tmp);
+	else
+	{
+		tmp = str_substring(*line, 1, count_until(*line + 1, " \t\n\r\"\'<>|$"));
+		res = search_env(shell->env_list, tmp);
+		free (tmp);
+		return (str_duplicate(res));
+	}
 }
 
-char	*get_word(char *line, const char *delimiters, int *index,
-						t_shell *shell)
+static char	*get_token(char **line, const char *delimiters, char type
+		, t_shell *shell)
 {
-	int		word_len;
 	char	*tmp;
-	char	*to_delete;
 	char	*res;
+	char	*old_res;
+	int		wl;
 
-	word_len = get_word_len(line, delimiters);
-	*index = *index + word_len;
-	res = str_substring(line, 0, word_len);
-	if ((delimiters[0] == '\'' && line[word_len] == '\'')
-		|| (delimiters[0] == '"' && line[word_len] == '"'))
+	wl = 0;
+	res = 0;
+	if (**line == '\'' || **line == '\"')
+		line++;
+	while (**line && !is_from_set(**line, delimiters))
 	{
-		*index = *index + 1;
-		word_len++;
-	}
-	tmp = handle_word_join(line, index, shell, word_len);
-	to_delete = res;
-	res = str_join(res, tmp);
-	if (tmp)
-		free(tmp);
-	free(to_delete);
-	if (shell)
-		res = get_enval(res, shell);
-	return (res);
-}
-
-static char	**proccess_line(char *line, int *argc, char **args, t_shell *shell)
-{
-	int		i;
-
-	i = 0;
-	while (line && line[i])
-	{
-		if (line[i] && !is_space(line[i]))
+		if (**line == '$' && shell && (type == '\"' || type == ' '))
+			tmp = get_value_from_env(line, shell);
+		else
 		{
-			args = reallocation(args, (*argc + 1) * sizeof(char *),
-					*argc * sizeof(char *));
-			if (line[i] == '"')
-				args[*argc] = get_word(&line[++i], "\"", &i, shell);
-			else if (line[i] == '\'')
-				args[*argc] = get_word(&line[++i], "'", &i, 0);
-			else
-				args[*argc] = get_word(&line[i], " \n\t\r'\"'|<>", &i, shell);
-			*argc = *argc + 1;
+			tmp = str_substring(*line, 0, 1);
+			(*line)++;
 		}
-		else if (line[i])
-			i++;
+		old_res = res;
+		res = str_join(res, tmp);
+		free(old_res);
+		free(tmp);
 	}
-	return (args);
+	if (**line && !isspace(**line))
+	{
+		if (**line == '\"')
+			tmp = get_token(line, "\"", '\"', shell);
+		else if (**line == '\'')
+			tmp = get_token(line, "\'", '\'', shell);
+		else
+			tmp = get_token(line, " \t\n\r\'\"<>|", ' ', shell);
+		old_res = res;
+		res = str_join(res, tmp);
+		free(old_res);
+		free(tmp);
+	}
+	return (res);
 }
 
 char	**split_command(char *line, t_shell *shell)
 {
+	char	*tmp;
 	int		argc;
 	char	**args;
 
 	argc = 0;
 	args = 0;
-	args = proccess_line(line, &argc, args, shell);
-	args = reallocation(args, (argc + 1) * sizeof(char *),
-			argc * sizeof(char *));
+	while (line && *line)
+	{
+		tmp = 0;
+		while (*line && isspace(*line))
+			line++;
+		if (*line == '\"')
+			tmp = get_token(&line, "\"", '\"', shell);
+		else if (*line == '\'')
+			tmp = get_token(&line, "\'", '\'', shell);
+		else if (*line)
+			tmp = get_token(&line, " \t\n\r\'\"<>|", ' ', shell);
+		if (tmp)
+		{
+			args = reallocation(args, sizeof(char *) * (argc + 1), sizeof(char *) * argc);
+			args[argc] = tmp;
+			argc++;
+		}
+	}
+	args = reallocation(args, sizeof(char *) * (argc + 1), sizeof(char *) * argc);
 	return (args);
 }
