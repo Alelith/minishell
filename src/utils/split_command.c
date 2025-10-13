@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 21:10:00 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 21:27:42 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static char	*get_value_from_env(char **line, t_shell *shell)
 {
 	char	*res;
 	char	*tmp;
+	int		size;
 	
 	tmp = 0;
 	if (*(*line + 1) == '?')
@@ -35,9 +36,11 @@ static char	*get_value_from_env(char **line, t_shell *shell)
 	}
 	else
 	{
-		tmp = str_substring(*line, 1, count_until(*line + 1, " \t\n\r\"\'<>|$"));
+		size = count_until(*line + 1, " \t\n\r\"\'<>|$");
+		tmp = str_substring(*line, 1, size);
 		res = search_env(shell->env_list, tmp);
 		free (tmp);
+		*line = *line + size + 1;
 		return (str_duplicate(res));
 	}
 }
@@ -48,12 +51,10 @@ static char	*get_token(char **line, const char *delimiters, char type
 	char	*tmp;
 	char	*res;
 	char	*old_res;
-	int		wl;
 
-	wl = 0;
 	res = 0;
 	if (**line == '\'' || **line == '\"')
-		line++;
+		*line = *line + 1;
 	while (**line && !is_from_set(**line, delimiters))
 	{
 		if (**line == '$' && shell && (type == '\"' || type == ' '))
