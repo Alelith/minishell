@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/08 10:37:09 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:52:07 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char		*line;
 
 	if (argc > 1 || argv[1])
-	{
-		print_comm_err("No arguments needed", "");
-		return (1);
-	}
+		return (print_comm_err("No arguments needed", ""));
 	initialize_shell(&shell, envp);
 	while (1)
 	{

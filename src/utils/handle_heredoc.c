@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/09 19:28:12 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:54:37 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,19 @@ static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		close(pipefd[0]);
 		while (1)
 		{
 			line = readline(">");
 			if (!line)
 			{
+				free(cmd->heredoc_eof);
 				close(pipefd[1]);
 				exit(130);
 			}
 			if (str_compare_all(line, cmd->heredoc_eof))
 			{
+				free(cmd->heredoc_eof);
 				free(line);
 				break ;
 			}
@@ -54,7 +55,7 @@ static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
 	}
 }
 
-void	handle_heredoc(t_command *cmd, short is_from_builtin)
+void	handle_heredoc(t_command *cmd)
 {
 	int		pipefd[2];
 	pid_t	pid;
@@ -73,12 +74,7 @@ void	handle_heredoc(t_command *cmd, short is_from_builtin)
 	}
 	throw_heredoc(pid, pipefd, cmd);
 	close_and_waitpid(pipefd, pid, &status);
-	if ((((status) & 0x7f) == 0 && ((status) & 0xff00) >> 8 == 130)
-		|| is_from_builtin)
-	{
-		close(pipefd[0]);
-		cmd->infile = -1;
-	}
-	else
-		cmd->infile = pipefd[0];
+	if (pid != 0)
+		free(cmd->heredoc_eof);
+	cmd->infile = pipefd[0];
 }

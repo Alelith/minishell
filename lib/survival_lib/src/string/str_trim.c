@@ -6,13 +6,13 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 22:27:42 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 09:15:44 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:55:46 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "survival_lib.h"
 
-static int	is_from_set(char c, const char *set)
+int	is_from_set(char c, const char *set)
 {
 	while (*set)
 		if (c == *set++)

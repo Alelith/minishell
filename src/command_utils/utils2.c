@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/09 19:22:02 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:08:28 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 		}
 		if (is_builtin_candidate(shell, i))
 		{
-			handle_heredoc(&shell->commands[i], 1);
+			handle_heredoc(&shell->commands[i]);
 			execute_builtin(shell, i, &err, line);
 			finish_execute(i, shell, pipes, pids);
 			return (err);
@@ -63,8 +63,8 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 		pids[i] = fork();
 		if (pids[i] == 0)
 		{
+			handle_heredoc(&shell->commands[i]);
 			set_signals_child();
-			handle_heredoc(&shell->commands[i], 0);
 			execute_fork(shell, i, pipes, line);
 		}
 		i++;

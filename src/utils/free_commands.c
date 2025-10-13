@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 12:28:43 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:31 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:53:28 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_commands(t_command *commands, unsigned short length)
 			free(commands[length].args[commands[length].args_c]);
 		if (commands[length].args)
 			free(commands[length].args);
+		if (commands[length].heredoc_eof)
+			free(commands[length].heredoc_eof);
 	}
 	free(commands);
 }

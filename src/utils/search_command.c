@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:21:48 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 11:34:45 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 12:48:01 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ static int	permissions_check(char *path)
 
 static char	*check_path(char *result, char **paths)
 {
-	if (access(result, F_OK) == 0)
+	struct stat	stat_buf;
+
+	stat(result, &stat_buf);
+	if (access(result, F_OK) == 0
+		&& !((((stat_buf.st_mode)) & 0170000) == (0040000)))
 	{
 		if (permissions_check(result))
 		{

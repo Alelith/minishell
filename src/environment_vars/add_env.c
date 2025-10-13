@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 12:24:51 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:03 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:18:06 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	add_env(t_env **env_list, char *key, char *value)
 		new_node->pair.key = key;
 	if (value)
 		new_node->pair.value = value;
+	printf("Aniadiendo %s", key);
 	last_node = *env_list;
 	while (last_node && last_node->next)
 		last_node = last_node->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:33:37 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/21 12:36:01 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:45:35 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	handle_pipe_token(char **tokens, int i, t_command **result,
 static void	handle_redir_token(char **tokens, int *i, t_command **result,
 	unsigned short *len)
 {
-	proccess_redir(tokens, *i, &(*result)[*len - 1]);
+	proccess_redir(tokens, *i, &result[0][*len - 1]);
 	*i = *i + 1;
 }
 

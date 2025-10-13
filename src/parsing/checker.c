@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/12 16:53:00 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:16:44 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ int	check_command_line(char *line)
 		i++;
 	}
 	if (tokens[0] == 0)
+	{
+		free(tokens);
 		return (1);
+	}
+	i = 0;
+	while (tokens[i])
+		free(tokens[i++]);
+	free(tokens);
 	return (handle_last_error(expect_cmd, line));
 }

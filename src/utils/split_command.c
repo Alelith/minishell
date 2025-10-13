@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/12 17:12:33 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:11:19 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	expand_var(char **res, char *dollar, t_shell *shell)
 	char	*clean;
 	char	*tmp_delete;
 
-	clean = str_substring(dollar, 0, 
+	clean = str_substring(dollar, 0,
 			str_len(dollar) - str_len(str_search_set(dollar, " \t\n\r'\"")));
 	if (!str_compare_all(clean, "$?") && !str_compare_all(clean, "$"))
 		tmp = search_env(shell->env_list, dollar + 1);

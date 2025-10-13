@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_search_set.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:34:53 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/12 17:07:50 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:55:13 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
