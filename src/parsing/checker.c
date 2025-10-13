@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 14:16:44 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:46:49 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,55 @@ static int	handle_last_error(int expect_cmd, char *line)
 	return (1);
 }
 
+static int	process_tokens(char **tokens)
+{
+	int	i;
+	int	expect_cmd;
+
+	i = 0;
+	expect_cmd = 1;
+	while (tokens[i])
+	{
+		if (strcmp(tokens[i], "|") == 0)
+		{
+			if (!handle_pipe(&expect_cmd))
+				return (0);
+		}
+		else if (is_redir_token(tokens[i]))
+		{
+			if (!handle_redirection(tokens, &i))
+				return (0);
+		}
+		else
+			expect_cmd = 0;
+		i++;
+	}
+	return (expect_cmd);
+}
+
 int	check_command_line(char *line)
+{
+	char	**tokens;
+	int		expect_cmd;
+	int		i;
+
+	if (!check_quotes(line))
+		return (0);
+	tokens = split_command(line, 0);
+	expect_cmd = process_tokens(tokens);
+	if (tokens[0] == 0)
+	{
+		free(tokens);
+		return (1);
+	}
+	i = 0;
+	while (tokens[i])
+		free(tokens[i++]);
+	free(tokens);
+	return (handle_last_error(expect_cmd, line));
+}
+
+/*int	check_command_line(char *line)
 {
 	char	**tokens;
 	int		i;
@@ -107,4 +155,4 @@ int	check_command_line(char *line)
 		free(tokens[i++]);
 	free(tokens);
 	return (handle_last_error(expect_cmd, line));
-}
+}*/

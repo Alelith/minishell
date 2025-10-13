@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 16:23:48 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:36:11 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	is_builtin_candidate(t_shell *shell, int i)
 		&& is_builtin(shell->commands[i].args[0])
 		&& shell->cmd_length == 1);
 }
-
-
 
 int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 {
