@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 13:54:37 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:04:22 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,36 @@ static void	close_and_waitpid(int *pipefd, int pid, int *status)
 	waitpid(pid, status, 0);
 }
 
-static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
+static void	read_heredoc_lines(int *pipefd, t_command *cmd)
 {
 	char	*line;
 
+	while (1)
+	{
+		line = readline(">");
+		if (!line)
+		{
+			free(cmd->heredoc_eof);
+			close(pipefd[1]);
+			exit(130);
+		}
+		if (str_compare_all(line, cmd->heredoc_eof))
+		{
+			free(cmd->heredoc_eof);
+			free(line);
+			break ;
+		}
+		write_and_free(pipefd, line);
+	}
+}
+
+static void	throw_heredoc(int pid, int *pipefd, t_command *cmd)
+{
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		close(pipefd[0]);
-		while (1)
-		{
-			line = readline(">");
-			if (!line)
-			{
-				free(cmd->heredoc_eof);
-				close(pipefd[1]);
-				exit(130);
-			}
-			if (str_compare_all(line, cmd->heredoc_eof))
-			{
-				free(cmd->heredoc_eof);
-				free(line);
-				break ;
-			}
-			write_and_free(pipefd, line);
-		}
+		read_heredoc_lines(pipefd, cmd);
 		close(pipefd[1]);
 		exit(0);
 	}
