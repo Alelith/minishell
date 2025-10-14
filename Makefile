@@ -48,6 +48,9 @@ BANNER_FILES = banner export_vars
 CMD_UTILS_DIR = command_utils/
 CMD_UTILS_FILES = utils1 utils2 utils3
 
+SPLIT_UTILS_DIR = split_utils/
+SPLIT_UTILS_FILES = utils1 utils2
+
 EXEC_DIR = execution/
 EXEC_FILES = echo exit pwd cd env export unset execute signals try_command
 
@@ -61,6 +64,7 @@ SRC_FILES += $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 SRC_FILES += $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 SRC_FILES += $(addprefix $(BANNER_DIR), $(BANNER_FILES))
 SRC_FILES += $(addprefix $(CMD_UTILS_DIR), $(CMD_UTILS_FILES))
+SRC_FILES += $(addprefix $(SPLIT_UTILS_DIR), $(SPLIT_UTILS_FILES))
 SRC_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 SRC_FILES += $(addprefix $(ENVIRON_DIR), $(ENVIRON_FILES))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -75,6 +79,7 @@ DIRS:
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 	@mkdir -p $(OBJ_DIR)$(BANNER_DIR)
 	@mkdir -p $(OBJ_DIR)$(CMD_UTILS_DIR)
+	@mkdir -p $(OBJ_DIR)$(SPLIT_UTILS_DIR)
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
 	@mkdir -p $(OBJ_DIR)$(ENVIRON_DIR)
 

@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 16:17:42 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:21:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,6 @@ int	*close_and_free(t_shell shell, int **pipes, int *pids)
 	free(pids);
 	free_commands(shell.commands, shell.cmd_length);
 	return (statuses);
-}
-
-void	free_and_exit(t_shell *shell, char *line, int err)
-{
-	free_commands(shell->commands, shell->cmd_length);
-	free(line);
-	exit(err);
 }
 
 void	execute_fork(t_shell *shell, int i, int **pipes, char *line)

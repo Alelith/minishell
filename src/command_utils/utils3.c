@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 20:18:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/09 19:23:35 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/14 10:31:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ static void	sort_env_array(t_env **arr)
 	}
 }
 
-void	print_sorted_env(t_env *env)
+int	print_sorted_env(t_env *env)
 {
 	t_env	**arr;
 	int		i;
 
 	arr = env_to_array(env);
 	if (!arr)
-		return ;
+		return (1);
 	sort_env_array(arr);
 	i = 0;
 	while (arr[i])
@@ -99,4 +99,5 @@ void	print_sorted_env(t_env *env)
 		i++;
 	}
 	free(arr);
+	return (0);
 }

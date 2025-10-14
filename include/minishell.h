@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/14 00:14:08 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:20:09 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void		finish_execute(int i, t_shell *shell, int **pipes, int *pids);
 int			is_builtin_candidate(t_shell *shell, int i);
 int			fork_and_execute(t_shell *shell, int **pipes,
 				char *line, int *pids);
-void		print_sorted_env(t_env *env);
+int			print_sorted_env(t_env *env);
 
 int			check_command_line(char *line);
 int			is_builtin(char *cmd);
@@ -156,5 +156,18 @@ int			is_redir_token(char *token);
 int			try_command(t_shell *shell, char *line);
 void		handle_heredoc(t_command *cmd);
 char		*get_last_path(char *this_path);
+
+int			count_until(char *line, const char *delimiters);
+int			count_while(char *line, const char *delimiters);
+char		*get_value_from_env(char **line, t_shell *shell);
+void		free_and_assign(char **res, char *tmp);
+void		process_result(char **line, char **res, t_shell *shell, char type);
+
+void		process_redir_pipe(char *set, char **tmp, char **line);
+void		increment_if_quote(char **line);
+char		*get_token(char **line, const char *delimiters, char type,
+				t_shell *shell);
+void		switch_assign_tmp(char **line, char **tmp, t_shell *shell);
+void		increment_args(t_token **args, int *argc, char *tmp, char type);
 
 #endif

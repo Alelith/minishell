@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:21:01 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 23:42:13 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:21:39 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*static int	fd_err(void)
-{
-	write (1, "\n", 1);
-	return (1);
-}*/
 
 void	execute_builtin(t_shell *shell, int i, int *err, char *line)
 {
@@ -72,4 +66,11 @@ int	fork_and_execute(t_shell *shell, int **pipes, char *line, int *pids)
 		}
 	}
 	return (err);
+}
+
+void	free_and_exit(t_shell *shell, char *line, int err)
+{
+	free_commands(shell->commands, shell->cmd_length);
+	free(line);
+	exit(err);
 }

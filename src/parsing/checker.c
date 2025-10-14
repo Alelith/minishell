@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/14 00:09:17 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:14:16 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,6 @@ static int	check_quotes(char *line)
 	return (1);
 }
 
-static int	handle_last_error(int expect_cmd, char *line)
-{
-	if (expect_cmd && str_len(line))
-	{
-		printf("Syntax error: command expected after pipe\n");
-		return (0);
-	}
-	return (1);
-}
-
 static int	process_tokens(t_token *tokens)
 {
 	int	i;
@@ -115,44 +105,10 @@ int	check_command_line(char *line)
 	while (tokens[i].token)
 		free(tokens[i++].token);
 	free(tokens);
-	return (handle_last_error(expect_cmd, line));
-}
-
-/*int	check_command_line(char *line)
-{
-	char	**tokens;
-	int		i;
-	int		expect_cmd;
-
-	if (!check_quotes(line))
+	if (expect_cmd && str_len(line))
+	{
+		printf("Syntax error: command expected after pipe\n");
 		return (0);
-	i = 0;
-	tokens = split_command(line, 0);
-	expect_cmd = 1;
-	while (tokens[i])
-	{
-		if (strcmp(tokens[i], "|") == 0)
-		{
-			if (!handle_pipe(&expect_cmd))
-				return (0);
-		}
-		else if (is_redir_token(tokens[i]))
-		{
-			if (!handle_redirection(tokens, &i))
-				return (0);
-		}
-		else
-			expect_cmd = 0;
-		i++;
 	}
-	if (tokens[0] == 0)
-	{
-		free(tokens);
-		return (1);
-	}
-	i = 0;
-	while (tokens[i])
-		free(tokens[i++]);
-	free(tokens);
-	return (handle_last_error(expect_cmd, line));
-}*/
+	return (1);
+}
