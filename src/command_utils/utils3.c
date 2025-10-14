@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 20:18:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/14 10:31:29 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:47:20 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	print_sorted_env(t_env *env)
 	t_env	**arr;
 	int		i;
 
+	if (!env)
+		return (0);
 	arr = env_to_array(env);
 	if (!arr)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:11:18 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/14 11:20:19 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:30:42 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*get_token(char **line, const char *delimiters, char type,
 	increment_if_quote(line);
 	while (**line && !is_from_set(**line, delimiters))
 		process_result(line, &res, shell, type);
+	increment_if_quote(line);
 	if (**line && !isspace(**line))
 	{
 		if (**line == '\"')

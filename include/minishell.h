@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/14 11:20:09 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:30:49 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			exit_exec(t_shell shell, char *line);
 int			pwd(void);
 int			cd(t_shell *shell, t_command command);
 int			env(t_env *env_list);
-int			export(t_command cmd, t_env *env, t_env *env_cpy);
+int			export(t_command cmd, t_env **env, t_env **env_cpy);
 int			unset(t_command cmd, t_env **env_list);
 int			execute(t_command command, t_env *env_list);
 char		*search_command(char *command, char *exec_paths);
