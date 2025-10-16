@@ -1,0 +1,9 @@
+{
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/bvarea-k/Desktop/minilunes",
+			"binaryPath": "/home/bvarea-k/Desktop/minilunes/minishell",
+			"binaryArgs": []
+		}
+	]
+}
