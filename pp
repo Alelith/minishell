@@ -258,3 +258,45 @@ minishell~> export a= b=o
 ==38654==    by 0x4054E1: try_command (try_command.c:93)
 ==38654==    by 0x401376: main (main.c:67)
 
+                                                                 
+                                                                    
+                                                                    
+                                                                    
+                                                                    OTRO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+minishell~> </<</>/>>
+Syntax error: redirection without file/limiter
+Permission denied: /
+==44768== Syscall param access(pathname) points to unaddressable byte(s)
+==44768==    at 0x49DC9BB: access (access.c:27)
+==44768==    by 0x401C9D: check_file (tokenizer_redir.c:19)
+==44768==    by 0x401EEE: proccess_redir (tokenizer_redir.c:54)
+==44768==    by 0x401BE0: handle_redir_token (tokenizer.c:35)
+==44768==    by 0x401A50: tokenize (tokenizer.c:57)
+==44768==    by 0x40545E: try_command (try_command.c:85)
+==44768==    by 0x401376: main (main.c:67)
+==44768==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==44768== 
+==44768== Syscall param openat(filename) points to unaddressable byte(s)
+==44768==    at 0x49DC5AB: open (open64.c:41)
+==44768==    by 0x401F20: proccess_redir (tokenizer_redir.c:55)
+==44768==    by 0x401BE0: handle_redir_token (tokenizer.c:35)
+==44768==    by 0x401A50: tokenize (tokenizer.c:57)
+==44768==    by 0x40545E: try_command (try_command.c:85)
+==44768==    by 0x401376: main (main.c:67)
+==44768==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==44768== 
+==44768== Invalid read of size 8
+==44768==    at 0x401996: tokenize (tokenizer.c:52)
+==44768==    by 0x40545E: try_command (try_command.c:85)
+==44768==    by 0x401376: main (main.c:67)
+==44768==  Address 0x4b70108 is 8 bytes after a block of size 128 alloc'd
+==44768==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==44768==    by 0x40635D: callocation (callocation.c:19)
+==44768==    by 0x406404: reallocation (reallocation.c:26)
+==44768==    by 0x40267D: split_command (split_command.c:34)
+==44768==    by 0x402028: get_tokens (tokenizer_utils.c:28)
+==44768==    by 0x401972: tokenize (tokenizer.c:51)
+==44768==    by 0x40545E: try_command (try_command.c:85)
+==44768==    by 0x401376: main (main.c:67)
