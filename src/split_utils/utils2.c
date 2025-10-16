@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:11:18 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/16 11:49:25 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:09:39 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,16 @@ char	*get_token(char **line, const char *delimiters, char type,
 	while (**line && !is_from_set(**line, delimiters))
 		process_result(line, &res, shell, type);
 	increment_if_quote(line);
-	if (**line && (!isspace(**line)
-			|| (type != '<' && type != '>' && type != '|')))
+	if (**line && !isspace(**line))
 	{
 		if (**line == '\"')
 			tmp = get_token(line, "\"", '\"', shell);
 		else if (**line == '\'')
 			tmp = get_token(line, "\'", '\'', shell);
-		else if (type != '<' && type != '>' && type != '|')
+		else if (!is_from_set(**line, "<>|"))
 			tmp = get_token(line, " \t\n\r\'\"<>|", ' ', shell);
-		else if (type == '<')
-			process_redir_pipe("<", &tmp, line);
-		else if (type == '>')
-			process_redir_pipe(">", &tmp, line);
-		else if (type == '|')
-			process_redir_pipe("|", &tmp, line);
-		free_and_assign(&res, tmp);
+		if (tmp)
+			free_and_assign(&res, tmp);
 	}
 	return (res);
 }
@@ -66,11 +60,11 @@ void	switch_assign_tmp(char **line, char **tmp, t_shell *shell)
 	else if (**line == '\'')
 		*tmp = get_token(line, "\'", '\'', shell);
 	else if (**line == '<')
-		*tmp = get_token(line, "<", '<', shell);
+		process_redir_pipe("<", tmp, line);
 	else if (**line == '>')
-		*tmp = get_token(line, ">", '>', shell);
+		process_redir_pipe(">", tmp, line);
 	else if (**line == '|')
-		*tmp = get_token(line, "|", '|', shell);
+		process_redir_pipe("|", tmp, line);
 	else if (**line)
 		*tmp = get_token(line, " \t\n\r\'\"<>|", ' ', shell);
 }
