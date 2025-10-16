@@ -300,3 +300,44 @@ Permission denied: /
 ==44768==    by 0x401972: tokenize (tokenizer.c:51)
 ==44768==    by 0x40545E: try_command (try_command.c:85)
 ==44768==    by 0x401376: main (main.c:67)
+
+Da tres errores en tres bloques distintos.
+
+
+
+
+
+
+
+                                        TERCER ERROR!!!!!!!!!!!!!
+
+minishell~> echo hola > file > file2 > file3 | ls
+'<'     file2   include   Makefile    obj   src
+ file   file3   lib	  minishell   pp
+==45369== 
+==45369== HEAP SUMMARY:
+==45369==     in use at exit: 208,539 bytes in 242 blocks
+==45369==   total heap usage: 1,259 allocs, 1,017 frees, 252,480 bytes allocated
+==45369== 
+==45369== 2 bytes in 1 blocks are definitely lost in loss record 1 of 71
+==45369==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==45369==    by 0x4065F0: str_duplicate (str_duplicate.c:20)
+==45369==    by 0x401F76: proccess_redir (tokenizer_redir.c:58)
+==45369==    by 0x401BE0: handle_redir_token (tokenizer.c:35)
+==45369==    by 0x401A50: tokenize (tokenizer.c:57)
+==45369==    by 0x40545E: try_command (try_command.c:85)
+==45369==    by 0x401376: main (main.c:67)
+==45369== 
+==45369== LEAK SUMMARY:
+==45369==    definitely lost: 2 bytes in 1 blocks
+==45369==    indirectly lost: 0 bytes in 0 blocks
+==45369==      possibly lost: 0 bytes in 0 blocks
+==45369==    still reachable: 208,537 bytes in 241 blocks
+==45369==         suppressed: 0 bytes in 0 blocks
+==45369== Reachable blocks (those to which a pointer was found) are not shown.
+==45369== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==45369== 
+==45369== For lists of detected and suppressed errors, rerun with: -s
+==45369== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
