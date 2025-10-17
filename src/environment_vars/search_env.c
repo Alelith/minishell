@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:49:30 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/09 19:23:58 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:42:42 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ char	*search_env(t_env *envs, const char *key)
 	curr = envs;
 	while (curr)
 	{
-		if (str_compare_n(curr->pair.key, key,
-				str_len(key) - str_len(str_search_char(key, ' ')))
-			|| str_compare_n(curr->pair.key, key,
-				str_len(key) - str_len(str_search_char(key, '\''))))
+		if (str_compare_all(curr->pair.key, key))
 			return (curr->pair.value);
 		curr = curr->next;
 	}

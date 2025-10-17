@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:10:35 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/14 13:30:30 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:55:03 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*get_value_from_env(char **line, t_shell *shell)
 {
 	char	*res;
 	char	*tmp;
-	int		size;
 
 	tmp = 0;
 	if (*(*line + 1) == '?')
@@ -51,13 +50,14 @@ char	*get_value_from_env(char **line, t_shell *shell)
 			*line = *line + 1;
 			return (str_duplicate(""));
 		}
-		size = count_until(*line + 1, " \t\n\r\"\'<>|$");
-		tmp = str_substring(*line, 1, size);
+		tmp = str_substring(*line, 1, count_until(*line + 1,
+					" \t\n\r\"\'<>|$="));
 		res = search_env(shell->env_list, tmp);
-		*line = *line + size + 1;
+		*line = *line + count_until(*line + 1, " \t\n\r\"\'<>|$=") + 1;
+		free(tmp);
 		if (!res)
 			return (str_duplicate(""));
-		return (free (tmp), str_duplicate(res));
+		return (str_duplicate(res));
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 12:19:16 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/23 12:28:09 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:30:18 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	update_env(t_env *env_list, const char *key, const char *value)
 		{
 			free(current->pair.key);
 			free(current->pair.value);
-			current->pair.key = (char *) key;
-			current->pair.value = (char *) value;
+			current->pair.key = str_duplicate(key);
+			current->pair.value = str_duplicate(value);
 			return (0);
 		}
 		current = current->next;

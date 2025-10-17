@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/14 11:44:21 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/17 18:09:24 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	save_env(char *key, char *value, t_env **env)
+{
+	if (exists_env(key, *env))
+		update_env(*env, key, value);
+	else
+		add_env(env, str_duplicate(key), str_duplicate(value));
+}
+
 static int	is_valid_key(char *key)
 {
 	while (key && *key)
 	{
-		if (!is_alphanumeric(*key) && *key != '_')
+		if (!is_alphabetic(*key) && *key != '_')
 			return (0);
 		key++;
 	}
@@ -25,31 +33,31 @@ static int	is_valid_key(char *key)
 
 static int	save_var(t_command cmd, t_env **env, t_env **env_cpy)
 {
+	int		i;
 	char	*key;
 	char	*value;
+	int		result;
 
-	key = get_key(cmd.args[1]);
-	value = 0;
-	if (str_search_char(cmd.args[1], '=') != NULL)
+	i = 0;
+	while (++i < cmd.args_c)
 	{
-		value = get_value(cmd.args[1]);
-		if (exists_env(key, *env))
-			update_env(*env, key, value);
+		key = get_key(cmd.args[i]);
+		value = 0;
+		if (is_valid_key(key) && str_search_char(cmd.args[i], '=') != NULL)
+		{
+			value = get_value(cmd.args[i]);
+			save_env(key, value, env);
+		}
+		result = 0;
+		if (!is_valid_key(key))
+			result = print_comm_err("Invalid identifier: ", cmd.args[i]);
 		else
-			add_env(env, str_duplicate(key), str_duplicate(value));
+			save_env(key, value, env_cpy);
+		free(key);
+		if (value)
+			free(value);
 	}
-	if (is_valid_key(key))
-	{
-		if (exists_env(key, *env_cpy))
-			update_env(*env_cpy, key, value);
-		else
-			add_env(env_cpy, key, value);
-		return (0);
-	}
-	free (key);
-	if (value)
-		free(value);
-	return (print_comm_err("Invalid identifier: ", cmd.args[1]));
+	return (result);
 }
 
 int	export(t_command cmd, t_env **env, t_env **env_cpy)

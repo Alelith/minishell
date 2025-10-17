@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_duplicate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:16:25 by acesteve          #+#    #+#             */
-/*   Updated: 2025/08/20 11:39:49 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:33:39 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*str_duplicate(const char *s)
 {
 	char	*result;
 
+	if (!s)
+		return (0);
 	result = malloc(str_len(s) + 1);
 	if (!result)
 		return (NULL);
