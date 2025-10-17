@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:45:52 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/17 18:09:24 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/17 22:14:42 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	save_env(char *key, char *value, t_env **env)
 
 static int	is_valid_key(char *key)
 {
+	if (*key == 0)
+		return (0);
 	while (key && *key)
 	{
 		if (!is_alphabetic(*key) && *key != '_')

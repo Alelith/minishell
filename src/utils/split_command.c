@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/17 17:27:10 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/17 22:15:33 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_token	*split_command(char *line, t_shell *shell)
 			line++;
 		type = *line;
 		switch_assign_tmp(&line, &tmp, shell);
-		if (tmp && *tmp != 0)
+		if (tmp)
 			increment_args(&args, &argc, tmp, type);
 	}
 	args = reallocation(args, sizeof(t_token) * (argc + 1),

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:11:18 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/17 16:20:08 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/17 22:13:41 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*get_token(char **line, const char *delimiters, char type,
 		if (tmp)
 			free_and_assign(&res, tmp);
 	}
+	if (!res)
+		res = str_duplicate("");
 	return (res);
 }
 
