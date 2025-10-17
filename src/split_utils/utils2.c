@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:11:18 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/16 13:09:39 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:20:08 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*get_token(char **line, const char *delimiters, char type,
 	increment_if_quote(line);
 	while (**line && !is_from_set(**line, delimiters))
 		process_result(line, &res, shell, type);
-	increment_if_quote(line);
+	if ((type == '\'' && **line == '\'') || (type == '\"' && **line == '\"'))
+		increment_if_quote(line);
 	if (**line && !isspace(**line))
 	{
 		if (**line == '\"')
