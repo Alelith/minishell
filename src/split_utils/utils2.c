@@ -6,17 +6,17 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:11:18 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/17 22:13:41 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:10:28 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	process_redir_pipe(char *set, char **tmp, char **line)
+void	process_redir_pipe(char *set, char **tmp, char **line, int max)
 {
 	int	size;
 
-	size = count_while(*line, set);
+	size = count_while(*line, set, max);
 	*tmp = str_substring(*line, 0, size);
 	*line = *line + size;
 }
@@ -63,11 +63,11 @@ void	switch_assign_tmp(char **line, char **tmp, t_shell *shell)
 	else if (**line == '\'')
 		*tmp = get_token(line, "\'", '\'', shell);
 	else if (**line == '<')
-		process_redir_pipe("<", tmp, line);
+		process_redir_pipe("<", tmp, line, 2);
 	else if (**line == '>')
-		process_redir_pipe(">", tmp, line);
+		process_redir_pipe(">", tmp, line, 2);
 	else if (**line == '|')
-		process_redir_pipe("|", tmp, line);
+		process_redir_pipe("|", tmp, line, 1);
 	else if (**line)
 		*tmp = get_token(line, " \t\n\r\'\"<>|", ' ', shell);
 }

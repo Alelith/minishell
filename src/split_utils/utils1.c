@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:10:35 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/17 17:55:03 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:09:29 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	count_until(char *line, const char *delimiters)
 	return (res);
 }
 
-int	count_while(char *line, const char *delimiters)
+int	count_while(char *line, const char *delimiters, int max)
 {
 	int	res;
 
 	res = 0;
-	while (line[res] && is_from_set(line[res], delimiters))
+	while (line[res] && is_from_set(line[res], delimiters) && res < max)
 		res++;
 	return (res);
 }

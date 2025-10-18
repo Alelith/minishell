@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:28:20 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 17:04:22 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:21:18 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,5 @@ void	handle_heredoc(t_command *cmd)
 	}
 	throw_heredoc(pid, pipefd, cmd);
 	close_and_waitpid(pipefd, pid, &status);
-	if (pid != 0)
-		free(cmd->heredoc_eof);
 	cmd->infile = pipefd[0];
 }

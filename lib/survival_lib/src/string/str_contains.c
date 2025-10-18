@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   str_contains.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 16:41:56 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/18 09:04:27 by acesteve         ###   ########.fr       */
+/*   Created: 2025/10/18 09:23:33 by acesteve          #+#    #+#             */
+/*   Updated: 2025/10/18 09:25:16 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "survival_lib.h"
 
-int	unset(t_command cmd, t_env **env_list)
+int	str_contains(char *str, char *set)
 {
-	if (cmd.args_c == 2)
-		return (delete_env(env_list, cmd.args[1]));
-	else
-		return (0);
+	while (str && *str)
+	{
+		if (is_from_set(*str, set))
+			return (1);
+		str++;
+	}
+	return (0);
 }

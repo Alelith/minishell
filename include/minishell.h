@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/14 13:30:49 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:09:57 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,12 +158,12 @@ void		handle_heredoc(t_command *cmd);
 char		*get_last_path(char *this_path);
 
 int			count_until(char *line, const char *delimiters);
-int			count_while(char *line, const char *delimiters);
+int			count_while(char *line, const char *delimiters, int max);
 char		*get_value_from_env(char **line, t_shell *shell);
 void		free_and_assign(char **res, char *tmp);
 void		process_result(char **line, char **res, t_shell *shell, char type);
 
-void		process_redir_pipe(char *set, char **tmp, char **line);
+void		process_redir_pipe(char *set, char **tmp, char **line, int max);
 void		increment_if_quote(char **line);
 char		*get_token(char **line, const char *delimiters, char type,
 				t_shell *shell);

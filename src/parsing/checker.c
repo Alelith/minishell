@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 11:29:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/14 11:14:16 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:26:55 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	handle_pipe(int *expect_cmd)
 
 static int	handle_redirection(t_token *tokens, int *i)
 {
-	if (!tokens[*i + 1].token || str_compare_all(tokens[*i + 1].token, "|"))
+	if (!tokens[*i + 1].token || str_contains(tokens[*i + 1].token, "<>|"))
 	{
 		printf("Syntax error: redirection without file/limiter\n");
 		return (0);
@@ -72,12 +72,12 @@ static int	process_tokens(t_token *tokens)
 		if (str_compare_all(tokens[i].token, "|") && !tokens[i].is_literal)
 		{
 			if (!handle_pipe(&expect_cmd))
-				return (0);
+				return (2);
 		}
 		else if (is_redir_token(tokens[i].token) && !tokens[i].is_literal)
 		{
 			if (!handle_redirection(tokens, &i))
-				return (0);
+				return (2);
 		}
 		else
 			expect_cmd = 0;
@@ -89,26 +89,28 @@ static int	process_tokens(t_token *tokens)
 int	check_command_line(char *line)
 {
 	t_token	*tokens;
-	int		expect_cmd;
+	int		err_code;
 	int		i;
 
 	if (!check_quotes(line))
 		return (0);
 	tokens = split_command(line, 0);
-	expect_cmd = process_tokens(tokens);
+	err_code = process_tokens(tokens);
 	if (tokens[0].token == 0)
 	{
 		free(tokens);
-		return (1);
+		return (0);
 	}
 	i = 0;
 	while (tokens[i].token)
 		free(tokens[i++].token);
 	free(tokens);
-	if (expect_cmd && str_len(line))
+	if (err_code == 1 && str_len(line))
 	{
 		printf("Syntax error: command expected after pipe\n");
 		return (0);
 	}
+	else if (err_code == 2)
+		return (0);
 	return (1);
 }

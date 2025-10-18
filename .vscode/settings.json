@@ -1,0 +1,9 @@
+{
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/lilith/42/minicher",
+			"binaryPath": "/home/lilith/42/minicher/minishell",
+			"binaryArgs": []
+		}
+	]
+}
