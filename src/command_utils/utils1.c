@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/14 11:38:20 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:44:26 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	switch_commands(t_shell *shell, int index, char *line)
 		return (export(shell->commands[index], &shell->env_list,
 				&shell->env_list_cpy));
 	else if (str_compare_all(shell->commands[index].args[0], "unset"))
-		return (unset(shell->commands[index], &shell->env_list));
+		return (unset(shell->commands[index], &shell->env_list,
+				&shell->env_list_cpy));
 	else if (str_compare_all(shell->commands[index].args[0], "env"))
 		return (env(shell->env_list));
 	else if (str_compare_all(shell->commands[index].args[0], "clear"))

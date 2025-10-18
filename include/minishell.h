@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/18 09:09:57 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/18 09:43:50 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			pwd(void);
 int			cd(t_shell *shell, t_command command);
 int			env(t_env *env_list);
 int			export(t_command cmd, t_env **env, t_env **env_cpy);
-int			unset(t_command cmd, t_env **env_list);
+int			unset(t_command cmd, t_env **env_list, t_env **env_cpy);
 int			execute(t_command command, t_env *env_list);
 char		*search_command(char *command, char *exec_paths);
 void		set_signals_main(void);
