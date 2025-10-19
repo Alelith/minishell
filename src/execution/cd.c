@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/19 18:17:57 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/19 18:52:12 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*resolve_cd_path(t_command command, char *current_path)
 
 static int	handle_cd_error(char *path, char *current_path, char *arg)
 {
-	print_comm_err("cd: no such file or directory: ", arg);
+	print_comm_err("cd: cannot access file or directory: ", arg);
 	if (current_path)
 		free(current_path);
 	if (path)
