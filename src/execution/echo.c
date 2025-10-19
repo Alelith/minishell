@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/17 16:12:07 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/19 15:55:30 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	echo(t_command command)
 
 	flag = 0;
 	i = 1;
-	while (command.args_c > 1 && command.args[i][0] == '-'
-		&& is_all_n(&command.args[i][1]))
+	while (i < command.args_c && command.args[i] && command.args[i][0] == '-'
+			&& is_all_n(&command.args[i][1]))
 	{
 		flag = 1;
 		i++;
