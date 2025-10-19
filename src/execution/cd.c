@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 23:45:40 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/19 18:17:57 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ int	cd(t_shell *shell, t_command command)
 	else if (command.args_c == 2 && !str_compare_all(command.args[1], "-"))
 		path = str_duplicate(command.args[1]);
 	else
+	{
+		free(current_path);
 		return (print_comm_err("cd: too many arguments", ""));
+	}
 	if (execute_cd(command, &path, &current_path, shell))
 		return (1);
 	free(path);
