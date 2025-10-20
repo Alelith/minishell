@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:31:52 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/18 09:43:50 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/20 10:20:29 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ char		*search_env(t_env *envs, const char *key);
 =============================================================================*/
 int			echo(t_command command);
 int			exit_exec(t_shell shell, char *line);
-int			pwd(void);
+int			pwd(t_command cmd);
 int			cd(t_shell *shell, t_command command);
-int			env(t_env *env_list);
+int			env(t_command cmd, t_env *env_list);
 int			export(t_command cmd, t_env **env, t_env **env_cpy);
 int			unset(t_command cmd, t_env **env_list, t_env **env_cpy);
 int			execute(t_command command, t_env *env_list);

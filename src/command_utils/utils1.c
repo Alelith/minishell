@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/18 09:44:26 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/20 10:21:34 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	switch_commands(t_shell *shell, int index, char *line)
 	else if (str_compare_all(shell->commands[index].args[0], "cd"))
 		return (cd(shell, shell->commands[index]));
 	else if (str_compare_all(shell->commands[index].args[0], "pwd"))
-		return (pwd());
+		return (pwd(shell->commands[index]));
 	else if (str_compare_all(shell->commands[index].args[0], "export"))
 		return (export(shell->commands[index], &shell->env_list,
 				&shell->env_list_cpy));
@@ -29,7 +29,7 @@ int	switch_commands(t_shell *shell, int index, char *line)
 		return (unset(shell->commands[index], &shell->env_list,
 				&shell->env_list_cpy));
 	else if (str_compare_all(shell->commands[index].args[0], "env"))
-		return (env(shell->env_list));
+		return (env(shell->commands[index], shell->env_list));
 	else if (str_compare_all(shell->commands[index].args[0], "clear"))
 		print_open_banner();
 	else

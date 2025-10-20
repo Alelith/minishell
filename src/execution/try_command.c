@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/25 10:44:14 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/10/20 10:07:26 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	reserve_all(t_shell *shell, int ***pipes, int **pids)
 {
 	*pipes = reserve_pipes(shell);
 	*pids = (pid_t *)malloc(sizeof(pid_t) * shell->cmd_length);
+	if (!pids)
+		free(pipes);
 }
 
 int	try_command(t_shell *shell, char *line)

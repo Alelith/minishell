@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 11:52:07 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2025/10/20 10:45:07 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ int	main(int argc, char *argv[], char *envp[])
 		else
 			free(line);
 	}
+	return (0);
 }
