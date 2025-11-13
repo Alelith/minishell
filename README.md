@@ -345,6 +345,9 @@ To generate the documentation locally:
 ```bash
 doxygen Doxyfile
 ```
+Or access it at:
+
+🔗 **[Code Documentation](https://alelith.github.io/minishell-Documentation/)**
 
 The documentation will be generated in the `docs/` directory. Open `docs/html/index.html` in your browser to view it.
 
