@@ -1,17 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 13:38:36 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/19 18:52:12 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file cd.c
+ * @brief Implementation of the cd built-in command
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-27
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Retrieves the current working directory path with trailing slash
+ * 
+ * @details Gets the current directory using getcwd and appends a trailing
+ * slash for path concatenation operations.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @return Newly allocated path string with trailing slash, or NULL on error
+ */
 static char	*get_current_path(void)
 {
 	char	*cwd;
@@ -25,6 +31,20 @@ static char	*get_current_path(void)
 	return (current_path);
 }
 
+/**
+ * @brief Resolves the target path for cd command
+ * 
+ * @details Determines the target directory based on command arguments:
+ * - No args or "~": HOME directory
+ * - Relative path: appended to current path
+ * - Handles error cases like missing HOME variable
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] command Command structure with arguments
+ * @param[in] current_path Current working directory path
+ * @return Newly allocated target path, or NULL on error
+ */
 static char	*resolve_cd_path(t_command command, char *current_path)
 {
 	char	*path;
@@ -50,6 +70,18 @@ static char	*resolve_cd_path(t_command command, char *current_path)
 	return (path);
 }
 
+/**
+ * @brief Handles cd command errors and cleanup
+ * 
+ * @details Prints error message and frees allocated memory when cd fails.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] path Target path that failed
+ * @param[in] current_path Current working directory path
+ * @param[in] arg Original argument passed to cd
+ * @return Always returns 1 (error)
+ */
 static int	handle_cd_error(char *path, char *current_path, char *arg)
 {
 	print_comm_err("cd: cannot access file or directory: ", arg);
@@ -60,6 +92,21 @@ static int	handle_cd_error(char *path, char *current_path, char *arg)
 	return (1);
 }
 
+/**
+ * @brief Executes the directory change operation
+ * 
+ * @details Handles special cases like "-" (previous directory) and ".."
+ * (parent directory), updates the shell's last_path, and performs the
+ * actual chdir system call.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] command Command structure with arguments
+ * @param[in,out] path Target directory path
+ * @param[in,out] current_path Current working directory path
+ * @param[in,out] shell Shell state structure
+ * @return 0 on success, 1 on error
+ */
 static int	execute_cd(t_command command, char **path,
 	char **current_path, t_shell *shell)
 {
@@ -90,6 +137,22 @@ static int	execute_cd(t_command command, char **path,
 	return (0);
 }
 
+/**
+ * @brief Implements the cd built-in command
+ * 
+ * @details Changes the current working directory. Supports:
+ * - No arguments or "~": change to HOME
+ * - Absolute path: change to specified directory
+ * - Relative path: change relative to current directory
+ * - "-": change to previous directory (OLDPWD)
+ * - "..": change to parent directory
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in,out] shell Shell state structure
+ * @param[in] command Command structure containing arguments
+ * @return 0 on success, 1 on error
+ */
 int	cd(t_shell *shell, t_command command)
 {
 	char	*current_path;

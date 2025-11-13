@@ -1,17 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 09:32:45 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/19 15:55:30 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file echo.c
+ * @brief Implementation of the echo built-in command
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-27
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Checks if a string consists only of 'n' characters
+ * 
+ * @details Helper function to validate -n flag format for echo command.
+ * Used to support multiple -n flags like -nn, -nnn, etc.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] ptr String to check
+ * @return 1 if string contains only 'n' characters, 0 otherwise
+ */
 static int	is_all_n(char *ptr)
 {
 	while (*ptr)
@@ -23,6 +30,18 @@ static int	is_all_n(char *ptr)
 	return (1);
 }
 
+/**
+ * @brief Implements the echo built-in command
+ * 
+ * @details Prints arguments to standard output separated by spaces.
+ * Supports the -n flag to suppress the trailing newline. Multiple
+ * consecutive -n flags (e.g., -nn, -nnn) are treated as a single -n.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] command Command structure containing arguments
+ * @return Always returns 0 (success)
+ */
 int	echo(t_command command)
 {
 	int	flag;

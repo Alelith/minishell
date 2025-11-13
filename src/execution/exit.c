@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 13:16:10 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/13 16:05:50 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file exit.c
+ * @brief Implementation of the exit built-in command
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-27
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Cleans up resources and exits the shell
+ * 
+ * @details Frees all allocated memory including the current line,
+ * environment lists, and command structures before calling exit().
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] shell Shell state structure
+ * @param[in] line Current command line to free
+ * @param[in] exit_cod Exit code to pass to exit()
+ */
 static void	clean_exit(t_shell shell, char *line, int exit_cod)
 {
 	free(line);
@@ -21,6 +29,21 @@ static void	clean_exit(t_shell shell, char *line, int exit_cod)
 	exit(exit_cod);
 }
 
+/**
+ * @brief Implements the exit built-in command
+ * 
+ * @details Exits the shell with an optional status code. Validates that
+ * the provided argument is numeric and handles multiple argument errors.
+ * Displays the closing banner before exit.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] shell Shell state structure
+ * @param[in] line Current command line
+ * @return Exit status code (only returned on error, otherwise exits)
+ * @retval 0 Success
+ * @retval 1 Invalid numeric argument or too many arguments
+ */
 int	exit_exec(t_shell shell, char *line)
 {
 	int		exit_cod;

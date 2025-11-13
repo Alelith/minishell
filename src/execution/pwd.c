@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 13:34:51 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/20 10:20:36 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file pwd.c
+ * @brief Implementation of the pwd built-in command
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-27
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Implements the pwd built-in command
+ * 
+ * @details Prints the current working directory to standard output.
+ * Validates that no extra arguments are provided and handles errors
+ * if the current directory cannot be retrieved.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] cmd Command structure containing arguments
+ * @return 0 on success, 1 if too many arguments provided
+ */
 int	pwd(t_command cmd)
 {
 	char	cwd[2048];

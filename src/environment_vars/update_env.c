@@ -1,17 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   update_env.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 12:19:16 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/17 16:30:18 by acesteve         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file update_env.c
+ * @brief Function to update existing environment variable values
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-01
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Updates the value of an existing environment variable
+ * 
+ * @details Searches for an environment variable with the specified key
+ * and updates both its key and value with newly allocated duplicates
+ * of the provided strings. Frees the old key and value strings.
+ * 
+ * @ingroup environment_module
+ * 
+ * @param[in,out] env_list Head of environment variable linked list
+ * @param[in] key Environment variable name to update
+ * @param[in] value New value for the environment variable
+ * @return Always returns 0
+ */
 int	update_env(t_env *env_list, const char *key, const char *value)
 {
 	t_env	*current;

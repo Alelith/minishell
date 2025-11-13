@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 11:10:35 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/18 09:09:29 by acesteve         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file utils1.c
+ * @brief String parsing utilities for command tokenization
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-10-14
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Counts characters until a delimiter is found
+ * 
+ * @details Counts consecutive characters that are not in the delimiter
+ * set, used for token boundary detection.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] line String to scan
+ * @param[in] delimiters Set of delimiter characters
+ * @return Number of characters before first delimiter
+ */
 int	count_until(char *line, const char *delimiters)
 {
 	int	res;
@@ -22,6 +30,19 @@ int	count_until(char *line, const char *delimiters)
 	return (res);
 }
 
+/**
+ * @brief Counts consecutive delimiter characters
+ * 
+ * @details Counts characters that are in the delimiter set, up to a
+ * maximum count. Used for parsing repeated delimiters like ">>" or "<<".
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] line String to scan
+ * @param[in] delimiters Set of delimiter characters
+ * @param[in] max Maximum count to return
+ * @return Number of consecutive delimiter characters, up to max
+ */
 int	count_while(char *line, const char *delimiters, int max)
 {
 	int	res;
@@ -32,6 +53,22 @@ int	count_while(char *line, const char *delimiters, int max)
 	return (res);
 }
 
+/**
+ * @brief Expands environment variable or special parameter
+ * 
+ * @details Parses and expands environment variable references starting
+ * with '$'. Handles special cases:
+ * - "$?": expands to last exit code
+ * - "$": expands to empty string
+ * - "$VAR": expands to value of VAR from environment
+ * Advances the line pointer past the variable reference.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in,out] line Pointer to current position in line
+ * @param[in] shell Shell state for environment and exit code
+ * @return Newly allocated string with expanded value
+ */
 char	*get_value_from_env(char **line, t_shell *shell)
 {
 	char	*res;
@@ -61,6 +98,17 @@ char	*get_value_from_env(char **line, t_shell *shell)
 	}
 }
 
+/**
+ * @brief Concatenates string to result and frees both inputs
+ * 
+ * @details Helper function to append a string to an accumulator,
+ * freeing the old accumulator and the appended string.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in,out] res Pointer to accumulator string
+ * @param[in] tmp String to append (will be freed)
+ */
 void	free_and_assign(char **res, char *tmp)
 {
 	char	*old_res;
@@ -71,6 +119,20 @@ void	free_and_assign(char **res, char *tmp)
 	free(tmp);
 }
 
+/**
+ * @brief Processes next character or variable expansion in token
+ * 
+ * @details Handles character-by-character token building with variable
+ * expansion. Expands "$" references in double quotes or unquoted context.
+ * Advances line pointer and appends result to accumulator.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in,out] line Pointer to current position in line
+ * @param[in,out] res Pointer to result accumulator string
+ * @param[in] shell Shell state for variable expansion
+ * @param[in] type Quote context (' ', '\"', or '\'')
+ */
 void	process_result(char **line, char **res, t_shell *shell, char type)
 {
 	char	*tmp;

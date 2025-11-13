@@ -1,17 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 19:29:47 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/20 10:08:38 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file pipes_utils.c
+ * @brief Pipe management utilities for command pipelines
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-20
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Frees array of pipe file descriptor pairs
+ * 
+ * @details Deallocates each pipe descriptor pair in the array. Does not
+ * close the file descriptors; use close_pipes first if needed.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] pipes Array of pipe descriptor pairs
+ * @param[in] num Number of pipes in the array
+ */
 void	free_pipes(int **pipes, int num)
 {
 	int	idx;
@@ -24,6 +31,17 @@ void	free_pipes(int **pipes, int num)
 	}
 }
 
+/**
+ * @brief Closes all pipe file descriptors
+ * 
+ * @details Closes both read and write ends of all pipes in the array.
+ * Should be called before freeing pipes to prevent descriptor leaks.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] pipes Array of pipe descriptor pairs
+ * @param[in] num Number of pipes in the array
+ */
 void	close_pipes(int **pipes, int num)
 {
 	int	idx;
@@ -37,6 +55,18 @@ void	close_pipes(int **pipes, int num)
 	}
 }
 
+/**
+ * @brief Creates array of pipes for command pipeline
+ * 
+ * @details Allocates and initializes num pipes for inter-process
+ * communication. Each pipe gets a newly allocated int[2] array. If any
+ * allocation fails, frees already allocated pipes and returns.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[out] pipes Array to store pipe descriptor pairs
+ * @param[in] num Number of pipes to create
+ */
 void	create_pipes(int **pipes, int num)
 {
 	int	idx;

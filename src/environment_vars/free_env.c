@@ -1,17 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   free_env.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 13:19:54 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:08 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file free_env.c
+ * @brief Function to free environment variable list memory
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-01
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Frees all memory associated with the environment variable list
+ * 
+ * @details Iterates through the entire linked list, freeing each node's
+ * key, value, and the node structure itself.
+ * 
+ * @ingroup environment_module
+ * 
+ * @param[in,out] env_list Head of environment variable linked list to free
+ */
 void	free_env(t_env *env_list)
 {
 	t_env	*tmp;

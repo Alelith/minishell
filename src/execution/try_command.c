@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   try_command.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 12:13:03 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/20 10:07:26 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file try_command.c
+ * @brief Main command execution coordinator and pipeline manager
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-21
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Checks if any commands have parsing errors
+ * 
+ * @details Validates all parsed commands for errors and cleans up
+ * resources if errors are found.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in,out] shell Shell state structure
+ * @param[in] line Command line string to free on error
+ * @return 1 if errors found, 0 otherwise
+ */
 static int	there_is_error(t_shell *shell, char *line)
 {
 	if (any_has_error(shell->commands, shell->cmd_length))
@@ -23,6 +31,20 @@ static int	there_is_error(t_shell *shell, char *line)
 	return (0);
 }
 
+/**
+ * @brief Collects exit statuses from executed commands
+ * 
+ * @details Closes pipes, frees resources, and gathers exit statuses
+ * from all commands in the pipeline. Returns the first non-zero status.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in] shell Shell state structure
+ * @param[in,out] pipes Array of pipe file descriptors
+ * @param[in] pids Array of process IDs
+ * @param[in] err Initial error code
+ * @return First non-zero exit status, or 0 if all succeeded
+ */
 static int	get_statuses_err(t_shell *shell, int **pipes, int *pids, int err)
 {
 	int	i;
@@ -37,6 +59,18 @@ static int	get_statuses_err(t_shell *shell, int **pipes, int *pids, int err)
 	return (err);
 }
 
+/**
+ * @brief Allocates and initializes pipe file descriptors
+ * 
+ * @details Creates an array of pipes for inter-process communication
+ * in command pipelines. Allocates one pipe for each adjacent command
+ * pair.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in] shell Shell state structure with command count
+ * @return Array of pipe file descriptor pairs, or NULL on error
+ */
 static int	**reserve_pipes(t_shell *shell)
 {
 	int	i;
@@ -61,6 +95,18 @@ static int	**reserve_pipes(t_shell *shell)
 	return (pipes);
 }
 
+/**
+ * @brief Allocates pipes and process ID arrays
+ * 
+ * @details Reserves memory for pipe file descriptors and process ID
+ * tracking for pipeline execution.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in] shell Shell state structure
+ * @param[out] pipes Pointer to pipes array
+ * @param[out] pids Pointer to process ID array
+ */
 static void	reserve_all(t_shell *shell, int ***pipes, int **pids)
 {
 	*pipes = reserve_pipes(shell);
@@ -69,6 +115,22 @@ static void	reserve_all(t_shell *shell, int ***pipes, int **pids)
 		free(pipes);
 }
 
+/**
+ * @brief Main command execution entry point
+ * 
+ * @details Coordinates the entire command execution flow including:
+ * - Command line parsing and tokenization
+ * - Pipeline setup with pipe creation
+ * - Fork and execution of commands
+ * - Status collection and cleanup
+ * Adds command to history and handles all error cases.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in,out] shell Shell state structure
+ * @param[in] line Command line string from readline
+ * @return Exit status of the last command, or error code
+ */
 int	try_command(t_shell *shell, char *line)
 {
 	int		**pipes;

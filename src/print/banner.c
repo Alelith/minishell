@@ -1,17 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   banner.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/10 11:05:57 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/23 10:55:24 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file banner.c
+ * @brief ASCII art banner display functions
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-10
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Displays the welcome banner with ASCII art
+ * 
+ * @details Clears the screen and prints a colorful ASCII art banner
+ * with "WELCOME TO PONCHITA" message. Uses ANSI escape codes for
+ * cyan coloring.
+ * 
+ * @ingroup output_module
+ */
 void	print_open_banner(void)
 {
 	printf("\033c\e[38;5;78m");
@@ -36,6 +41,14 @@ void	print_open_banner(void)
 	printf("\n\033[0;39m");
 }
 
+/**
+ * @brief Displays the exit banner with ASCII art
+ * 
+ * @details Prints a colorful ASCII art banner with "EXIT PONCHITA"
+ * message. Uses ANSI escape codes for pink coloring.
+ * 
+ * @ingroup output_module
+ */
 void	print_close_banner(void)
 {
 	printf("\e[38;5;218m\n");
@@ -54,6 +67,19 @@ void	print_close_banner(void)
 	printf("\n\033[0;39m");
 }
 
+/**
+ * @brief Prints a formatted error message
+ * 
+ * @details Displays an error message in color with two components:
+ * a message prefix in purple and a command/detail in cyan. Always
+ * returns 1 to indicate error status.
+ * 
+ * @ingroup output_module
+ * 
+ * @param[in] message Error message prefix
+ * @param[in] comm Command or detail to append to error message
+ * @return Always returns 1 (error status)
+ */
 int	print_comm_err(const char *message, const char *comm)
 {
 	printf("\e[38;5;139m%s", message);

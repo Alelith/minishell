@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   is_builtin.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 16:55:21 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/21 16:58:01 by acesteve         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file is_builtin.c
+ * @brief Built-in command detection
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-21
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Checks if command is a shell built-in
+ * 
+ * @details Tests the command name against all recognized built-in
+ * commands: echo, exit, cd, pwd, export, unset, env, clear.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] cmd Command name to test
+ * @retval 1 Command is a built-in
+ * @retval 0 Command is not a built-in
+ */
 int	is_builtin(char *cmd)
 {
 	if (str_compare_all(cmd, "echo"))

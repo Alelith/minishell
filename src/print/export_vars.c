@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export_vars.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/10 13:26:02 by acesteve          #+#    #+#             */
-/*   Updated: 2025/09/16 09:16:29 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file export_vars.c
+ * @brief Formatted output for export command
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-10
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Prints an environment variable in export format
+ * 
+ * @details Displays an environment variable in the format used by
+ * the export built-in: "declare -x KEY="VALUE"". Uses ANSI color
+ * codes for syntax highlighting. Handles variables without values.
+ * 
+ * @ingroup output_module
+ * 
+ * @param[in] key Environment variable name
+ * @param[in] value Environment variable value (can be NULL)
+ */
 void	print_export(const char *key, const char *value)
 {
 	if (value)

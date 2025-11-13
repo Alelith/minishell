@@ -1,17 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   free_commands.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 12:28:43 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/13 13:53:28 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file free_commands.c
+ * @brief Memory deallocation for command structures
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-26
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Frees array of command structures and their contents
+ * 
+ * @details Deallocates all memory associated with a command array,
+ * including argument arrays, argument strings, and heredoc delimiters.
+ * Iterates through each command and frees all dynamically allocated
+ * members before freeing the array itself.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] commands Array of command structures to free
+ * @param[in] length Number of commands in the array
+ */
 void	free_commands(t_command *commands, unsigned short length)
 {
 	while (length--)

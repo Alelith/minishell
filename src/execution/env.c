@@ -1,17 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 11:43:29 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/20 10:19:36 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file env.c
+ * @brief Implementation of the env built-in command
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-28
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Implements the env built-in command
+ * 
+ * @details Prints all environment variables to standard output in
+ * "KEY=VALUE" format, one per line. Does not accept any arguments.
+ * 
+ * @ingroup builtins_module
+ * 
+ * @param[in] cmd Command structure containing arguments
+ * @param[in] env_list Head of environment variable linked list
+ * @return 0 on success, 1 if arguments are provided
+ */
 int	env(t_command cmd, t_env *env_list)
 {
 	t_env	*current;

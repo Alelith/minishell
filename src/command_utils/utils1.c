@@ -1,17 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 13:20:05 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/20 10:21:34 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file utils1.c
+ * @brief Command execution utilities and pipe management
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-24
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Routes command execution to appropriate built-in or external handler
+ * 
+ * @details Implements a dispatcher that identifies the command type and
+ * calls the corresponding built-in function or executes as external
+ * command. Handles all built-ins: echo, exit, cd, pwd, export, unset,
+ * env, and clear.
+ * 
+ * @ingroup command_utils_module
+ * 
+ * @param[in,out] shell Shell state structure
+ * @param[in] index Command index in commands array
+ * @param[in] line Original command line for exit command
+ * @return Exit status of executed command
+ */
 int	switch_commands(t_shell *shell, int index, char *line)
 {
 	if (str_compare_all(shell->commands[index].args[0], "echo"))
@@ -37,6 +48,17 @@ int	switch_commands(t_shell *shell, int index, char *line)
 	return (0);
 }
 
+/**
+ * @brief Closes all pipe file descriptors and frees pipe array
+ * 
+ * @details Iterates through all pipes in a pipeline, closing both read
+ * and write ends, and freeing the allocated memory for each pipe pair.
+ * 
+ * @ingroup command_utils_module
+ * 
+ * @param[in,out] pipes Array of pipe file descriptor pairs
+ * @param[in] shell Shell state with command count information
+ */
 void	close_and_free_pipes(int **pipes, t_shell shell)
 {
 	int	i;
@@ -50,6 +72,19 @@ void	close_and_free_pipes(int **pipes, t_shell shell)
 	}
 }
 
+/**
+ * @brief Waits for child processes and collects exit statuses
+ * 
+ * @details Waits for all child processes to complete, handles SIGQUIT
+ * signals, and converts wait status codes to standard exit codes.
+ * Handles both normal exits and signal terminations.
+ * 
+ * @ingroup command_utils_module
+ * 
+ * @param[in] pids Array of process IDs to wait for
+ * @param[out] statuses Array to store exit statuses
+ * @param[in] count Number of processes to wait for
+ */
 static void	wait_for_children(int *pids, int *statuses, int count)
 {
 	int	i;
@@ -68,6 +103,21 @@ static void	wait_for_children(int *pids, int *statuses, int count)
 	}
 }
 
+/**
+ * @brief Cleans up pipeline resources and waits for processes
+ * 
+ * @details Closes and frees all pipes, waits for child processes to
+ * complete, collects exit statuses, and frees command structures.
+ * Only waits for processes if commands were forked (non-builtins or
+ * multiple commands).
+ * 
+ * @ingroup command_utils_module
+ * 
+ * @param[in] shell Shell state structure
+ * @param[in,out] pipes Array of pipe file descriptors
+ * @param[in] pids Array of child process IDs
+ * @return Array of exit statuses for each command, or NULL for built-ins
+ */
 int	*close_and_free(t_shell shell, int **pipes, int *pids)
 {
 	int	i;
@@ -94,6 +144,21 @@ int	*close_and_free(t_shell shell, int **pipes, int *pids)
 	return (statuses);
 }
 
+/**
+ * @brief Executes a command in a forked child process
+ * 
+ * @details Sets up file descriptor redirections for pipes and I/O
+ * redirections, closes all pipe file descriptors, executes the command,
+ * and exits the child process. Handles stdin from previous pipe or file,
+ * and stdout to next pipe or file.
+ * 
+ * @ingroup command_utils_module
+ * 
+ * @param[in,out] shell Shell state structure
+ * @param[in] i Command index to execute
+ * @param[in] pipes Array of pipe file descriptors
+ * @param[in] line Original command line
+ */
 void	execute_fork(t_shell *shell, int i, int **pipes, char *line)
 {
 	int	j;

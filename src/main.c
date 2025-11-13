@@ -1,17 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 10:56:34 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/10/20 10:45:07 by bvarea-k         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file main.c
+ * @brief Main entry point and shell initialization for minishell
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-08-20
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Frees all shell resources and exits the program
+ * 
+ * @details Deallocates the environment variable lists and terminates
+ * the shell with exit code 0.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in,out] shell Pointer to shell state structure
+ */
 static void	free_t_shell(t_shell *shell)
 {
 	if (shell->env_list)
@@ -21,6 +27,18 @@ static void	free_t_shell(t_shell *shell)
 	exit(0);
 }
 
+/**
+ * @brief Initializes the shell state and environment
+ * 
+ * @details Sets up the shell structure by loading environment variables,
+ * duplicating file descriptors for stdin/stdout, displaying the welcome
+ * banner, and initializing the working directory path.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[out] shell Pointer to shell structure to initialize
+ * @param[in] envp Environment variables array from main
+ */
 static void	initialize_shell(t_shell *shell, char **envp)
 {
 	char	*cwd;
@@ -43,6 +61,21 @@ static void	initialize_shell(t_shell *shell, char **envp)
 	set_signals_main();
 }
 
+/**
+ * @brief Main entry point for the minishell program
+ * 
+ * @details Initializes the shell, enters the main read-eval-print loop,
+ * reads commands from the user via readline, validates and executes them,
+ * and handles exit conditions. The loop continues until EOF (Ctrl-D) is
+ * received.
+ * 
+ * @ingroup execution_module
+ * 
+ * @param[in] argc Argument count (must be 1, no arguments accepted)
+ * @param[in] argv Argument vector (not used)
+ * @param[in] envp Environment variables array
+ * @return Exit status code (0 on success, error code otherwise)
+ */
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell		shell;

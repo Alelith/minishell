@@ -1,17 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_command.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/10 18:15:08 by acesteve          #+#    #+#             */
-/*   Updated: 2025/10/17 22:15:33 by acesteve         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**
+ * @file split_command.c
+ * @brief Command line tokenization into tokens
+ * 
+ * @author Lilith Estévez Boeta y Begoña Varea Kuhn
+ * @date 2025-09-10
+ */
 
 #include "minishell.h"
 
+/**
+ * @brief Splits command line string into token array
+ * 
+ * @details Tokenizes the input line into an array of t_token structures.
+ * Skips leading whitespace, processes each token through switch_assign_tmp,
+ * and builds a null-terminated array. Handles quotes, operators, and
+ * variable expansion via helper functions.
+ * 
+ * @ingroup utils_module
+ * 
+ * @param[in] line Command line string to tokenize
+ * @param[in] shell Shell state for variable expansion
+ * @return Null-terminated array of tokens, NULL on error
+ */
 t_token	*split_command(char *line, t_shell *shell)
 {
 	char	type;
