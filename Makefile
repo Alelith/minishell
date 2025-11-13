@@ -27,13 +27,12 @@ SRC_DIR = src/
 LIB_DIR = lib/
 OBJ_DIR = obj/
 
-CC = cc -g -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 
 INCLUDE = -I include
 
-LIBFT_DIR = survival_lib/
-LIBFT = $(LIB_DIR)$(LIBFT_DIR)survivalib.a
+LIBFT = $(LIB_DIR)survivalib.a
 
 #Archivos
 PARSING_DIR = parsing/
@@ -83,7 +82,7 @@ DIRS:
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
 	@mkdir -p $(OBJ_DIR)$(ENVIRON_DIR)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBFT) $(INCLUDE) -o $(NAME) $(LDFLAGS)
 	@echo "$(GREEN)Library created: $@$(DEF_COLOR)"
 
@@ -91,12 +90,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | DIRS
 	@echo "$(CYAN)Compiling: $<$(DEF_COLOR)"
 	@$(CC) -c $< -o $@ $(INCLUDE)
 
-$(LIBFT):
-	@make -sC $(LIB_DIR)$(LIBFT_DIR)
-
 clean:
 	@echo "$(RED)Cleaning$(DEF_COLOR)"
-	@make fclean -sC $(LIB_DIR)$(LIBFT_DIR)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean

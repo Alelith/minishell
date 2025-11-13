@@ -28,12 +28,6 @@
 
 typedef struct s_env	t_env;
 
-typedef enum e_bool
-{
-	true = 1,
-	false = 0
-}	t_bool;
-
 typedef enum e_redir
 {
 	INPUT,
@@ -65,7 +59,7 @@ struct s_env
 
 typedef struct s_token
 {
-	t_bool	is_literal;
+	bool	is_literal;
 	char	*token;
 }	t_token;
 
