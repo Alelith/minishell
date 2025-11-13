@@ -11,7 +11,7 @@
  * - Piping and I/O redirection (input, output, append, heredoc)
  * - Environment variable management
  * - Built-in commands (echo, cd, pwd, export, unset, env, exit)
- * - Signal handling (Ctrl-C, Ctrl-D, Ctrl-\)
+ * - Signal handling (Ctrl-C, Ctrl-D, Ctrl-\\)
  * - Command execution with PATH resolution
  * 
  * @section architecture_sec Architecture
@@ -43,8 +43,19 @@
  * ./minishell
  * @endcode
  * 
+ * @section links_sec Related Links
+ * - GitHub Repository: https://github.com/Alelith/fract-ol
+ * - Survival Library documentation: https://alelith.github.io/survival_lib-documentation/
+ * 
+ * @section contrib_sec Contributing
+ * Contributions are welcome. Please ensure code follows the existing style,
+ * includes appropriate Doxygen comments, and passes compilation without
+ * warnings. Test all fractal types before submitting changes.
+ *
  * @section license_sec License
- * This project follows 42 School coding standards and guidelines.
+ * This project is licensed under the GNU General Public License v3 (GPL3).
+ * See LICENSE file for full terms. Any derivative work must be distributed
+ * under the same GPL3 license with source code availability.
  */
 
 /**
