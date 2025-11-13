@@ -17,18 +17,18 @@ Minishell is a lightweight UNIX shell implementation developed as part of the 42
 
 - [Description](#-description)
 - [Features](#-features)
-- [Technologies Used](#-technologies-used)
-- [Architecture](#-architecture)
+- [Technologies Used](#%EF%B8%8F-technologies-used)
+- [Architecture](#%EF%B8%8F-architecture)
 - [Project Structure](#-project-structure)
 - [Installation](#-installation)
-- [Execution](#-execution)
+- [Execution](#%EF%B8%8F-execution)
 - [Usage Examples](#-usage-examples)
 - [Documentation](#-documentation)
 - [Learnings & Future Improvements](#-learnings--future-improvements)
 - [Contributing](#-contributing)
 - [Credits](#-credits)
 - [License](#-license)
-- [Author](#-author)
+- [Author](#%E2%80%8D-author)
 
 ---
 
@@ -444,7 +444,7 @@ Under the conditions that:
 💻 Software Developer  
 📍 Málaga, Spain
 
-🔗 [GitHub](hhttps://github.com/bvarea-k)
+🔗 [GitHub](https://github.com/bvarea-k)
 
 ---
 
