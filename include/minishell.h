@@ -44,7 +44,7 @@
  * @endcode
  * 
  * @section links_sec Related Links
- * - GitHub Repository: https://github.com/Alelith/fract-ol
+ * - GitHub Repository: https://github.com/Alelith/minishell
  * - Survival Library documentation: https://alelith.github.io/survival_lib-documentation/
  * 
  * @section contrib_sec Contributing
